@@ -3,39 +3,48 @@ package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USERS")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "users")
 public class User {
 
     // Пользователь
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;   // Идентификатор пользователя
+    @Column(name = "user_id", nullable = false)
+    Long userId;
 
-    @Column(name = "USER_FIRST_NAME")
-    private String firstName;   // Имя пользователя
+    @Column(name = "name")
+    String name;
 
-    @Column(name = "USER_LAST_NAME")
-    private String lastName;   // фамилия пользователя
+    @Column(name = "last_name")
+    String lastName;
 
-    @Column(name = "USER_SURNAME")
-    private String surname;   // отчество пользователя (хз пока, нужно будет или нет)
+    @Column(name = "telephone_number")
+    Long telephoneNumber;
 
-    @Column(name = "USER_EMAIL")
-    private String email;   // Почта пользователя
+    @ManyToOne()
+    @JoinColumn(name = "address_id")
+    Address address;
 
-    @ManyToOne
-    @Column(name = "LOCATION")
-    private Location address; // адрес пользователя
+    @Column(name = "login")
+    String login;
 
-    // и прочтии данны, уточнить у PM
+    @Column(name = "password")
+    String password;
 
+    @Column(name = "registration_status")
+    Boolean registrationStatus;
 
+    @ManyToOne()
+    @JoinColumn(name = "bank_card_id")
+    BankCard bankCard;
 }

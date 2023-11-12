@@ -1,0 +1,23 @@
+name: deploy-runner
+
+on:
+  pull_request:
+    types: closed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run command on remote server
+        run: |
+          cd ${{ secrets.PROJECT_FOLDER }};
+          git fetch;
+          git checkout develop;
+          git pull;
+          mvn clean package;
+          docker compose down;
+          docker compose build;
+          docker compose up -d;

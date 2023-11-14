@@ -3,6 +3,7 @@ package ru.acceleration.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.Date;
 
@@ -14,12 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "bank_card")
-public class BankCard {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bank_card_id", nullable = false)
-    Long id;
+@Builder
+public class BankCard extends AbstractPersistable<Long> {
 
     @Column(name = "name_oner")
     String nameOner;

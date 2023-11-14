@@ -12,17 +12,17 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class UserRequest {
 
-    String userName;
-
-    String firstName;
+    String name;
 
     String lastName;
 
-    String email;
+    String telephoneNumber;
+
+    String login;
 
     String password;
 
-    String phone;
+    String registrationStatus;
 
-    Long userStatus;
+    String agreement;
 }

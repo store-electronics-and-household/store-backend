@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.exceptions.DataNotFoundException;
+import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.UserRepository;
 
@@ -26,30 +27,25 @@ public class UserService {
         return userRepository.saveAll(users);
     }
 
-    public void delete(String username) {
-        log.info("UserService delete username {}", username);
-       // userRepository.deleteByUserName(username);
-        User user = userRepository.findByUserName(username).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " нет"));
+    public void delete(Long id) {
+        log.info("UserService delete id {}", id);
+        // userRepository.deleteByUserName(username);
+        User user = userRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Пользователя с id=" + id + " нет"));
         userRepository.delete(user);
     }
 
-    public User getUserName(String username) {
-        log.info("UserService getUserName username {}", username);
-        User user = userRepository.findByUserName(username).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " нет"));
+    public User getUserName(Long id) {
+        log.info("UserService getUserName id {}", id);
+        User user = userRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Пользователя с id=" + id + " нет"));
         return user;
     }
 
-    public void putUserName(String username, User user) {
-        log.info("UserService putUserName username={}, user={}", username, user);
-        User userBD = userRepository.findByUserName(username).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " нет"));
-        if (username.equals(userBD.getUserName())) {
-            user.setUserId(userBD.getUserId());
-            userRepository.save(user);
+    public void putUserName(Long id, User user) {
+        log.info("UserService putUserName id={}, user={}", id, user);
+        User userBD = userRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Пользователя с id=" + id + " нет"));
+        if (id.equals(userBD.getId())) {
+            UserMapper.userToUser(userBD);
+            userRepository.save(userBD);
         }
-    }
-
-    public void getLogin(String username, String password) {
-        log.info("UserService getLogin username={}, password={}", username, password);
-        User user = userRepository.findByUserNameAndPassword(username, password).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " password=" + password + " нет"));
     }
 }

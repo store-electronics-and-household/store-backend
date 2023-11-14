@@ -12,19 +12,13 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class UserResponce {
 
-    Long userId;
+    Long id;
 
-    String userName;
-
-    String firstName;
+    String name;
 
     String lastName;
 
-    String email;
+    String telephoneNumber;
 
-    String password;
-
-    String phone;
-
-    Long userStatus;
+    String registrationStatus;
 }

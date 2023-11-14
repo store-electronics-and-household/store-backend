@@ -4,6 +4,9 @@ package ru.acceleration.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,37 +17,34 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
 @Builder
-public class User {
+public class User extends AbstractPersistable<Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    Long userId;
-
-    @Column(name = "user_name")
-    String userName;
-
-    @Column(name = "first_name")
-    String firstName;
+    @Column(name = "name")
+    String name;
 
     @Column(name = "last_name")
     String lastName;
 
-    @Column(name = "email")
-    String email;
+    @Column(name = "telephone_number")
+    String telephoneNumber;
+
+    @Column(name = "login")
+    String login;
 
     @Column(name = "password")
     String password;
 
-    @Column(name = "phone")
-    String phone;
+    @Column(name = "registration_status")
+    String registrationStatus;
 
-    @Column(name = "user_status")
-    Long userStatus;
+    @Column(name = "agreement")
+    String agreement;
 
-    @ManyToOne()
-    @JoinColumn(name = "address_id")
-    Address address;
+    @ManyToMany
+    @JoinTable(name = "user_addresses",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    List<Address> adresses;
 
     @ManyToOne()
     @JoinColumn(name = "bank_card_id")

@@ -3,6 +3,7 @@ package ru.acceleration.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Getter
 @Setter
@@ -12,12 +13,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "address")
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id", nullable = false)
-    Long addressId;
+@Builder
+public class Address extends AbstractPersistable<Long> {
 
     @Column(name = "town")
     String town;

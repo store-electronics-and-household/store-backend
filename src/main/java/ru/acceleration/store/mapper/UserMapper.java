@@ -11,26 +11,34 @@ public final class UserMapper {
 
     public static UserResponce toUserResponce(User user) {
         return UserResponce.builder()
-                .userId(user.getUserId())
-                .userName(user.getUserName())
-                .firstName(user.getFirstName())
+                .id(user.getId())
+                .name(user.getName())
                 .lastName(user.getLastName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phone(user.getPhone())
-                .userStatus(user.getUserStatus())
+                .telephoneNumber(user.getTelephoneNumber())
+                .registrationStatus(user.getRegistrationStatus())
                 .build();
     }
 
     public static User toUser(UserRequest dto) {
         return User.builder()
-                .userName(dto.getUserName())
-                .firstName(dto.getFirstName())
+                .name(dto.getName())
                 .lastName(dto.getLastName())
-                .email(dto.getEmail())
+                .telephoneNumber(dto.getTelephoneNumber())
+                .login(dto.getLogin())
                 .password(dto.getPassword())
-                .phone(dto.getPhone())
-                .userStatus(dto.getUserStatus())
+                .registrationStatus(dto.getRegistrationStatus())
+                .agreement(dto.getAgreement())
                 .build();
+    }
+
+    public static User userToUser(User user) {
+        user.setName(user.getName());
+        user.setLastName(user.getLastName());
+        user.setTelephoneNumber(user.getTelephoneNumber());
+        user.setLogin(user.getLogin());
+        user.setPassword(user.getPassword());
+        user.setRegistrationStatus(user.getRegistrationStatus());
+        user.setAgreement(user.getAgreement());
+        return user;
     }
 }

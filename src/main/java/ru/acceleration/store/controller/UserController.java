@@ -46,28 +46,22 @@ public class UserController {
 
     @DeleteMapping(value = "/{username}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable String username) {
-        log.info("UserController deleteUser  username={}", username);
-        userService.delete(username);
+    public void deleteUser(@PathVariable Long id) {
+        log.info("UserController deleteUser  id={}", id);
+        userService.delete(id);
     }
 
     @GetMapping(value = "/{username}")
-    public UserResponce getUserName(@PathVariable String username) {
-        log.info("UserController getUserName  username={}", username);
-        User user = userService.getUserName(username);
+    public UserResponce getUserName(@PathVariable Long id) {
+        log.info("UserController getUserName  id={}", id);
+        User user = userService.getUserName(id);
         return UserMapper.toUserResponce(user);
     }
 
     @PutMapping(value = "/{username}")
-    public void putUserName(@PathVariable String username, @RequestBody @Valid UserRequest dto) {
-        log.info("UserController putUserName username={}, dto={}", username, dto);
+    public void putUserName(@PathVariable Long id, @RequestBody @Valid UserRequest dto) {
+        log.info("UserController putUserName id={}, dto={}", id, dto);
         User user = UserMapper.toUser(dto);
-        userService.putUserName(username, user);
-    }
-
-    @GetMapping(value = "/login")
-    public void getLogin(@RequestParam String username, @RequestParam String password) {
-        log.info("UserController getLogin  username={}, password={}", username, password);
-        userService.getLogin(username, password);
+        userService.putUserName(id, user);
     }
 }

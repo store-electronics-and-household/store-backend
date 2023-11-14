@@ -13,36 +13,38 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
+@Builder
 public class User {
-
-    // Пользователь
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     Long userId;
 
-    @Column(name = "name")
-    String name;
+    @Column(name = "user_name")
+    String userName;
+
+    @Column(name = "first_name")
+    String firstName;
 
     @Column(name = "last_name")
     String lastName;
 
-    @Column(name = "telephone_number")
-    Long telephoneNumber;
-
-    @ManyToOne()
-    @JoinColumn(name = "address_id")
-    Address address;
-
-    @Column(name = "login")
-    String login;
+    @Column(name = "email")
+    String email;
 
     @Column(name = "password")
     String password;
 
-    @Column(name = "registration_status")
-    Boolean registrationStatus;
+    @Column(name = "phone")
+    String phone;
+
+    @Column(name = "user_status")
+    Long userStatus;
+
+    @ManyToOne()
+    @JoinColumn(name = "address_id")
+    Address address;
 
     @ManyToOne()
     @JoinColumn(name = "bank_card_id")

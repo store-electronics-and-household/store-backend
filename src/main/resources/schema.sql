@@ -22,15 +22,16 @@ CREATE TABLE IF NOT EXISTS bank_card
 
 CREATE TABLE IF NOT EXISTS users
 (
-    user_id             BIGINT       NOT NULL,
-    name                VARCHAR(100) NOT NULL,
-    last_name           VARCHAR(100) NOT NULL,
-    telephone_number    BIGINT       NOT NULL,
-    address_id          BIGINT       NOT NULL,
-    login               VARCHAR(100) NOT NULL,
-    password            VARCHAR(100) NOT NULL,
-    registration_status BOOLEAN      NOT NULL,
-    bank_card_id        BIGINT       NOT NULL,
+    user_id      BIGINT       NOT NULL,
+    user_name    VARCHAR(100) NOT NULL,
+    first_name   VARCHAR(100) NOT NULL,
+    last_name    VARCHAR(100) NOT NULL,
+    email        VARCHAR(100) NOT NULL,
+    password     VARCHAR(100) NOT NULL,
+    phone        VARCHAR(20)  NOT NULL,
+    user_status  BIGINT       NOT NULL,
+    address_id   BIGINT       NOT NULL,
+    bank_card_id BIGINT       NOT NULL,
     CONSTRAINT pk_users PRIMARY KEY (user_id),
     CONSTRAINT fk_users_address FOREIGN KEY (address_id) REFERENCES address (address_id),
     CONSTRAINT fk_users_bank_card FOREIGN KEY (bank_card_id) REFERENCES bank_card (bank_card_id)

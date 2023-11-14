@@ -15,7 +15,7 @@ jobs:
         run: |
           cd ${{ secrets.PROJECT_FOLDER }};
           git fetch;
-          git checkout develop;
+          git checkout main;
           git pull;
           mvn clean package;
           docker compose down;

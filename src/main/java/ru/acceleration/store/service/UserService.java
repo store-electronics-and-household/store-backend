@@ -50,6 +50,6 @@ public class UserService {
 
     public void getLogin(String username, String password) {
         log.info("UserService getLogin username={}, password={}", username, password);
-        User user = userRepository.findByUserNameAAndPassword(username, password).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " password=" + password + " нет"));
+        User user = userRepository.findByUserNameAndPassword(username, password).orElseThrow(() -> new DataNotFoundException("Пользователя с username=" + username + " password=" + password + " нет"));
     }
 }

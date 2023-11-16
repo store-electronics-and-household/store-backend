@@ -13,6 +13,15 @@ DROP table IF EXISTS categories cascade;
 DROP table IF EXISTS product_attributes cascade;
 DROP table IF EXISTS attribute_type cascade;
 DROP table IF EXISTS attributes cascade;
+DROP table IF EXISTS user_favorites cascade;
+DROP table IF EXISTS product_in_favorites cascade;
+DROP table IF EXISTS income cascade;
+DROP table IF EXISTS user_basket cascade;
+DROP table IF EXISTS outcome cascade;
+DROP table IF EXISTS stockroom cascade;
+DROP table IF EXISTS sales cascade;
+DROP table IF EXISTS promotions cascade;
+
 
 CREATE TABLE IF NOT EXISTS product
 (
@@ -97,6 +106,16 @@ CREATE TABLE IF NOT EXISTS user_addresses
     CONSTRAINT fk_user_addresses_users FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+CREATE TABLE IF NOT EXISTS sales
+(
+    sales_id             BIGINT       NOT NULL,
+    name_sales           VARCHAR(100) NOT NULL,
+    size_sales           VARCHAR(100) NOT NULL,
+    product_id           BIGINT       NOT NULL,
+    CONSTRAINT pk_sales_id PRIMARY KEY (sales_id),
+    CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
+    );
+
 CREATE TABLE IF NOT EXISTS orders
 (
    order_id BIGINT NOT NULL,
@@ -108,8 +127,8 @@ CREATE TABLE IF NOT EXISTS orders
    status VARCHAR(20) NOT NULL,
    CONSTRAINT pk_order_id PRIMARY KEY (order_id),
    CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-   CONSTRAINT fk_orders_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
-   CONSTRAINTS fk_orders_sales FOREIGN KEY (sales_id) REFERENCES sales (sales_id) ON DELETE CASCADE
+   CONSTRAINT fk_orders_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+   CONSTRAINT fk_orders_sales FOREIGN KEY (sales_id) REFERENCES sales (sales_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS delivery
@@ -210,7 +229,7 @@ CREATE TABLE IF NOT EXISTS user_basket
     user_id                    BIGINT       NOT NULL,
 
     CONSTRAINT pk_user_basket PRIMARY KEY (user_basket_id),
-    CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+    CONSTRAINT fk_users_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
     CONSTRAINT fk_users_basket FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
     );
 
@@ -225,9 +244,9 @@ CREATE TABLE IF NOT EXISTS outcome
     sum_outcome            VARCHAR(100) NOT NULL,
 
     CONSTRAINT pk_outcome PRIMARY KEY (outcome_id),
-    CONSTRAINT fk_order_outcome FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
+    CONSTRAINT fk_order_outcome FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE,
     CONSTRAINT fk_outcome_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
-    CONSTRAINT fk_sale_outcome FOREIGN KEY (sale_id) REFERENCES sale (sale_id) ON DELETE CASCADE
+    CONSTRAINT fk_sale_outcome FOREIGN KEY (sale_id) REFERENCES sales (sales_id) ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS stockroom
@@ -238,19 +257,10 @@ CREATE TABLE IF NOT EXISTS stockroom
     reserve                  VARCHAR(100) NOT NULL,
 
     CONSTRAINT pk_stockroom PRIMARY KEY (stockroom_id),
-    CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+    CONSTRAINT fk_stockroom_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS sales
-(
-    sales_id             BIGINT       NOT NULL,
-    name_sales           VARCHAR(100) NOT NULL,
-    size_sales           VARCHAR(100) NOT NULL,
-    product_id           BIGINT       NOT NULL,
 
-    CONSTRAINT pk_sales PRIMARY KEY (sales_id),
-    CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
-    );
 
 CREATE TABLE IF NOT EXISTS promotions
 (
@@ -261,5 +271,5 @@ CREATE TABLE IF NOT EXISTS promotions
 
     CONSTRAINT pk_promotions PRIMARY KEY (promotions_id),
     CONSTRAINT fk_sale_promotions FOREIGN KEY (sale_id) REFERENCES sales (sales_id) ON DELETE CASCADE,
-    CONSTRAINT fk_product_promotions FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+    CONSTRAINT fk_product_promotions FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
     );

@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -20,7 +17,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Builder
 public class Stockroom extends AbstractPersistable<Long> {
 
-    @Column(name = "product_id")
+    @JoinColumn(name = "product_id")
     @ManyToOne
     Product product;
     @Column(name = "count_stockroom")

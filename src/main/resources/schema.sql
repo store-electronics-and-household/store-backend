@@ -6,6 +6,14 @@ DROP table IF EXISTS delivery cascade;
 DROP table IF EXISTS orders cascade;
 DROP table IF EXISTS payment cascade;
 DROP table IF EXISTS product_in_order cascade;
+DROP table IF EXISTS user_favorites cascade;
+DROP table IF EXISTS product_in_favorites cascade;
+DROP table IF EXISTS income cascade;
+DROP table IF EXISTS user_basket cascade;
+DROP table IF EXISTS outcome cascade;
+DROP table IF EXISTS stockroom cascade;
+DROP table IF EXISTS sales cascade;
+DROP table IF EXISTS promotions cascade;
 
 CREATE TABLE IF NOT EXISTS address
 (
@@ -105,3 +113,98 @@ CREATE TABLE IF NOT EXISTS product_in_order
     /*CONSTRAINT fk_product_in_order_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
     CONSTRAINT fk_product_in_order_orders FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS user_favorites
+(
+    user_favorites_id             BIGINT       NOT NULL,
+    user_id                       BIGINT       NOT NULL,
+
+    CONSTRAINT pk_user_favorites PRIMARY KEY (user_favorites_id),
+    CONSTRAINT fk_users_favorites FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS product_in_favorites
+(
+    product_in_favorites_id             BIGINT       NOT NULL,
+    product_id                          BIGINT       NOT NULL,
+    favorites_id                        BIGINT       NOT NULL,
+
+    CONSTRAINT pk_product_in_favorites PRIMARY KEY (product_in_favorites_id),
+    /*CONSTRAINT fk_favorites_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    CONSTRAINT fk_favorites FOREIGN KEY (favorites_id) REFERENCES user_favorites (user_favorites_id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS income
+(
+    income_id             BIGINT       NOT NULL,
+    product_id            BIGINT       NOT NULL,
+    lot_number            VARCHAR(100) NOT NULL,
+    income_price          VARCHAR(100) NOT NULL,
+    count_income          VARCHAR(100) NOT NULL,
+    sum_income            VARCHAR(1000) NOT NULL,
+    income_date           TIMESTAMP WITHOUT TIME ZONE,
+
+    CONSTRAINT pk_income PRIMARY KEY (income_id),
+    /*CONSTRAINT fk_product_income FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE*/
+    );
+
+CREATE TABLE IF NOT EXISTS user_basket
+(
+    user_basket_id             BIGINT       NOT NULL,
+    product_id                 BIGINT       NOT NULL,
+    user_id                    BIGINT       NOT NULL,
+
+    CONSTRAINT pk_user_basket PRIMARY KEY (user_basket_id),
+    /*CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    CONSTRAINT fk_users_basket FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS outcome
+(
+    outcome_id             BIGINT       NOT NULL,
+    order_id               BIGINT       NOT NULL,
+    product_id             BIGINT       NOT NULL,
+    price                  VARCHAR(100) NOT NULL,
+    count_outcome          VARCHAR(100) NOT NULL,
+    sale_id                BIGINT       NOT NULL,
+    sum_outcome            VARCHAR(100) NOT NULL,
+
+    CONSTRAINT pk_outcome PRIMARY KEY (outcome_id),
+    CONSTRAINT fk_order_outcome FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
+    /*CONSTRAINT fk_outcome_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    CONSTRAINT fk_sale_outcome FOREIGN KEY (sale_id) REFERENCES sale (sale_id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS stockroom
+(
+    stockroom_id             BIGINT       NOT NULL,
+    product_id               BIGINT       NOT NULL,
+    count_stockroom          VARCHAR(100) NOT NULL,
+    reserve                  VARCHAR(100) NOT NULL,
+
+    CONSTRAINT pk_stockroom PRIMARY KEY (stockroom_id),
+    /*CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    );
+
+CREATE TABLE IF NOT EXISTS sales
+(
+    sales_id             BIGINT       NOT NULL,
+    name_sales           VARCHAR(100) NOT NULL,
+    size_sales           VARCHAR(100) NOT NULL,
+    product_id           BIGINT       NOT NULL,
+
+    CONSTRAINT pk_sales PRIMARY KEY (sales_id),
+    /*CONSTRAINT fk_user_basket_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    );
+
+CREATE TABLE IF NOT EXISTS promotions
+(
+    promotions_id            BIGINT       NOT NULL,
+    name_promotions          VARCHAR(100) NOT NULL,
+    sale_id                  BIGINT       NOT NULL,
+    product_id               BIGINT       NOT NULL,
+
+    CONSTRAINT pk_promotions PRIMARY KEY (promotions_id),
+    CONSTRAINT fk_sale_promotions FOREIGN KEY (sale_id) REFERENCES sales (sales_id) ON DELETE CASCADE,
+    /*CONSTRAINT fk_product_promotions FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    );

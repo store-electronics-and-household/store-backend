@@ -17,22 +17,20 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Builder
 public class Outcome extends AbstractPersistable<Long> {
 
-//    @Column(name = "order_id")
+//    @JoinColumn(name = "order_id")
 //    @ManyToOne
 //    Order order;
 
-    @Column(name = "product_id")
+    @JoinColumn(name = "product_id")
     @ManyToOne
     Product product;
     @Column(name = "price")
     String price;
     @Column(name = "count_outcome")
     String count;
-    @Column(name = "sale_id")
+    @JoinColumn(name = "sale_id")
     @OneToOne
     Sale sale;
     @Column(name = "sum_outcome")
     String sum;
-
-
 }

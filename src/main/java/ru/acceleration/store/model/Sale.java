@@ -1,9 +1,6 @@
 package ru.acceleration.store.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -28,7 +25,7 @@ public class Sale extends AbstractPersistable<Long> {
     @Column(name = "size_sales")
     Date size;
 
-    @Column(name = "product_id")
     @ManyToOne
+    @JoinColumn(name = "product_id")
     Product product;
 }

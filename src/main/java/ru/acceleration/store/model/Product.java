@@ -25,15 +25,13 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "attribute_arr_id")
-    private Long attributeArrId;
-
-    @ManyToMany(mappedBy = "product")
+    @ManyToMany(mappedBy = "products")
     @ToString.Exclude
     private List<Category> categories;
 
-//    private List<Image> images;
+    @ManyToMany(mappedBy = "products")
+    @ToString.Exclude
+    private List<Attribute> attributes;
 
-//    @OneToOne
-//    private ProductsAttributes attributes;
+//    private List<Image> images;
 }

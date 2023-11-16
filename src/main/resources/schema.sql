@@ -10,17 +10,16 @@ DROP table IF EXISTS product cascade;
 DROP table IF EXISTS images_array cascade;
 DROP table IF EXISTS product_category cascade;
 DROP table IF EXISTS categories cascade;
-DROP table IF EXISTS products_attributes cascade;
+DROP table IF EXISTS product_attributes cascade;
 DROP table IF EXISTS attribute_type cascade;
+DROP table IF EXISTS attributes cascade;
 
 CREATE TABLE IF NOT EXISTS product
 (
     product_id BIGINT NOT NULL,
     vendor_code VARCHAR(30) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    attribute_arr_id BIGINT NOT NULL,
-    CONSTRAINT product_id PRIMARY KEY (product_id),
-    CONSTRAINT array_id FOREIGN KEY (attribute_arr_id) REFERENCES products_attributes (array_id) ON DELETE CASCADE
+    CONSTRAINT product_id PRIMARY KEY (product_id)
 );
 
 CREATE TABLE IF NOT EXISTS attribute_type
@@ -31,19 +30,23 @@ CREATE TABLE IF NOT EXISTS attribute_type
     CONSTRAINT attribute_type_id PRIMARY KEY (attribute_type_id)
 );
 
-CREATE TABLE IF NOT EXISTS products_attributes
+CREATE TABLE IF NOT EXISTS attributes
 (
-    products_attributes_id BIGINT NOT NULL,
-    array_id BIGINT NOT NULL,
-    attribute_type_id BIGINT NOT NULL,
+    attribute_id BIGINT NOT NULL,
+    attribute_type_id BIGINT NOT NULL REFERENCES attribute_type(attribute_type_id) ON DELETE CASCADE,
     value_text VARCHAR(255) NOT NULL,
     value_integer INTEGER NOT NULL,
     value_float FLOAT NOT NULL,
     value_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     value_blob BYTEA NOT NULL,
-    CONSTRAINT products_attributes_id PRIMARY KEY (products_attributes_id),
-    CONSTRAINT attribute_arr_id FOREIGN KEY (array_id) REFERENCES product (attribute_arr_id) ON DELETE CASCADE,
-    CONSTRAINT attribute_type_id FOREIGN KEY (attribute_type_id) REFERENCES attribute_type (attribute_type_id) ON DELETE CASCADE
+    CONSTRAINT products_attributes_id PRIMARY KEY (attribute_id)
+);
+
+CREATE TABLE IF NOT EXISTS product_attributes
+(
+    product_id BIGINT NOT NULL REFERENCES product (product_id) ON DELETE CASCADE,
+    attribute_id BIGINT NOT NULL REFERENCES attributes (attribute_id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, attribute_id)
 );
 
 CREATE TABLE IF NOT EXISTS address
@@ -155,16 +158,13 @@ CREATE TABLE IF NOT EXISTS categories
 
 CREATE TABLE IF NOT EXISTS product_category
 (
-    product_id BIGINT NOT NULL,
-    category_id BIGINT NOT NULL,
-    PRIMARY KEY (product_id, category_id),
-    CONSTRAINT product_id FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
-    CONSTRAINT category_id FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE
+    product_id BIGINT NOT NULL REFERENCES product(product_id) ON DELETE CASCADE,
+    category_id BIGINT NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, category_id)
 );
 
 CREATE TABLE IF NOT EXISTS images_array
 (
     image_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
-    CONSTRAINT product_id FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
+    product_id BIGINT NOT NULL REFERENCES product (product_id) ON DELETE CASCADE
 );

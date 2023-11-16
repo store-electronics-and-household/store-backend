@@ -6,6 +6,48 @@ DROP table IF EXISTS delivery cascade;
 DROP table IF EXISTS orders cascade;
 DROP table IF EXISTS payment cascade;
 DROP table IF EXISTS product_in_order cascade;
+DROP table IF EXISTS product cascade;
+DROP table IF EXISTS images_array cascade;
+DROP table IF EXISTS product_category cascade;
+DROP table IF EXISTS categories cascade;
+DROP table IF EXISTS product_attributes cascade;
+DROP table IF EXISTS attribute_type cascade;
+DROP table IF EXISTS attributes cascade;
+
+CREATE TABLE IF NOT EXISTS product
+(
+    product_id BIGINT NOT NULL,
+    vendor_code VARCHAR(30) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    CONSTRAINT product_id PRIMARY KEY (product_id)
+);
+
+CREATE TABLE IF NOT EXISTS attribute_type
+(
+    attribute_type_id BIGINT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    CONSTRAINT attribute_type_id PRIMARY KEY (attribute_type_id)
+);
+
+CREATE TABLE IF NOT EXISTS attributes
+(
+    attribute_id BIGINT NOT NULL,
+    attribute_type_id BIGINT NOT NULL REFERENCES attribute_type(attribute_type_id) ON DELETE CASCADE,
+    value_text VARCHAR(255) NOT NULL,
+    value_integer INTEGER NOT NULL,
+    value_float FLOAT NOT NULL,
+    value_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    value_blob BYTEA NOT NULL,
+    CONSTRAINT products_attributes_id PRIMARY KEY (attribute_id)
+);
+
+CREATE TABLE IF NOT EXISTS product_attributes
+(
+    product_id BIGINT NOT NULL REFERENCES product (product_id) ON DELETE CASCADE,
+    attribute_id BIGINT NOT NULL REFERENCES attributes (attribute_id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, attribute_id)
+);
 
 CREATE TABLE IF NOT EXISTS address
 (
@@ -65,9 +107,9 @@ CREATE TABLE IF NOT EXISTS orders
    sales_id BIGINT NOT NULL,
    status VARCHAR(20) NOT NULL,
    CONSTRAINT pk_order_id PRIMARY KEY (order_id),
-   CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE/*,
-   CONSTRAINT fk_orders_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
-   CONSTRAINTS fk_orders_sales FOREIGN KEY (sales_id) REFERENCES sales (sales_id) ON DELETE CASCADE*/
+   CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+   CONSTRAINT fk_orders_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE
+   /*CONSTRAINTS fk_orders_sales FOREIGN KEY (sales_id) REFERENCES sales (sales_id) ON DELETE CASCADE*/
 );
 
 CREATE TABLE IF NOT EXISTS delivery
@@ -102,6 +144,27 @@ CREATE TABLE IF NOT EXISTS product_in_order
     product_id BIGINT NOT NULL,
     order_id BIGINT NOT NULL,
     CONSTRAINT pk_product_in_order PRIMARY KEY (product_in_order_id),
-    /*CONSTRAINT fk_product_in_order_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,*/
+    CONSTRAINT fk_product_in_order_product FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
     CONSTRAINT fk_product_in_order_orders FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS categories
+(
+    category_id BIGINT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    parent_id BIGINT NOT NULL,
+    CONSTRAINT category_id PRIMARY KEY (category_id)
+);
+
+CREATE TABLE IF NOT EXISTS product_category
+(
+    product_id BIGINT NOT NULL REFERENCES product(product_id) ON DELETE CASCADE,
+    category_id BIGINT NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, category_id)
+);
+
+CREATE TABLE IF NOT EXISTS images_array
+(
+    image_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL REFERENCES product (product_id) ON DELETE CASCADE
 );

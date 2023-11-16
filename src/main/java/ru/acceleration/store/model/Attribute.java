@@ -8,25 +8,23 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "products_attributes")
-public class ProductsAttributes {
+@Table(name = "attributes")
+public class Attribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "products_attributes_id")
     private Long id;
 
-    @Column(name = "array_id")
-    private Long arrayId;
-
     @ManyToOne
-    @Column(name = "attribute_type_id")
+    @JoinColumn(name = "attribute_type_id")
     private AttributeType attributeType;
 
     @Column(name = "value_text")
@@ -43,4 +41,10 @@ public class ProductsAttributes {
 
     @Column(name = "value_blob")
     private byte valueBlob;
+
+    @ManyToMany
+    @JoinTable(name = "product_attributes",
+            joinColumns = @JoinColumn(name = "attribute_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
 }

@@ -4,13 +4,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.model.dto.UserRequest;
-import ru.acceleration.store.model.dto.UserResponce;
+import ru.acceleration.store.model.dto.UserResponse;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UserMapper {
 
-    public static UserResponce toUserResponce(User user) {
-        return UserResponce.builder()
+    public static UserResponse toUserResponce(User user) {
+        return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .lastName(user.getLastName())

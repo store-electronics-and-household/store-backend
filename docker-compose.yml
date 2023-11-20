@@ -6,16 +6,16 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - store-db
     restart: on-failure
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/store-electronics
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://store-db:5432/store-electronics
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
-  db:
+  store-db:
     image: postgres:13.7-alpine
-    container_name: db
+    container_name: store-db
     ports:
       - "6541:5432"
     restart: on-failure

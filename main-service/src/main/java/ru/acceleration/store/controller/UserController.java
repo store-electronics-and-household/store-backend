@@ -4,12 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.model.dto.UserRequest;
-import ru.acceleration.store.model.dto.UserResponce;
+import ru.acceleration.store.model.dto.UserResponse;
 import ru.acceleration.store.service.UserService;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponce postUser(@RequestBody @Valid UserRequest dto) {
+    public UserResponse postUser(@RequestBody @Valid UserRequest dto) {
         log.info("UserController postUser dto {}", dto);
         User user = UserMapper.toUser(dto);
         user = userService.save(user);
@@ -34,7 +33,7 @@ public class UserController {
 
     @PostMapping(value = "/createWithList")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<UserResponce> postUserList(@RequestBody @Valid List<UserRequest> dto) {
+    public List<UserResponse> postUserList(@RequestBody @Valid List<UserRequest> dto) {
         log.info("UserController postUserList dto {}", dto);
         List<User> userList = dto.stream()
                 .map(UserMapper::toUser)
@@ -53,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    public UserResponce getUserName(@PathVariable Long id) {
+    public UserResponse getUserName(@PathVariable Long id) {
         log.info("UserController getUserName  id={}", id);
         User user = userService.getUserName(id);
         return UserMapper.toUserResponce(user);

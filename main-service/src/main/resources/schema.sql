@@ -16,7 +16,8 @@ DROP table IF EXISTS attributes cascade;
 DROP table IF EXISTS user_favorites cascade;
 DROP table IF EXISTS product_in_favorites cascade;
 DROP table IF EXISTS incomes cascade;
-DROP table IF EXISTS users_baskets cascade;
+DROP table IF EXISTS users_basket cascade;
+DROP table IF EXISTS basket_products cascade;
 DROP table IF EXISTS outcomes cascade;
 DROP table IF EXISTS stockrooms cascade;
 DROP table IF EXISTS sales cascade;
@@ -103,7 +104,6 @@ CREATE TABLE IF NOT EXISTS user_addresses
     CONSTRAINT fk_user_addresses_users FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS promotions
 (
     promotion_id BIGINT NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS sales
 (
     sale_id BIGINT NOT NULL,
     sale_name VARCHAR(100) NOT NULL,
-    sale_quantity VARCHAR(100) NOT NULL,
+    quantity VARCHAR(100) NOT NULL,
     product_id BIGINT NOT NULL,
     promotion_id BIGINT NOT NULL,
     CONSTRAINT pk_sales_id PRIMARY KEY (sale_id),
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS categories
     CONSTRAINT category_id PRIMARY KEY (category_id)
 );
 
-CREATE TABLE IF NOT EXISTS products_categories
+CREATE TABLE IF NOT EXISTS product_category
 (
     product_id BIGINT NOT NULL REFERENCES products (product_id) ON DELETE CASCADE,
     category_id BIGINT NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
@@ -200,20 +200,25 @@ CREATE TABLE IF NOT EXISTS incomes
     lot_number VARCHAR(100) NOT NULL,
     price VARCHAR(100) NOT NULL,
     quantity VARCHAR(100) NOT NULL,
-    summ VARCHAR(1000) NOT NULL,
+    income_sum VARCHAR(1000) NOT NULL,
     income_date TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT pk_income PRIMARY KEY (income_id),
     CONSTRAINT fk_product_income FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS users_baskets
+CREATE TABLE IF NOT EXISTS users_basket
 (
     user_basket_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
     user_id  BIGINT NOT NULL,
     CONSTRAINT pk_user_basket PRIMARY KEY (user_basket_id),
-    CONSTRAINT fk_users_basket_product FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE,
     CONSTRAINT fk_users_basket FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS basket_products
+(
+    basket_id BIGINT NOT NULL REFERENCES users_basket (user_basket_id) ON DELETE CASCADE,
+    product_id BIGINT NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
+    PRIMARY KEY (basket_id, product_id)
 );
 
 CREATE TABLE IF NOT EXISTS outcomes
@@ -224,7 +229,7 @@ CREATE TABLE IF NOT EXISTS outcomes
     price VARCHAR(100) NOT NULL,
     count_outcome VARCHAR(100) NOT NULL,
     sale_id BIGINT NOT NULL,
-    sum_outcome VARCHAR(100) NOT NULL,
+    outcome_sum VARCHAR(100) NOT NULL,
     CONSTRAINT pk_outcome PRIMARY KEY (outcome_id),
     CONSTRAINT fk_order_outcome FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE,
     CONSTRAINT fk_outcome_product FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE,

@@ -1,4 +1,4 @@
-package ru.acceleration.store.model.dto;
+package ru.acceleration.store.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -3,8 +3,8 @@ package ru.acceleration.store.mapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.model.User;
-import ru.acceleration.store.model.dto.UserRequest;
-import ru.acceleration.store.model.dto.UserResponse;
+import ru.acceleration.store.dto.UserRequest;
+import ru.acceleration.store.dto.UserResponse;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UserMapper {

@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.User;
-import ru.acceleration.store.model.dto.UserRequest;
-import ru.acceleration.store.model.dto.UserResponse;
+import ru.acceleration.store.dto.UserRequest;
+import ru.acceleration.store.dto.UserResponse;
 import ru.acceleration.store.service.UserService;
 
 import java.util.List;

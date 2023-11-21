@@ -1,4 +1,4 @@
-package ru.acceleration.store.model.dto;
+package ru.acceleration.store.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserResponse {
-
-    Long id;
+public class UserRequest {
 
     String name;
 
@@ -20,5 +18,11 @@ public class UserResponse {
 
     String telephoneNumber;
 
+    String login;
+
+    String password;
+
     String registrationStatus;
+
+    String agreement;
 }

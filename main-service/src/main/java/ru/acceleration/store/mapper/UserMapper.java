@@ -9,7 +9,6 @@ import ru.acceleration.store.model.User;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-
     UserDto toUserDto(UserCreateDto userCreateDto);
 
     User toUser(UserDto userDto);

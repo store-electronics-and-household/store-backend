@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.PromotionDto;
+import ru.acceleration.store.repository.PromotionRepository;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class PromotionServiceImpl implements PromotionService {
+
+    private final PromotionRepository promotionRepository;
 
     @Override
     public PromotionDto createPromotion(PromotionDto promotionDto) {

@@ -1,6 +1,5 @@
 package ru.acceleration.store.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,13 +14,10 @@ public class UserDto {
 
     Long id;
 
-    @NotBlank
     String username;
 
-    @NotBlank
     String email;
 
-    @NotBlank
     String password;
 
     @Builder.Default

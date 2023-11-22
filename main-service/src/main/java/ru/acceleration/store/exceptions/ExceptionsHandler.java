@@ -17,7 +17,6 @@ import ru.acceleration.store.exceptions.model.ApiError;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 @RestControllerAdvice
 @Slf4j
@@ -63,7 +62,6 @@ public class ExceptionsHandler {
         log.warn("404 {}", notFoundException.getMessage());
         notFoundException.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.NOT_FOUND)
                 .reason("The required object was not found.")
                 .message(notFoundException.getMessage())
@@ -77,7 +75,6 @@ public class ExceptionsHandler {
         log.warn("409 {}", conflictException.getMessage());
         conflictException.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.CONFLICT)
                 .reason("Integrity constraint has been violated.")
                 .message(conflictException.getMessage())
@@ -91,7 +88,6 @@ public class ExceptionsHandler {
         log.warn("400 {}", badRequestException.getMessage());
         badRequestException.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.BAD_REQUEST)
                 .reason("Incorrectly made request.")
                 .message(badRequestException.getMessage())
@@ -105,7 +101,6 @@ public class ExceptionsHandler {
         log.error("500 {}", throwable.getMessage(), throwable);
         throwable.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .reason("Integrity constraint has been violated.")
                 .message(throwable.getMessage())
@@ -118,7 +113,6 @@ public class ExceptionsHandler {
         log.error("400 {}", e.getMessage());
         e.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.BAD_REQUEST)
                 .reason("Incorrectly made request.")
                 .message(e.getMessage())
@@ -130,7 +124,6 @@ public class ExceptionsHandler {
         log.error("409 {}", e.getMessage());
         e.printStackTrace(pw);
         return ApiError.builder()
-                .errors(Collections.singletonList(sw.toString()))
                 .status(HttpStatus.CONFLICT)
                 .reason("Integrity constraint has been violated.")
                 .message(e.getMessage())

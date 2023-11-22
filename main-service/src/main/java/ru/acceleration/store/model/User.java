@@ -1,8 +1,5 @@
 package ru.acceleration.store.model;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,16 +19,12 @@ public class User {
     @Column(name = "username", unique = true)
     String username;
 
-    @Email
-    @NotBlank
     @Column(name = "email", unique = true)
     String email;
 
-    @NotBlank
     @Column(name = "password")
     String password;
 
-    @NotNull
     @Column(name = "enabled")
     private Boolean enabled;
 

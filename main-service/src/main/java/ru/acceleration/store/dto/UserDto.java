@@ -10,15 +10,24 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserResponse {
+public class UserDto {
 
     Long id;
 
-    String name;
+    String username;
+
+    String email;
+
+    String password;
+
+    @Builder.Default
+    Boolean enabled = true;
+
+    String firstName;
 
     String lastName;
 
-    String telephoneNumber;
+    String phone;
 
-    String registrationStatus;
+    Long addressId;
 }

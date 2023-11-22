@@ -1,5 +1,6 @@
 package ru.acceleration.store.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,15 +11,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserResponse {
+public class UserCreateDto {
 
-    Long id;
+    @NotBlank
+    String username;
 
-    String name;
+    @NotBlank
+    String email;
 
-    String lastName;
-
-    String telephoneNumber;
-
-    String registrationStatus;
+    @NotBlank
+    String password;
 }

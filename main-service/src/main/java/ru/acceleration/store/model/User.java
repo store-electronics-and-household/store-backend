@@ -1,52 +1,53 @@
 package ru.acceleration.store.model;
-
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.util.List;
-
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
-@Builder
-public class User extends AbstractPersistable<Long> {
+public class User {
 
-    @Column(name = "name")
-    String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    Long id;
+
+
+    @Column(name = "username", unique = true)
+    String username;
+
+    @Email
+    @NotBlank
+    @Column(name = "email", unique = true)
+    String email;
+
+    @NotBlank
+    @Column(name = "password")
+    String password;
+
+    @NotNull
+    @Column(name = "enabled")
+    private Boolean enabled;
+
+    @Column(name = "first_name")
+    String firstName;
 
     @Column(name = "last_name")
     String lastName;
 
-    @Column(name = "telephone_number")
-    String telephoneNumber;
+    @Column(name = "phone")
+    String phone;
 
-    @Column(name = "login")
-    String login;
-
-    @Column(name = "password")
-    String password;
-
-    @Column(name = "registration_status")
-    String registrationStatus;
-
-    @Column(name = "agreement")
-    String agreement;
-
-    @ManyToMany
-    @JoinTable(name = "user_addresses",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
-    List<Address> adresses;
-
-    @ManyToOne()
-    @JoinColumn(name = "bank_card_id")
-    BankCard bankCard;
+//    @ManyToMany
+//    @JoinTable(name = "user_addresses",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "address_id"))
+//    List<Address> adresses;
 }

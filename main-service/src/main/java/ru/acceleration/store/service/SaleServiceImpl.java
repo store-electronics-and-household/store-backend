@@ -5,7 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.NewSaleDto;
 import ru.acceleration.store.dto.SaleDto;
+import ru.acceleration.store.model.Sale;
 import ru.acceleration.store.repository.SaleRepository;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -27,5 +30,15 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public void deleteSale(Long productId) {
 
+    }
+
+    @Override
+    public List<Sale> getSalesByPromotion(Long promotionId) {
+        return saleRepository.getSalesByPromotion(promotionId);
+    }
+
+    @Override
+    public Sale saveSaleToDatabase(Sale sale) {
+        return saleRepository.save(sale);
     }
 }

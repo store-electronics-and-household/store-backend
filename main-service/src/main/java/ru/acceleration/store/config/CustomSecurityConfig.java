@@ -57,9 +57,9 @@ public class CustomSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .authorizeHttpRequests(request ->
-                        request
-                                .requestMatchers(HttpMethod.POST, "/user").permitAll())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                        .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());

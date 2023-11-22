@@ -14,4 +14,5 @@ public interface PromotionService {
     PromotionDto getPromotion(Long promotionId);
 
     PromotionDto editPromotion(Long promotionId, PromotionDto newPromotionDto);
+
 }

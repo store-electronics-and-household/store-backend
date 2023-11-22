@@ -45,6 +45,9 @@ public class User {
     @Column(name = "phone")
     String phone;
 
+    @Column(name = "address_id")
+    Long addressId;
+
 //    @ManyToMany
 //    @JoinTable(name = "user_addresses",
 //            joinColumns = @JoinColumn(name = "user_id"),

@@ -27,7 +27,7 @@ public class UserDto {
     @Builder.Default
     Boolean enabled = true;
 
-    String fistName;
+    String firstName;
 
     String lastName;
 

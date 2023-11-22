@@ -1,5 +1,6 @@
 package ru.acceleration.store.exceptions;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,12 @@ public class ExceptionsHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleBadRequest(final MethodArgumentNotValidException validException) {
+        return badRequest(validException);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleBadRequest(final ConstraintViolationException validException) {
         return badRequest(validException);
     }
 

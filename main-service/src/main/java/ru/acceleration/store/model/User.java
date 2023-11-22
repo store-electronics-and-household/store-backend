@@ -19,7 +19,6 @@ public class User {
     @Column(name = "user_id")
     Long id;
 
-
     @Column(name = "username", unique = true)
     String username;
 

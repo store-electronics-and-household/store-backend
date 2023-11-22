@@ -45,8 +45,4 @@ public class User extends AbstractPersistable<Long> {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     List<Address> adresses;
-
-    @ManyToOne()
-    @JoinColumn(name = "bank_card_id")
-    BankCard bankCard;
 }

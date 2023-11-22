@@ -29,11 +29,6 @@ public class Payment {
     @ToString.Exclude
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bank_card_id")
-    @ToString.Exclude
-    private BankCard bankCard;
-
     @Column(name = "status")
     private String status;
 

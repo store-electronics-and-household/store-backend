@@ -8,19 +8,21 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserRequest {
+public class AddressResponse {
 
-    String name;
+    Long id;
 
-    String lastName;
+    String town;
 
-    String telephoneNumber;
+    String street;
 
-    String login;
+    String houseNumber;
 
-    String password;
+    String flatNumber;
 
-    String registrationStatus;
+    String entranceNumber;
 
-    String agreement;
+    String floorNumber;
+
+    String comment;
 }

@@ -22,13 +22,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    private final UserMapper userMapper;
+
+    @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse postUser(@RequestBody @Valid UserRequest dto) {
         log.info("UserController postUser dto {}", dto);
-        User user = UserMapper.toUser(dto);
+        User user = userMapper.userRequestToUser(dto);
         user = userService.save(user);
-        return UserMapper.toUserResponce(user);
+        return userMapper.userToUserResponse(user);
     }
 
     @PostMapping(value = "/createWithList")
@@ -36,32 +38,32 @@ public class UserController {
     public List<UserResponse> postUserList(@RequestBody @Valid List<UserRequest> dto) {
         log.info("UserController postUserList dto {}", dto);
         List<User> userList = dto.stream()
-                .map(UserMapper::toUser)
+                .map(userMapper::userRequestToUser)
                 .collect(Collectors.toList());
         userList = userService.saveList(userList);
         return userList.stream()
-                .map(UserMapper::toUserResponce)
+                .map(userMapper::userToUserResponse)
                 .collect(Collectors.toList());
     }
 
-    @DeleteMapping(value = "/{username}")
+    @DeleteMapping(value = "/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@RequestParam Long id) {
         log.info("UserController deleteUser  id={}", id);
         userService.delete(id);
     }
 
-    @GetMapping(value = "/{username}")
-    public UserResponse getUserName(@PathVariable Long id) {
+    @GetMapping(value = "/get")
+    public UserResponse getById(@RequestParam Long id) {
         log.info("UserController getUserName  id={}", id);
-        User user = userService.getUserName(id);
-        return UserMapper.toUserResponce(user);
+        User user = userService.getById(id);
+        return userMapper.userToUserResponse(user);
     }
 
-    @PutMapping(value = "/{username}")
-    public void putUserName(@PathVariable Long id, @RequestBody @Valid UserRequest dto) {
+    @PutMapping(value = "/put")
+    public void putUser(@RequestParam Long id, @RequestBody @Valid UserRequest dto) {
         log.info("UserController putUserName id={}, dto={}", id, dto);
-        User user = UserMapper.toUser(dto);
+        User user = userMapper.userRequestToUser(dto);
         userService.putUserName(id, user);
     }
 }

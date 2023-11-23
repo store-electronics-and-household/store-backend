@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.acceleration.store.dto.ProductDto;
+import ru.acceleration.store.dto.NewProductDto;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,9 +25,9 @@ public class ProductControllerTests {
     @Autowired
     private ObjectMapper mapper;
 
-    ProductDto productCreateDto = new ProductDto(null, "XY73GS33", "Apple iPhone 13 Pro Max 256GB");
-    ProductDto productCreateDtoWithEmptyName = new ProductDto(null, "XY73GS33", "");
-    ProductDto productCreateDtoWithEmptyVendorCode = new ProductDto(null, "", "Apple iPhone 13 Pro Max 256GB");
+    NewProductDto productCreateDto = new NewProductDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB");
+    NewProductDto productCreateDtoWithEmptyName = new NewProductDto("XY73GS33", "");
+    NewProductDto productCreateDtoWithEmptyVendorCode = new NewProductDto("", "Apple iPhone 13 Pro Max 256GB");
 
     @Test
     void postProductTest() throws Exception {

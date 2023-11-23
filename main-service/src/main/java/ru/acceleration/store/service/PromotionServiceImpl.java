@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.acceleration.store.dto.ProductShortDto;
 import ru.acceleration.store.dto.PromotionDto;
 import ru.acceleration.store.mapper.PromotionMapper;
 import ru.acceleration.store.model.Promotion;
@@ -21,6 +22,7 @@ public class PromotionServiceImpl implements PromotionService {
     private final PromotionRepository promotionRepository;
     private final PromotionMapper promotionMapper;
     private final SaleService saleService;
+    private final ProductService productService;
 
     @Override
     public PromotionDto createPromotion(PromotionDto promotionDto) {
@@ -57,9 +59,8 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public PromotionDto getPromotion(Long promotionId) {
-        Promotion foundPromotion = promotionRepository.getExistingPromotion(promotionId);
-        return promotionMapper.toPromotionDto(foundPromotion);
+    public List<ProductShortDto> getPromotion(Long promotionId) {
+        return productService.productsInPromotion(promotionId);
     }
 
     @Override

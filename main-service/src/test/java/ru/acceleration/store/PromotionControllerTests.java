@@ -49,26 +49,13 @@ public class PromotionControllerTests {
     }
 
     @Test
-    void getPromotionTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/promotions")
-                .content(mapper.writeValueAsString(promotionCreateDto))
-                .contentType(MediaType.APPLICATION_JSON));
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/promotions/1"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Компьютеры со скидкой до -30%"));
-    }
-
-    @Test
     void editPromotionTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/promotions")
                 .content(mapper.writeValueAsString(promotionCreateDto))
                 .contentType(MediaType.APPLICATION_JSON));
         mockMvc.perform(MockMvcRequestBuilders
-                        .patch("/promotions/1")
+                        .patch("/promotions/2")
                         .content(mapper.writeValueAsString(promotionEditDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -82,7 +69,7 @@ public class PromotionControllerTests {
                 .content(mapper.writeValueAsString(promotionCreateDto))
                 .contentType(MediaType.APPLICATION_JSON));
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/promotions/2"))
+                        .delete("/promotions/1"))
                 .andExpect(status().isNoContent());
     }
 }

@@ -1,8 +1,13 @@
 package ru.acceleration.store.service;
 
-import ru.acceleration.store.dto.ProductDto;
+import ru.acceleration.store.dto.NewProductDto;
+import ru.acceleration.store.dto.ProductShortDto;
+
+import java.util.List;
 
 public interface ProductService {
 
-    ProductDto addProduct(ProductDto productDto);
+    ProductShortDto addProduct(NewProductDto newProductDto);
+
+    List<ProductShortDto> productsInPromotion(Long promotionId);
 }

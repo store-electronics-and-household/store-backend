@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.acceleration.store.dto.ProductShortDto;
 import ru.acceleration.store.dto.PromotionDto;
 import ru.acceleration.store.service.PromotionService;
 
@@ -24,8 +25,14 @@ public class PromotionController {
         return promotionService.getPromotions();
     }
 
+    /**
+     * Метод передает список всех товаров со скидками, которые входят в определенную подборку
+     *
+     * @param promotionId - ID подборки
+     * @return список акционных товаров, входящих в подборку
+     */
     @GetMapping("/{promotionId}")
-    public PromotionDto getPromotion(@PathVariable Long promotionId) {
+    public List<ProductShortDto> getPromotion(@PathVariable Long promotionId) {
         log.info("GET: /promotions/{}", promotionId);
         return promotionService.getPromotion(promotionId);
     }

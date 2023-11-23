@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
-
-    private Long id;
+public class NewProductDto {
 
     @NotBlank
     @Size(max = 30)

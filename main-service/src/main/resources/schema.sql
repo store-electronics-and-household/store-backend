@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS outcomes
     CONSTRAINT fk_order_outcome FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE,
     CONSTRAINT fk_outcome_product FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE,
     CONSTRAINT fk_sale_outcome FOREIGN KEY (sale_id) REFERENCES sales (sale_id) ON DELETE CASCADE
-    );
+);
 
 CREATE TABLE IF NOT EXISTS stockrooms
 (

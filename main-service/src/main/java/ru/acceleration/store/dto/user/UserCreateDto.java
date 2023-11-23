@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto;
+package ru.acceleration.store.dto.user;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

@@ -2,7 +2,7 @@ package ru.acceleration.store.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import ru.acceleration.store.dto.UserCreateDto;
+import ru.acceleration.store.dto.user.UserCreateDto;
 import ru.acceleration.store.model.Authority;
 
 

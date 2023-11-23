@@ -1,10 +1,10 @@
-package ru.acceleration.store.service;
+package ru.acceleration.store.service.user;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.dto.UserCreateDto;
-import ru.acceleration.store.dto.UserDto;
+import ru.acceleration.store.dto.user.UserCreateDto;
+import ru.acceleration.store.dto.user.UserDto;
 import ru.acceleration.store.mapper.AuthorityMapper;
 import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.Authority;

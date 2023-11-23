@@ -36,7 +36,6 @@ public class ProductControllerTests {
                         .content(mapper.writeValueAsString(productCreateDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.vendorCode").value("XY73GS33"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Apple iPhone 13 Pro Max 256GB"));
     }

@@ -8,19 +8,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserRequest {
+public class AttributeProductRequest {
 
-    String name;
+    long productId;
 
-    String lastName;
-
-    String telephoneNumber;
-
-    String login;
-
-    String password;
-
-    String registrationStatus;
-
-    String agreement;
 }

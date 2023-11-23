@@ -3,20 +3,14 @@ package ru.acceleration.store.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Data
 @Builder
-public class UserResponse {
+public class ProductAttributesDto {
 
-    Long id;
+    String attributeName;
 
-    String name;
-
-    String lastName;
-
-    String telephoneNumber;
-
-    String registrationStatus;
+    String value;
 }

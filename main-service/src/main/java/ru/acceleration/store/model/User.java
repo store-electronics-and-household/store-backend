@@ -1,48 +1,49 @@
 package ru.acceleration.store.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.util.List;
-
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
-@Builder
-public class User extends AbstractPersistable<Long> {
+public class User {
 
-    @Column(name = "name")
-    String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    Long id;
 
-    @Column(name = "last_name")
-    String lastName;
+    @Column(name = "username", unique = true)
+    String username;
 
-    @Column(name = "telephone_number")
-    String telephoneNumber;
-
-    @Column(name = "login")
-    String login;
+    @Column(name = "email", unique = true)
+    String email;
 
     @Column(name = "password")
     String password;
 
-    @Column(name = "registration_status")
-    String registrationStatus;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
-    @Column(name = "agreement")
-    String agreement;
+    @Column(name = "first_name")
+    String firstName;
 
-    @ManyToMany
-    @JoinTable(name = "user_addresses",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
-    List<Address> adresses;
+    @Column(name = "last_name")
+    String lastName;
+
+    @Column(name = "phone")
+    String phone;
+
+    @Column(name = "address_id")
+    Long addressId;
+
+//    @ManyToMany
+//    @JoinTable(name = "user_addresses",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "address_id"))
+//    List<Address> adresses;
 }

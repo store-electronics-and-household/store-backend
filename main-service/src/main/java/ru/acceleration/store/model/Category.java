@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,17 +21,19 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private Long id;
+    Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "category_name")
+    String name;
 
     @Column(name = "parent_id")
-    private Long parentId;
+    Long parentId;
 
-    @ManyToMany
-    @JoinTable(name = "product_category",
+    /*    @OneToMany
+     *//*    @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+            inverseJoinColumns = @JoinColumn(name = "product_id"))*//*
+    @JoinColumn(name = "category_id")*/
+    @OneToMany
+    List<Product> products = new ArrayList<>();
 }

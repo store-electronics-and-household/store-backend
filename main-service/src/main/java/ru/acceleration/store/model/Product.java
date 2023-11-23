@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,27 +12,23 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long id;
+    Long id;
 
     @Column(name = "vendor_code")
-    private String vendorCode;
+    String vendorCode;
 
     @Column(name = "name")
-    private String name;
+    String name;
 
-    @ManyToMany(mappedBy = "products")
-    @ToString.Exclude
-    private List<Category> categories;
+    @Column(name = "category_id")
+    Long categoryId;
 
-    @ManyToMany(mappedBy = "products")
-    @ToString.Exclude
-    private List<Attribute> attributes;
-
-//    private List<Image> images;
+    @OneToMany
+    List<Attribute> attributes = new ArrayList<>();
 }

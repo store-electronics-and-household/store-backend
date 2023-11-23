@@ -1,15 +1,17 @@
 package ru.acceleration.store.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import ru.acceleration.store.dto.UserCreateDto;
+import ru.acceleration.store.dto.UserDto;
 import ru.acceleration.store.model.User;
-import ru.acceleration.store.dto.UserRequest;
-import ru.acceleration.store.dto.UserResponse;
 
-@Mapper
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-    User userRequestToUser(UserRequest userRequest);
+    UserDto toUserDto(UserCreateDto userCreateDto);
 
-    UserResponse userToUserResponse(User user);
+    User toUser(UserDto userDto);
 
+    UserDto toUserDto(User user);
 }

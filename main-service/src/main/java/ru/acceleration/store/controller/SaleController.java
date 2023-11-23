@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.NewSaleDto;
 import ru.acceleration.store.dto.SaleDto;
+import ru.acceleration.store.dto.UpdateSaleDto;
 import ru.acceleration.store.service.SaleService;
 
 @RestController
@@ -25,9 +26,9 @@ public class SaleController {
     }
 
     @PatchMapping("/product/{productId}/sale")
-    public SaleDto editSale(@PathVariable Long productId, @RequestBody NewSaleDto newSaleDto) {
+    public SaleDto editSale(@PathVariable Long productId, @RequestBody UpdateSaleDto updateSaleDto) {
         log.info("PATCH: /product/{}/sale", productId);
-        return saleService.editSale(productId, newSaleDto);
+        return saleService.editSale(productId, updateSaleDto);
     }
 
     @DeleteMapping("/product/{productId}/sale")

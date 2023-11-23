@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.NewProductDto;
+import ru.acceleration.store.dto.ProductFullDto;
 import ru.acceleration.store.dto.ProductShortDto;
 import ru.acceleration.store.mapper.ProductMapper;
 import ru.acceleration.store.model.Product;
@@ -33,5 +34,16 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(productMapper::toProductShortDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductFullDto getProductById(Long productId) {
+        Product foundProduct = productRepository.getExistingProduct(productId);
+        return productMapper.toProductFullDto(foundProduct);
+    }
+
+    @Override
+    public Product getExistingProduct(Long productId) {
+        return productRepository.getExistingProduct(productId);
     }
 }

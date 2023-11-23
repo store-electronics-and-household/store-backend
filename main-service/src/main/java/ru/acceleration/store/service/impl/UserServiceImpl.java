@@ -1,4 +1,5 @@
-package ru.acceleration.store.service;
+package ru.acceleration.store.service.impl;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import ru.acceleration.store.model.Role;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.AuthorityRepo;
 import ru.acceleration.store.repository.UserRepository;
+import ru.acceleration.store.service.UserService;
 
 @Service
 @AllArgsConstructor
@@ -34,12 +36,4 @@ public class UserServiceImpl implements UserService {
         authorityRepo.save(authority);
         return userMapper.toUserDto(user);
     }
-
-
-//    private void validate(UserCreateDto userCreateDto) {
-//        Set<String> categoryNames = new HashSet<>(userRepository.findUserByName());
-//        if (categoryNames.contains(newAccessDataDto.getUsername())) {
-//            throw new ConflictException("AccessData username " + newAccessDataDto.getUsername() + " already used");
-//        }
-//    }
 }

@@ -1,4 +1,5 @@
 package ru.acceleration.store.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -28,19 +29,6 @@ public class Product {
     @Column(name = "category_id")
     Long categoryId;
 
-/*    @Column(name = "parent_id")
-    Long parentId;*/
-
     @OneToMany
-    List<Attribute> attributes= new ArrayList<>();;
-
-//    @ManyToMany(mappedBy = "products")
-//    @ToString.Exclude
-//    private List<Category> categories;
-//
-//    @ManyToMany(mappedBy = "products")
-//    @ToString.Exclude
-//    private List<Attribute> attributes;
-
-//    private List<Image> images;
+    List<Attribute> attributes = new ArrayList<>();
 }

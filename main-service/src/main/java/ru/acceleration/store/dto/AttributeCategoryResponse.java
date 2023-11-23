@@ -2,7 +2,6 @@ package ru.acceleration.store.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.acceleration.store.model.ProductAttributes;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class AttributeResponse {
+public class AttributeCategoryResponse {
 
-    List<ProductAttributes> attributes;
+    List<CategoryAttributesDto> attributes;
 }

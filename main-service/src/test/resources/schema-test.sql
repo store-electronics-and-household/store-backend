@@ -235,3 +235,81 @@ CREATE TABLE IF NOT EXISTS stockrooms
     reserve         VARCHAR(100) NOT NULL,
     CONSTRAINT fk_stockroom_product FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE
 );
+
+INSERT INTO products
+VALUES (1, '123', 'часы1', 1);
+INSERT INTO products
+VALUES (2, '1232', 'телефон1', 2);
+INSERT INTO products
+VALUES (3, '1233', 'фен1', 3);
+INSERT INTO products
+VALUES (4, '1234', 'часы2', 1);
+INSERT INTO products
+VALUES (5, '1235', 'телефон2', 2);
+INSERT INTO products
+VALUES (6, '1236', 'телефон3', 2);
+INSERT INTO products
+VALUES (7, '1237', 'часы3', 1);
+INSERT INTO products
+VALUES (8, '1238', 'кабель1', 4);
+
+INSERT INTO categories
+VALUES (1, 'категорияЧасы', 1);
+INSERT INTO categories
+VALUES (2, 'категорияТелефон', 1);
+INSERT INTO categories
+VALUES (3, 'категорияФен', 1);
+INSERT INTO categories
+VALUES (4, 'категорияКабель', 1);
+INSERT INTO categories
+VALUES (5, 'categories5', 1);
+INSERT INTO categories
+VALUES (6, 'categories6', 1);
+INSERT INTO categories
+VALUES (7, 'categories7', 1);
+INSERT INTO categories
+VALUES (8, 'categories8', 1);
+INSERT INTO categories
+VALUES (9, 'categories9', 1);
+
+INSERT INTO attributes
+VALUES (1, 'емкость');
+INSERT INTO attributes
+VALUES (2, 'диагональ');
+INSERT INTO attributes
+VALUES (3, 'вес');
+INSERT INTO attributes
+VALUES (4, 'повверхность');
+INSERT INTO attributes
+VALUES (5, 'объем');
+INSERT INTO attributes
+VALUES (6, 'длина');
+INSERT INTO attributes
+VALUES (7, 'цвет');
+INSERT INTO attributes
+VALUES (8, 'годВыпуска');
+INSERT INTO attributes
+VALUES (9, 'форма');
+
+INSERT INTO product_attributes
+VALUES (1, 1, 1, '555Ач');
+INSERT INTO product_attributes
+VALUES (2, 1, 3, '33кг');
+INSERT INTO product_attributes
+VALUES (3, 1, 5, '77м3');
+INSERT INTO product_attributes
+VALUES (4, 1, 8, '1999');
+INSERT INTO product_attributes
+VALUES (5, 2, 1, '1Ач');
+INSERT INTO product_attributes
+VALUES (6, 2, 2, '11.1');
+INSERT INTO product_attributes
+VALUES (7, 3, 3, '5кг');
+INSERT INTO product_attributes
+VALUES (8, 4, 1, '8Ач');
+INSERT INTO product_attributes
+VALUES (9, 5, 4, 'матовая');
+INSERT INTO product_attributes
+VALUES (10, 5, 3, '0.356кг');
+INSERT INTO product_attributes
+VALUES (11, 5, 8, '2024');

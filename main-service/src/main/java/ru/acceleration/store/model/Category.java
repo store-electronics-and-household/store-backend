@@ -29,11 +29,11 @@ public class Category {
     @Column(name = "parent_id")
     Long parentId;
 
-/*    @OneToMany
-*//*    @JoinTable(name = "product_category",
+    /*    @OneToMany
+     *//*    @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))*//*
     @JoinColumn(name = "category_id")*/
     @OneToMany
-    List<Product> products= new ArrayList<>();;
+    List<Product> products = new ArrayList<>();
 }

@@ -1,4 +1,5 @@
-package ru.acceleration.store;
+package ru.acceleration.store.controller;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.UserCreateDto;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -23,11 +25,11 @@ public class UsersControllerTests {
     @Autowired
     private ObjectMapper mapper;
 
-    UserCreateDto userCreateDto = new UserCreateDto("user", "user123@mail.com","user");
-    UserCreateDto userCreateDtoWithEmptyName = new UserCreateDto("", "user123@mail.com","user");
-    UserCreateDto userCreateDtoWithEmptyPassword = new UserCreateDto("user", "user123@mail.com","");
-    UserCreateDto userCreateDtoWithEmptyEmail = new UserCreateDto("user", "","user");
-    UserCreateDto userCreateDtoWithIncorrectEmail = new UserCreateDto("user", "user123mail.com","user");
+    UserCreateDto userCreateDto = new UserCreateDto("user", "user123@mail.com", "user");
+    UserCreateDto userCreateDtoWithEmptyName = new UserCreateDto("", "user123@mail.com", "user");
+    UserCreateDto userCreateDtoWithEmptyPassword = new UserCreateDto("user", "user123@mail.com", "");
+    UserCreateDto userCreateDtoWithEmptyEmail = new UserCreateDto("user", "", "user");
+    UserCreateDto userCreateDtoWithIncorrectEmail = new UserCreateDto("user", "user123mail.com", "user");
 
 
     @Test

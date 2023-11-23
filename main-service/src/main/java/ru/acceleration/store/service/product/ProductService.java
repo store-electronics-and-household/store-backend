@@ -1,8 +1,8 @@
-package ru.acceleration.store.service;
+package ru.acceleration.store.service.product;
 
-import ru.acceleration.store.dto.NewProductDto;
-import ru.acceleration.store.dto.ProductFullDto;
-import ru.acceleration.store.dto.ProductShortDto;
+import ru.acceleration.store.dto.product.NewProductDto;
+import ru.acceleration.store.dto.product.ProductFullDto;
+import ru.acceleration.store.dto.product.ProductShortDto;
 import ru.acceleration.store.model.Product;
 
 import java.util.List;

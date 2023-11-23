@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.UserCreateDto;
-import ru.acceleration.store.dto.UserDto;
-import ru.acceleration.store.service.UserService;
+import ru.acceleration.store.dto.user.UserCreateDto;
+import ru.acceleration.store.dto.user.UserDto;
+import ru.acceleration.store.service.user.UserService;
 
 
 @RestController

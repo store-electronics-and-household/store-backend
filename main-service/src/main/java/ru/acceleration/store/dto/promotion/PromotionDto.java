@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto;
+package ru.acceleration.store.dto.promotion;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

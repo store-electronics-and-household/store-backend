@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto;
+package ru.acceleration.store.dto.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

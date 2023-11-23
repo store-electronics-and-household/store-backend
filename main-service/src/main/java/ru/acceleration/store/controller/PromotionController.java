@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.ProductShortDto;
-import ru.acceleration.store.dto.PromotionDto;
-import ru.acceleration.store.service.PromotionService;
+import ru.acceleration.store.dto.product.ProductShortDto;
+import ru.acceleration.store.dto.promotion.PromotionDto;
+import ru.acceleration.store.service.promotion.PromotionService;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package ru.acceleration.store.service;
+package ru.acceleration.store.service.promotion;
 
-import ru.acceleration.store.dto.ProductShortDto;
-import ru.acceleration.store.dto.PromotionDto;
+import ru.acceleration.store.dto.product.ProductShortDto;
+import ru.acceleration.store.dto.promotion.PromotionDto;
 import ru.acceleration.store.model.Promotion;
 
 import java.util.List;

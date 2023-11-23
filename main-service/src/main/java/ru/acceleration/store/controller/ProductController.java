@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.NewProductDto;
-import ru.acceleration.store.dto.ProductFullDto;
-import ru.acceleration.store.dto.ProductShortDto;
-import ru.acceleration.store.service.ProductService;
+import ru.acceleration.store.dto.product.NewProductDto;
+import ru.acceleration.store.dto.product.ProductFullDto;
+import ru.acceleration.store.dto.product.ProductShortDto;
+import ru.acceleration.store.service.product.ProductService;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ProductFullDto getProductById(Long productId) {
+    public ProductFullDto getProductById(@PathVariable Long productId) {
         log.info("GET: /products/{}", productId);
         return productService.getProductById(productId);
     }

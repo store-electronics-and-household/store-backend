@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto;
+package ru.acceleration.store.dto.sale;
 
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;

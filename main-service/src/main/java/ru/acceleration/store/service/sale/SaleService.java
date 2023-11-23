@@ -1,8 +1,8 @@
-package ru.acceleration.store.service;
+package ru.acceleration.store.service.sale;
 
-import ru.acceleration.store.dto.NewSaleDto;
-import ru.acceleration.store.dto.SaleDto;
-import ru.acceleration.store.dto.UpdateSaleDto;
+import ru.acceleration.store.dto.sale.NewSaleDto;
+import ru.acceleration.store.dto.sale.SaleDto;
+import ru.acceleration.store.dto.sale.UpdateSaleDto;
 
 public interface SaleService {
 

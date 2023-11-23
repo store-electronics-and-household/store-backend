@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.NewSaleDto;
-import ru.acceleration.store.dto.SaleDto;
-import ru.acceleration.store.dto.UpdateSaleDto;
-import ru.acceleration.store.service.SaleService;
+import ru.acceleration.store.dto.sale.NewSaleDto;
+import ru.acceleration.store.dto.sale.SaleDto;
+import ru.acceleration.store.dto.sale.UpdateSaleDto;
+import ru.acceleration.store.service.sale.SaleService;
 
 @RestController
 @RequiredArgsConstructor

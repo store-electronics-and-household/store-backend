@@ -22,4 +22,9 @@ public class PromotionDto {
     @NotBlank
     @Size(max = 100)
     private String name;
+
+    /**
+     * Ссылка на фотографию баннера
+     */
+    private String photoUrl;
 }

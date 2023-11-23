@@ -19,4 +19,7 @@ public class Promotion {
 
     @Column(name = "promotion_name")
     private String name;
+
+    @Column(name = "image_link")
+    private String url;
 }

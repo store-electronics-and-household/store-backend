@@ -25,9 +25,9 @@ public class PromotionControllerTests {
     @Autowired
     private ObjectMapper mapper;
 
-    PromotionDto promotionCreateDto = new PromotionDto(null, "Компьютеры со скидкой до -30%");
-    PromotionDto promotionCreateDtoWithEmptyName = new PromotionDto(null, "");
-    PromotionDto promotionEditDto = new PromotionDto(null, "Телефоны со скидкой до -50%");
+    PromotionDto promotionCreateDto = new PromotionDto(null, "Компьютеры со скидкой до -30%", null);
+    PromotionDto promotionCreateDtoWithEmptyName = new PromotionDto(null, "", null);
+    PromotionDto promotionEditDto = new PromotionDto(null, "Телефоны со скидкой до -50%", null);
 
     @Test
     void postPromotionTest() throws Exception {

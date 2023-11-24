@@ -1,10 +1,10 @@
 package ru.acceleration.store.service.user;
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.dto.user.UserCreateDto;
-import ru.acceleration.store.dto.user.UserDto;
+import ru.acceleration.store.dto.user.UserRequestDto;
+import ru.acceleration.store.dto.user.UserResponseDto;
 
 @Service
 public interface UserService {
 
-    UserDto postUser(UserCreateDto userCreateDto);
+    UserResponseDto postUser(UserRequestDto userRequestDto);
 }

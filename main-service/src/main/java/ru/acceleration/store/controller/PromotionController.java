@@ -4,11 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.product.ProductShortDto;
 import ru.acceleration.store.dto.promotion.PromotionDto;
 import ru.acceleration.store.service.promotion.PromotionService;
-
 import java.util.List;
 
 @RestController
@@ -20,9 +20,9 @@ public class PromotionController {
     private final PromotionService promotionService;
 
     @GetMapping
-    public List<PromotionDto> getPromotions() {
+    public ResponseEntity<List<PromotionDto>> getPromotions() {
         log.info("GET /promotions");
-        return promotionService.getPromotions();
+        return ResponseEntity.ok().body(promotionService.getPromotions());
     }
 
     /**
@@ -32,28 +32,27 @@ public class PromotionController {
      * @return список акционных товаров, входящих в подборку
      */
     @GetMapping("/{promotionId}")
-    public List<ProductShortDto> getPromotion(@PathVariable Long promotionId) {
+    public ResponseEntity<List<ProductShortDto>> getPromotion(@PathVariable Long promotionId) {
         log.info("GET: /promotions/{}", promotionId);
-        return promotionService.getPromotion(promotionId);
+        return ResponseEntity.ok().body(promotionService.getPromotion(promotionId));
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PromotionDto createPromotion(@Valid @RequestBody PromotionDto promotionDto) {
+    public ResponseEntity<PromotionDto> createPromotion(@Valid @RequestBody PromotionDto promotionDto) {
         log.info("POST: /promotions");
-        return promotionService.createPromotion(promotionDto);
+        return ResponseEntity.status(201).body(promotionService.createPromotion(promotionDto));
     }
 
     @DeleteMapping("/{promotionId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePromotion(@PathVariable Long promotionId) {
+    public ResponseEntity<Void> deletePromotion(@PathVariable Long promotionId) {
         log.info("DELETE: /promotions");
         promotionService.deletePromotion(promotionId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/{promotionId}")
-    public PromotionDto editPromotion(@PathVariable Long promotionId, @Valid @RequestBody PromotionDto newPromotionDto) {
+    public ResponseEntity<PromotionDto> editPromotion(@PathVariable Long promotionId, @Valid @RequestBody PromotionDto newPromotionDto) {
         log.info("PATCH: /promotions/{}", promotionId);
-        return promotionService.editPromotion(promotionId, newPromotionDto);
+        return ResponseEntity.ok().body(promotionService.editPromotion(promotionId, newPromotionDto));
     }
 }

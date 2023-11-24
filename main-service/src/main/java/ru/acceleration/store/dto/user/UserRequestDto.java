@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserCreateDto {
+public class UserRequestDto {
 
     @NotBlank
     @Size(max = 250)

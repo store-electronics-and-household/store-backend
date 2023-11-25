@@ -1,4 +1,4 @@
-package ru.acceleration.store;
+package ru.acceleration.store.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

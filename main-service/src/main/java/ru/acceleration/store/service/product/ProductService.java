@@ -16,4 +16,8 @@ public interface ProductService {
     ProductFullDto getProductById(Long productId);
 
     Product getExistingProduct(Long productId);
+
+    List<Product> getProductByCategory(Long categoryId);
+
+    List<Long> getProductIdByCategory(Long categoryId);
 }

@@ -52,4 +52,18 @@ public class ProductServiceImpl implements ProductService {
     public Product getExistingProduct(Long productId) {
         return productRepository.getExistingProduct(productId);
     }
+
+    @Override
+    public List<Product> getProductByCategory(Long categoryId) {
+        log.info("CategoryAServiceImpl getAllProductByCategory categoryId {}", categoryId);
+        List<Product> productList = productRepository.findAllByCategoryId(categoryId);
+        return productList;
+    }
+
+    @Override
+    public List<Long> getProductIdByCategory(Long categoryId) {
+        log.info("CategoryAServiceImpl getProductIdByCategory categoryId {}", categoryId);
+        List<Long> productIdList = productRepository.findProducctsIdByCatecory(categoryId);
+        return productIdList;
+    }
 }

@@ -22,4 +22,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             throw new DataNotFoundException(String.format("Product with id=%d was not found", productId));
         });
     }
+
+    List<Product> findAllByCategoryId(Long categoryrId);
+
+    @Query("SELECT p.id " +
+            "FROM Product p " +
+            "WHERE p.categoryId = ?1")
+    List<Long> findProducctsIdByCatecory(Long categoryId);
 }

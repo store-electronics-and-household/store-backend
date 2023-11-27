@@ -23,13 +23,54 @@ DROP table IF EXISTS stockrooms cascade;
 DROP table IF EXISTS sales cascade;
 DROP table IF EXISTS promotions cascade;
 
-CREATE TABLE IF NOT EXISTS products
-(
-    product_id BIGINT NOT NULL,
-    vendor_code VARCHAR(30) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    CONSTRAINT product_id PRIMARY KEY (product_id)
+CREATE TABLE IF NOT EXISTS product_models (
+    id BIGINT PRIMARY KEY, 
+    name VARCHAR(100),
+    description VARCHAR(500),
+    price BIGINT,
+    product_category_id BIGINT REFERENCES product_categories(id) NOT NULL ON DELETE RESTRICT,
+    status VARCHAR(100)
 );
+
+CREATE TABLE IF NOT EXISTS products (
+    id BIGINT PRIMARY KEY,
+    serial_number VARCHAR(100) NOT NULL,
+    product_model_id BIGINT REFERENCES product_models(id) NOT NULL ON DELETE RESTRICT,
+    product_model_group_id BIGINT REFERENCES product_model_groups(id) NOT NULL ON DELETE RESTRICT,
+    status VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS product_model_groups (
+    id BIGINT PRIMARY KEY, 
+    product_model_id BIGINT REFERENCES product_models(id) NOT NULL ON DELETE RESTRICT,
+    count INT NOT NULL,
+    type VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS baskets (
+    id BIGINT PRIMARY KEY,
+    user_id BIGINT REFERENCES users(id) NOT NULL,
+    created TIMESTAMP NOT NULL,
+    status VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id BIGINT PRIMARY KEY,
+    basket_id BIGINT REFERENCES baskets(id) NOT NULL ON DELETE RESTRICT,
+    payment_id BIGINT REFERENCES payments(id) ON DELETE RESTRICT,
+    created TIMESTAMP NOT NULL,
+    final_price BIGINT,
+    address_id BIGINT REFERENCES addresses(id) NOT NULL ON DELETE CASCADE, 
+    status VARCHAR(100) NOT NULL,
+);
+
+
+
+
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS attribute_types
 (

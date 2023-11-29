@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sales")
@@ -16,10 +16,6 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_id")
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
 
     @Column(name = "percent")
     private Integer percent;

@@ -25,7 +25,7 @@ public class AttributeServiceTest {
     @Test
     void getAttributeCategory() {
         AttributeCategoryResponse attributeCategoryResponse = attributeService.getAttributeCategory(new AttributeCategoryRequest(1L));
-        List<CategoryAttributesDto> attributes = attributeCategoryResponse.getAttributes();
+        List<CategoryAttributeOutcomeDto> attributes = attributeCategoryResponse.getAttributes();
         Assertions.assertAll(
                 () -> Assertions.assertEquals(attributes.get(0).getAttributeName(), "emkocti"),
                 () -> Assertions.assertEquals(attributes.get(1).getListvalue().size(), 1)

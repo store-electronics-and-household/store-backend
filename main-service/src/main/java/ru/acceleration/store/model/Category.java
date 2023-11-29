@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.acceleration.store.model.enums.CategoryType;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
@@ -21,10 +21,15 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private CategoryType categoryType;
 
-    @OneToMany(mappedBy = "category")
-    private List<CategoryAttribute> categoryAttributeList;
+    @OneToOne
+    @JoinColumn(name = "parent_category_id")
+    private Category parentCategory;
+
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<CategoryAttribute> categoryAttributes;
 }

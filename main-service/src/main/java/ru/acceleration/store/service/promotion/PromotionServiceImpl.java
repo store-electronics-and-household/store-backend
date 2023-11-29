@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.product.ProductShortDto;
 import ru.acceleration.store.dto.promotion.PromotionDto;
 import ru.acceleration.store.mapper.PromotionMapper;
-import ru.acceleration.store.model.Promotion;
-import ru.acceleration.store.model.Sale;
 import ru.acceleration.store.repository.PromotionRepository;
 import ru.acceleration.store.repository.SaleRepository;
 import ru.acceleration.store.service.product.ProductService;

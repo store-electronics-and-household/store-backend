@@ -7,20 +7,20 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table(name = "model_images")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sales")
-public class Sale {
+public class ModelsImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id")
+    @Column(name = "model_image_id")
     private Long id;
 
-    @OneToOne
+    @Column(name = "image_link")
+    private String imageLink;
+
+    @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
-
-    @Column(name = "percent")
-    private Integer percent;
 }

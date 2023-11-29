@@ -7,6 +7,9 @@ import ru.acceleration.store.dto.user.UserRequestDto;
 import ru.acceleration.store.dto.user.UserResponseDto;
 import ru.acceleration.store.mapper.AuthorityMapper;
 import ru.acceleration.store.mapper.UserMapper;
+import ru.acceleration.store.model.Authority;
+import ru.acceleration.store.model.Role;
+import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.AuthorityRepo;
 import ru.acceleration.store.repository.UserRepository;
 

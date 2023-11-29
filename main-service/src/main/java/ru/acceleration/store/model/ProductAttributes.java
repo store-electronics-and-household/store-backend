@@ -12,14 +12,23 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "attributes")
-public class Attribute {
+@Table(name = "product_attributes")
+public class ProductAttributes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attribute_id")
+    @Column(name = "id")
     Long id;
 
-    @Column(name = "attribute_name")
-    String name;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "attribute_id")
+    Attribute attribute;
+
+
+    @Column(name = "attribute_value")
+    String value;
 }

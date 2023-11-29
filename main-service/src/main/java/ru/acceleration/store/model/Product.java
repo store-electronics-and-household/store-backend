@@ -1,27 +1,43 @@
 package ru.acceleration.store.model;
-
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Entity
-@Table(name = "products")
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long id;
+    Long id;
 
-    @Column(name = "serial_number")
-    private String serialNumber;
+    @Column(name = "vendor_code")
+    String vendorCode;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
+    @Column(name = "name")
+    String name;
+
+    @Column(name = "category_id")
+    Long categoryId;
+
+    @OneToMany
+    List<Attribute> attributes = new ArrayList<>();
+
+//    @ManyToMany(mappedBy = "products")
+//    @ToString.Exclude
+//    private List<Category> categories;
+//
+//    @ManyToMany(mappedBy = "products")
+//    @ToString.Exclude
+//    private List<Attribute> attributes;
+
+//    private List<Image> images;
 }

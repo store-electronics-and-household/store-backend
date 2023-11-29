@@ -1,6 +1,5 @@
-package ru.acceleration.store.dto.product;
+package ru.acceleration.store.dto.collection;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,13 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewProductDto {
+public class UpdateCollectionDto {
 
-    @NotBlank
-    @Size(max = 30)
-    private String vendorCode;
-
-    @NotBlank
     @Size(max = 100)
     private String name;
+
+    private String photoUrl;
 }

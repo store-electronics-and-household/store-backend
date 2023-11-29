@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto.promotion;
+package ru.acceleration.store.dto.collection;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PromotionDto {
+public class CollectionDto {
 
     /**
      * Идентификатор подборки
@@ -26,5 +26,6 @@ public class PromotionDto {
     /**
      * Ссылка на фотографию баннера
      */
+    @NotBlank
     private String photoUrl;
 }

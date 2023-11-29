@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.dto.product.ProductFullDto;
+import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.basket.BasketService;
 
@@ -44,17 +44,17 @@ public class BasketControllerTests {
 
     @BeforeEach
     void beforeEach() {
-        ProductFullDto firstProductCreateDto = new ProductFullDto(1L, "XY73GS33", "Apple iPhone 13 Pro Max 256GB", "1000");
-        ProductFullDto secondProductCreateDto = new ProductFullDto(2L, "YY735S3HG", "Apple iPhone 18 Pro Min 128GB", "2000");
-        ProductFullDto thirdProductCreateDto = new ProductFullDto(3L, "YT738BB93NHG", "Apple iPhone 4000 Pro Ultra 1TB", "13900");
-        List<ProductFullDto> firstUserProductList = new ArrayList<>();
+        ModelFullDto firstProductCreateDto = new ModelFullDto(1L, "XY73GS33", "Apple iPhone 13 Pro Max 256GB", "1000");
+        ModelFullDto secondProductCreateDto = new ModelFullDto(2L, "YY735S3HG", "Apple iPhone 18 Pro Min 128GB", "2000");
+        ModelFullDto thirdProductCreateDto = new ModelFullDto(3L, "YT738BB93NHG", "Apple iPhone 4000 Pro Ultra 1TB", "13900");
+        List<ModelFullDto> firstUserProductList = new ArrayList<>();
         firstUserProductList.add(firstProductCreateDto);
         firstUserProductList.add(thirdProductCreateDto);
-        List<ProductFullDto> secondUserProductList = new ArrayList<>();
+        List<ModelFullDto> secondUserProductList = new ArrayList<>();
         secondUserProductList.add(firstProductCreateDto);
         secondUserProductList.add(secondProductCreateDto);
         secondUserProductList.add(thirdProductCreateDto);
-        List<ProductFullDto> thirdUserProductList = new ArrayList<>();
+        List<ModelFullDto> thirdUserProductList = new ArrayList<>();
         thirdUserProductList.add(firstProductCreateDto);
         thirdUserProductList.add(thirdProductCreateDto);
         thirdUserProductList.remove(firstProductCreateDto);

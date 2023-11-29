@@ -1,7 +1,6 @@
-package ru.acceleration.store.dto.sale;
+package ru.acceleration.store.dto.model;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewSaleDto {
+public class NewModelDto {
 
     @NotBlank
-    @Positive
-    private Long modelId;
+    @Size(max = 30)
+    private String vendorCode;
 
     @NotBlank
-    @Positive
-    private Integer percent;
+    @Size(max = 100)
+    private String name;
 }

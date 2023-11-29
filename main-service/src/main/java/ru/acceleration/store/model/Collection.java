@@ -22,6 +22,9 @@ public class Collection {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "image_link")
+    private String imageLink;
+
     @ManyToMany
     @JoinTable(name = "model_collection_join",
             joinColumns = @JoinColumn(name = "model_id"),

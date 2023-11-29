@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "baskets")
+@Table(name = "users_basket")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket {
 
@@ -25,14 +25,11 @@ public class Basket {
     User user;
 
 //    @OneToMany(mappedBy = "users_basket")
-//    List<Model> product;
-//    @OneToMany
-//    @JoinTable(
-//            name = "basket_products",
-//            joinColumns = @JoinColumn(name = "basket_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    List<Model> productsModels;
+//    List<Product> product;
     @OneToMany
-    @JoinColumn(name = "basket_id")
-    public List<ModelSet> productModelSets;
+    @JoinTable(
+            name = "basket_products",
+            joinColumns = @JoinColumn(name = "basket_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    List<Product> products;
 }

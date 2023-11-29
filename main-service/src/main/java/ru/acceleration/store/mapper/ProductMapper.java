@@ -5,6 +5,7 @@ import org.mapstruct.ReportingPolicy;
 import ru.acceleration.store.dto.product.NewProductDto;
 import ru.acceleration.store.dto.product.ProductFullDto;
 import ru.acceleration.store.dto.product.ProductShortDto;
+import ru.acceleration.store.model.Product;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ProductMapper {

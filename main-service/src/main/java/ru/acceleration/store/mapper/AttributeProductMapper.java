@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.acceleration.store.dto.attribute.AttributeCategoryResponse;
 import ru.acceleration.store.dto.attribute.CategoryAttributesDto;
 import ru.acceleration.store.dto.attribute.ProductAttributesDto;
+import ru.acceleration.store.model.ProductAttributes;
 
 import java.util.*;
 

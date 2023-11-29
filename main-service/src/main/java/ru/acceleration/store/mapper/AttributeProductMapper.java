@@ -3,7 +3,7 @@ package ru.acceleration.store.mapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.dto.attribute.AttributeCategoryResponse;
-import ru.acceleration.store.dto.attribute.CategoryAttributesDto;
+import ru.acceleration.store.dto.attribute.CategoryAttributeOutcomeDto;
 import ru.acceleration.store.dto.attribute.ProductAttributesDto;
 
 import java.util.*;
@@ -28,10 +28,10 @@ public final class AttributeProductMapper {
             }
             mapAttribuiteCategory.get(productAttributes.getAttribute().getName()).add(productAttributes.getValue());
         }
-        List<CategoryAttributesDto> categoryAttributesDtoList = new ArrayList<>();
+        List<CategoryAttributeOutcomeDto> categoryAttributeOutcomeDtoList = new ArrayList<>();
         for (Map.Entry<String, Set<String>> entry : mapAttribuiteCategory.entrySet()) {
-            categoryAttributesDtoList.add(new CategoryAttributesDto(entry.getKey(), entry.getValue()));
+            categoryAttributeOutcomeDtoList.add(new CategoryAttributeOutcomeDto(entry.getKey(), entry.getValue()));
         }
-        return new AttributeCategoryResponse(categoryAttributesDtoList);
+        return new AttributeCategoryResponse(categoryAttributeOutcomeDtoList);
     }
 }

@@ -1,8 +1,10 @@
 package ru.acceleration.store.model;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.acceleration.store.model.enums.ModelSetStatus;
 
 import java.util.List;
 
@@ -25,18 +27,12 @@ public class ModelSet {
     @Column(name = "count")
     private Integer count;
 
-    @Column(name = "type")
+    @Column(name = "status")
     private ModelSetStatus status;
 
-    @OneToMany(mappedBy = "modelSet")
+    @ManyToMany
+    @JoinTable(name = "model_sets_products_join",
+            joinColumns = @JoinColumn(name = "model_set_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
-//    @ManyToMany(mappedBy = "productsModels")
-//    @ToString.Exclude
-//    private List<Category> categories;
-//
-//    @ManyToMany(mappedBy = "productsModels")
-//    @ToString.Exclude
-//    private List<Attribute> attributes;
-
-//    private List<Image> images;
 }

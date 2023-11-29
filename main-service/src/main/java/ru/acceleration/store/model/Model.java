@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.model.enums.ModelStatus;
 
 import java.util.List;
 
@@ -20,40 +21,32 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "model_id")
-    Long id;
+    private Long id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "description")
-    String description;
+    private String description;
 
     @Column(name = "price")
-    Long price;
+    private Long price;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    ModelStatus status;
+    private ModelStatus status;
+
+    @OneToOne
+    @Column(name = "sale_id")
+    private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    Category category;
+    private Category category;
 
     @OneToMany(mappedBy = "model")
-    List<ModelsImage> modelsImages;
+    private List<ModelImage> modelImages;
 
     @OneToMany(mappedBy = "model")
-    List<ModelAttribute> modelAttributes;
-
-//    @OneToMany
-//    List<Attribute> attributes = new ArrayList<>();
-
-//    @ManyToMany(mappedBy = "productsModels")
-//    @ToString.Exclude
-//    private List<Category> categories;
-//
-//    @ManyToMany(mappedBy = "productsModels")
-//    @ToString.Exclude
-//    private List<Attribute> attributes;
-
-//    private List<Image> images;
+    private List<ModelAttribute> modelAttributes;
 }

@@ -22,9 +22,12 @@ public class Collection {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "image_link")
+    private String imageLink;
+
     @ManyToMany
     @JoinTable(name = "model_collection_join",
-            joinColumns = @JoinColumn(name = "model_id"),
-            inverseJoinColumns = @JoinColumn(name = "collection_id"))
-    List<Model> models;
+            joinColumns = @JoinColumn(name = "collection_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id"))
+    private List<Model> models;
 }

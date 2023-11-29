@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.attribute.*;
 import ru.acceleration.store.mapper.AttributeProductMapper;
 import ru.acceleration.store.repository.ProductAttributesRepository;
-import ru.acceleration.store.service.product.ProductService;
+import ru.acceleration.store.service.model.ModelService;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ public class AttributeServiceImpl implements AttributeService {
 
     private final ProductAttributesRepository productAttributesRepository;
 
-    private final ProductService productService;
+    private final ModelService modelService;
 
     @Override
     public AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto) {
         log.info("AttributeServiceImpl getAttributeCategory dto {}", dto);
-        List<Long> productListId = productService.getProductIdByCategory(dto.getCategoryId());
+        List<Long> productListId = modelService.getProductIdByCategory(dto.getCategoryId());
         List<ProductAttributes> attributeList = productAttributesRepository.findAllAttributeCategory(productListId);
         AttributeCategoryResponse attributeCategoryResponse = AttributeProductMapper.toAttributeCategoryResponse(attributeList);
         return attributeCategoryResponse;

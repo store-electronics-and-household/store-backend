@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto.product;
+package ru.acceleration.store.dto.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductFullDto {
+public class ModelFullDto {
 
     private Long id;
 

@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.acceleration.store.dto.promotion.PromotionDto;
+import ru.acceleration.store.dto.collection.CollectionDto;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @RequiredArgsConstructor
-public class PromotionControllerTests {
+public class CollectionControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -25,9 +25,9 @@ public class PromotionControllerTests {
     @Autowired
     private ObjectMapper mapper;
 
-    PromotionDto promotionCreateDto = new PromotionDto(null, "Компьютеры со скидкой до -30%", null);
-    PromotionDto promotionCreateDtoWithEmptyName = new PromotionDto(null, "", null);
-    PromotionDto promotionEditDto = new PromotionDto(null, "Телефоны со скидкой до -50%", null);
+    CollectionDto promotionCreateDto = new CollectionDto(null, "Компьютеры со скидкой до -30%", null);
+    CollectionDto promotionCreateDtoWithEmptyName = new CollectionDto(null, "", null);
+    CollectionDto promotionEditDto = new CollectionDto(null, "Телефоны со скидкой до -50%", null);
 
     @Test
     void postPromotionTest() throws Exception {

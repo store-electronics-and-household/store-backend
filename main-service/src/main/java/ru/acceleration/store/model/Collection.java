@@ -5,18 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Entity
+@Table(name = "collections")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "attributes")
-public class Attribute {
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attribute_id")
+    @Column(name = "collection_id")
     private Long id;
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany
+    @JoinTable(name = "model_collection_join",
+            joinColumns = @JoinColumn(name = "model_id"),
+            inverseJoinColumns = @JoinColumn(name = "collection_id"))
+    List<Model> models;
 }

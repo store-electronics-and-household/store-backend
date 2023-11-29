@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto.user;
+package ru.acceleration.store.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class UserRequestDto {
+public class UserCreateDto {
 
     @NotBlank
     @Size(max = 250)

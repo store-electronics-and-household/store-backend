@@ -3,15 +3,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "products")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -24,12 +21,6 @@ public class Product {
 
     @Column(name = "name")
     String name;
-
-    @Column(name = "category_id")
-    Long categoryId;
-
-    @OneToMany
-    List<Attribute> attributes = new ArrayList<>();
 
 //    @ManyToMany(mappedBy = "products")
 //    @ToString.Exclude

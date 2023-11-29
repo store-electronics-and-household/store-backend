@@ -1,7 +1,6 @@
-package ru.acceleration.store.controller;
+package ru.acceleration.store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.acceleration.store.dto.user.UserRequestDto;
+import ru.acceleration.store.dto.UserCreateDto;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -24,39 +23,30 @@ public class UsersControllerTests {
     @Autowired
     private ObjectMapper mapper;
 
-    private UserRequestDto userRequestDto;
-    private UserRequestDto userRequestDtoWithEmptyName;
-    private UserRequestDto userRequestDtoWithEmptyPassword;
-    private UserRequestDto userRequestDtoWithEmptyEmail;
-    private UserRequestDto userRequestDtoWithIncorrectEmail;
+    UserCreateDto userCreateDto = new UserCreateDto("user", "user123@mail.com","user");
+    UserCreateDto userCreateDtoWithEmptyName = new UserCreateDto("", "user123@mail.com","user");
+    UserCreateDto userCreateDtoWithEmptyPassword = new UserCreateDto("user", "user123@mail.com","");
+    UserCreateDto userCreateDtoWithEmptyEmail = new UserCreateDto("user", "","user");
+    UserCreateDto userCreateDtoWithIncorrectEmail = new UserCreateDto("user", "user123mail.com","user");
 
-    @BeforeEach()
-    void beforeEach() {
-        userRequestDto = new UserRequestDto("user", "user123@mail.com","user");
-        userRequestDtoWithEmptyName = new UserRequestDto("", "user123@mail.com","user");
-        userRequestDtoWithEmptyPassword = new UserRequestDto("user", "user123@mail.com","");
-        userRequestDtoWithEmptyEmail = new UserRequestDto("user", "","user");
-        userRequestDtoWithIncorrectEmail = new UserRequestDto("user", "user123mail.com","user");
-    }
 
     @Test
     void postUserTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user")
-                        .content(mapper.writeValueAsString(userRequestDto))
+                        .content(mapper.writeValueAsString(userCreateDto))
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").isNotEmpty())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("user"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("user123@mail.com"))
-                .andExpect(status().isCreated());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("user"));
     }
 
     @Test
     void postUserWithEmptyNameTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user")
-                        .content(mapper.writeValueAsString(userRequestDtoWithEmptyName))
+                        .content(mapper.writeValueAsString(userCreateDtoWithEmptyName))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -65,7 +55,7 @@ public class UsersControllerTests {
     void postUserWithEmptyPasswordTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user")
-                        .content(mapper.writeValueAsString(userRequestDtoWithEmptyPassword))
+                        .content(mapper.writeValueAsString(userCreateDtoWithEmptyPassword))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -74,7 +64,7 @@ public class UsersControllerTests {
     void postUserWithEmptyEmail() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user")
-                        .content(mapper.writeValueAsString(userRequestDtoWithEmptyEmail))
+                        .content(mapper.writeValueAsString(userCreateDtoWithEmptyEmail))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -83,7 +73,7 @@ public class UsersControllerTests {
     void postUserWithIncorrectEmail() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user")
-                        .content(mapper.writeValueAsString(userRequestDtoWithIncorrectEmail))
+                        .content(mapper.writeValueAsString(userCreateDtoWithIncorrectEmail))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }

@@ -17,17 +17,10 @@ public class Sale {
     @Column(name = "sale_id")
     private Long id;
 
-    @Column(name = "sale_name")
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
 
-    @Column(name = "quantity")
-    private String quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "promotion_id")
-    private Promotion promotion;
+    @Column(name = "percent")
+    private Integer percent;
 }

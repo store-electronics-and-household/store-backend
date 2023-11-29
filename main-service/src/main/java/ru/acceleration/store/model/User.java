@@ -1,7 +1,13 @@
 package ru.acceleration.store.model;
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -37,8 +43,18 @@ public class User {
     @Column(name = "phone")
     String phone;
 
-    @Column(name = "address_id")
-    Long addressId;
+    @ManyToMany
+    @JoinTable(name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    List<Authority> authorities;
+
+    @ManyToMany
+    @JoinTable(name = "user_favourites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id"))
+    List<Model> models;
+
 
 //    @ManyToMany
 //    @JoinTable(name = "user_addresses",

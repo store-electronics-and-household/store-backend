@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.attribute.*;
 import ru.acceleration.store.mapper.AttributeProductMapper;
-import ru.acceleration.store.model.ProductAttributes;
 import ru.acceleration.store.repository.ProductAttributesRepository;
 import ru.acceleration.store.service.product.ProductService;
 

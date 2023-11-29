@@ -12,5 +12,5 @@ import java.util.List;
 @Builder
 public class AttributeCategoryResponse {
 
-    List<CategoryAttributesDto> attributes;
+    List<CategoryAttributeOutcomeDto> attributes;
 }

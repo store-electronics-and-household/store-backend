@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.acceleration.store.model.enums.AttributeType;
 
 @Data
 @Entity
@@ -30,5 +31,5 @@ public class CategoryAttribute {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private CategoryType categoryType;
+    private AttributeType attributeType;
 }

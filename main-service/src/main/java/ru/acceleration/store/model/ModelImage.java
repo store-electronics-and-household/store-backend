@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "model_images")
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModelsImage {
+public class ModelImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,4 @@ public class ModelsImage {
 
     @Column(name = "image_link")
     private String imageLink;
-
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
 }

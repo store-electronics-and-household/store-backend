@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.model.enums.BasketStatus;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -18,21 +21,19 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_basket_id")
-    Long id;
+    private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
-//    @OneToMany(mappedBy = "users_basket")
-//    List<Model> product;
-//    @OneToMany
-//    @JoinTable(
-//            name = "basket_products",
-//            joinColumns = @JoinColumn(name = "basket_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    List<Model> productsModels;
+    @Column(name = "created")
+    private LocalDateTime created;
+
     @OneToMany
     @JoinColumn(name = "basket_id")
-    public List<ModelSet> productModelSets;
+    private List<ModelSet> productModelSets;
+
+    @Column(name = "status")
+    private BasketStatus basketStatus;
 }

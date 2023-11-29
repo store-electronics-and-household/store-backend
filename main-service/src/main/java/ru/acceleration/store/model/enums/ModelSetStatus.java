@@ -1,4 +1,4 @@
-package ru.acceleration.store.model;
+package ru.acceleration.store.model.enums;
 
 public enum ModelSetStatus {
 

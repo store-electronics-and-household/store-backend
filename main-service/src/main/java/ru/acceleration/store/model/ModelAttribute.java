@@ -27,6 +27,4 @@ public class ModelAttribute {
 
     @Column(name = "value")
     private String value;
-//    @Column(name = "attribute_value")
-//    String value;
 }

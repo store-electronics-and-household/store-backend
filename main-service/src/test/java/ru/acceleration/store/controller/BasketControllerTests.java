@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.basket.BasketService;

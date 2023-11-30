@@ -11,8 +11,10 @@ import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.model.NewModelDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.ModelMapper;
+import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.enums.ModelSort;
+import ru.acceleration.store.repository.CategoryRepository;
 import ru.acceleration.store.repository.ModelRepository;
 
 import java.util.Comparator;
@@ -24,14 +26,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ModelServiceImpl extends PageRequestUtil implements ModelService {
 
+    private final CategoryRepository categoryRepository;
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
 
 
     @Override
-    public ModelShortDto addModel(NewModelDto newModelDto) {
+    public ModelShortDto addModel(Long categoryId, NewModelDto newModelDto) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(()
+        -> new DataNotFoundException("category with id: " + categoryId + " not found"));
         ModelShortDto modelShortDto = modelMapper.toModelShortDto(newModelDto);
-        return modelMapper.toModelShortDto(modelRepository.save(modelMapper.toModel(modelShortDto)));
+        Model model = modelMapper.toModel(modelShortDto);
+        model.setCategory(category);
+        modelRepository.save(model);
+        return modelMapper.toModelShortDto(model);
     }
 
     @Override
@@ -43,7 +51,6 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
     public List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort) {
         Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
         Page<Model> models = modelRepository.findAllByCategoryId(categoryId, page);
-
         return models.getContent()
                 .stream()
                 .map(modelMapper::toModelShortDto)
@@ -56,10 +63,9 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
                 -> new DataNotFoundException(String.format("Model with id=%d was not found", modelId)));
     }
 
-
     /**
      * Метод для сортировки при применении сортировки в stream().sorted()
-     * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection} 
+//     * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection}
      *
      * @param sort - вариант сортировки
      * @return Comparator

@@ -16,19 +16,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/models")
 @Slf4j
 public class ModelController {
 
     private final ModelService modelService;
 
-    @PostMapping
-    public ResponseEntity<ModelShortDto> addModel(@Valid @RequestBody NewModelDto newModelDto) {
+    @PostMapping("models/{categoryId}/model")
+    public ResponseEntity<ModelShortDto> addModel(@PathVariable Long categoryId, @Valid @RequestBody NewModelDto newModelDto) {
         log.info("POST: /models");
-        return ResponseEntity.status(201).body(modelService.addModel(newModelDto));
+        return ResponseEntity.status(201).body(modelService.addModel(categoryId, newModelDto));
     }
 
-    @GetMapping("/{modelId}")
+    @GetMapping("/models/{modelId}")
     public ResponseEntity<ModelFullDto> getModelById(@PathVariable Long modelId) {
         log.info("GET: /models/{}", modelId);
         return ResponseEntity.ok().body(modelService.getModelById(modelId));

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.acceleration.store.exceptions.EntityNotFoundException;
-import ru.acceleration.store.security.config.JwtTokenProvider;
+//import ru.acceleration.store.security.config.JwtTokenProvider;
 import ru.acceleration.store.security.dto.JwtRequest;
 import ru.acceleration.store.security.dto.New;
 import ru.acceleration.store.security.dto.UserDto;
@@ -45,13 +45,13 @@ public class AuthController {
     private final AuthService authService;
     private final ChangeService changeService;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
+  //  private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository repository;
 
     private final PasswordEncoder passwordEncoder;
 
 
-    @PostMapping("/autoriz")
+/*    @PostMapping("/autoriz")
     public ResponseEntity<Object> authorization(@RequestBody @Valid JwtRequest request) {
         log.info(LogMessage.TRY_AUTHORIZATION.label);
 
@@ -78,7 +78,7 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(ExceptionMessage.INVALID_AUTHENTICATION.label, HttpStatus.FORBIDDEN);
         }
-    }
+    }*/
 
     @PostMapping("/auth/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {

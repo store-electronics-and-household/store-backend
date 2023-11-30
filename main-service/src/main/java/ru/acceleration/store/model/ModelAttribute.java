@@ -17,14 +17,14 @@ public class ModelAttribute {
     @Column(name = "model_attribute_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
+//    @ManyToOne
+//    @JoinColumn(name = "model_id")
+//    private Model model;
 
     @ManyToOne
     @JoinColumn(name = "category_attribute_id")
     private CategoryAttribute categoryAttribute;
 
-    @Column(name = "value")
+    @Column(name = "valueses")
     private String value;
 }

@@ -3,8 +3,7 @@ package ru.acceleration.store.dto.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.model.ModelsImage;
-
+import ru.acceleration.store.model.ModelImage;
 import java.util.List;
 
 @Data
@@ -16,7 +15,9 @@ public class ModelShortDto {
 
     private String name;
 
+    private String description;
+
     private Long price;
 
-    List<ModelsImage> modelsImages;
+    List<ModelImage> modelsImages;
 }

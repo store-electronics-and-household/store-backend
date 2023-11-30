@@ -9,9 +9,8 @@ import ru.acceleration.store.model.Category;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CategoryMapper {
-    @Mapping(source = "userId", target = "user.id")
+
     Category categoryIncomeDtoToCategory(CategoryIncomeDto categoryIncomeDto);
 
-    @Mapping(source = "user.id", target = "userId")
     CategoryOutcomeDto categoryToCategoryOutcomeDto(Category category);
 }

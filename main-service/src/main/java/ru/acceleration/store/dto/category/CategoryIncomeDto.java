@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.dto.attribute.CategoryAttributeOutcomeDto;
+
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.enums.CategoryType;
 import ru.acceleration.store.validation.OnCreate;

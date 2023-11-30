@@ -2,6 +2,8 @@ package ru.acceleration.store.service.model;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
@@ -25,7 +27,8 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public ModelShortDto addModel(NewModelDto newModelDto) {
-        return null;
+        ModelShortDto modelShortDto = modelMapper.toModelShortDto(newModelDto);
+        return modelMapper.toModelShortDto(modelRepository.save(modelMapper.toModel(modelShortDto)));
     }
 
     @Override
@@ -34,9 +37,15 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    public List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size) {
+        List<Model> models = modelRepository.findAllByCategoryId(categoryId, PageRequest.of(from, size, Sort.by("id").ascending()));
+        List<ModelShortDto> modelShortDtos = modelMapper.toModelShortDtoList(models);
+        return modelShortDtos;
+    }
+
+    @Override
     public Model getExistingModel(Long modelId) {
-        return modelRepository.findById(modelId).orElseThrow(() -> {
-            throw new DataNotFoundException(String.format("Model with id=%d was not found", modelId));
-        });
+        return modelRepository.findById(modelId).orElseThrow(()
+                -> new DataNotFoundException(String.format("Model with id=%d was not found", modelId)));
     }
 }

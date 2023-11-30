@@ -1,5 +1,4 @@
 package ru.acceleration.store.controller;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import ru.acceleration.store.dto.category.CategoryOutcomeDto;
 import ru.acceleration.store.service.category.CategoryService;
 import ru.acceleration.store.validation.OnCreate;
 import ru.acceleration.store.validation.OnUpdate;
-
 import java.util.List;
 
 @RestController

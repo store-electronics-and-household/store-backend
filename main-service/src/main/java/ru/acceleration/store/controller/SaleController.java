@@ -19,16 +19,16 @@ public class SaleController {
 
     private final SaleService saleService;
 
+    @PatchMapping("/{saleId}")
+    public ResponseEntity<SaleDto> editSale(@PathVariable Long saleId, @Valid @RequestBody UpdateSaleDto updateSaleDto) {
+        log.info("PATCH: /sale/{}", saleId);
+        return ResponseEntity.ok().body(saleService.editSale(saleId, updateSaleDto));
+    }
+
     @PostMapping
     public ResponseEntity<SaleDto> addSale(@Valid @RequestBody NewSaleDto newSaleDto) {
         log.info("POST: /sale");
         return ResponseEntity.status(201).body(saleService.addSale(newSaleDto));
-    }
-
-    @PatchMapping("/{saleId}")
-    public ResponseEntity<SaleDto> editSale(@PathVariable Long saleId, @RequestBody UpdateSaleDto updateSaleDto) {
-        log.info("PATCH: /sale/{}", saleId);
-        return ResponseEntity.ok().body(saleService.editSale(saleId, updateSaleDto));
     }
 
     @DeleteMapping("/{saleId}")

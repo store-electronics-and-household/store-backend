@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.model.enums.ModelStatus;
 
@@ -38,6 +35,7 @@ public class Model {
 
     @OneToOne
     @JoinColumn(name = "model_id")
+    @ToString.Exclude
     private Sale sale;
 
     @ManyToOne

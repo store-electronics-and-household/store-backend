@@ -13,7 +13,6 @@ import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.Sale;
 import ru.acceleration.store.repository.SaleRepository;
 import ru.acceleration.store.service.model.ModelService;
-import ru.acceleration.store.service.collection.CollectionService;
 
 @Service
 @Slf4j
@@ -23,7 +22,6 @@ public class SaleServiceImpl implements SaleService {
     private final SaleRepository saleRepository;
     private final SaleMapper saleMapper;
     private final ModelService modelService;
-    private final CollectionService collectionService;
 
     /**
      * Метод создает скидку к товару.
@@ -43,7 +41,7 @@ public class SaleServiceImpl implements SaleService {
         }
 
         Sale sale = saleMapper.toSale(newSaleDto);
-//        sale.setModel(model);
+        sale.setModel(model);
 
         Sale savedSale = saleRepository.save(sale);
         log.info("Added new sale for model with ID: {}, sale: {}", model.getId(), savedSale);
@@ -54,7 +52,7 @@ public class SaleServiceImpl implements SaleService {
      * Метод изменяет поля скидки, прикрепленной к товару.
      * Можно изменить name, quantity или переместить скидку в другой существующий баннер.
      *
-     * @param "productId" Id товара
+     * @param saleId Id товара
      * @param updateSaleDto данные для обновления
      * @return обновленный объект скидки
      */

@@ -27,5 +27,5 @@ public class CollectionDto {
      * Ссылка на фотографию баннера
      */
     @NotBlank
-    private String photoUrl;
+    private String imageLink;
 }

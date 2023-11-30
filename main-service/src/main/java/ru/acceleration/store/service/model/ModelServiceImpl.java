@@ -65,7 +65,7 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
 
     /**
      * Метод для сортировки при применении сортировки в stream().sorted()
-//     * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection}
+     * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection}
      *
      * @param sort - вариант сортировки
      * @return Comparator

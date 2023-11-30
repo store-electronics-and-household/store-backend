@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.acceleration.store.model.enums.CategoryType;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class Category {
 
     @OneToOne
     @JoinColumn(name = "parent_category_id")
+    @ToString.Exclude
     private Category parentCategory;
 
     @OneToMany

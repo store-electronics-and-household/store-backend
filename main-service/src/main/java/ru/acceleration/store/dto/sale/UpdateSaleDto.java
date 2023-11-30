@@ -1,6 +1,6 @@
 package ru.acceleration.store.dto.sale;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateSaleDto {
 
-    @NotBlank
+    @NotNull
     @Positive
     private Integer percent;
 }

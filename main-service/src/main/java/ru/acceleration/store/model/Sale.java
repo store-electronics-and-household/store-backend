@@ -19,4 +19,8 @@ public class Sale {
 
     @Column(name = "percent")
     private Integer percent;
+
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
 }

@@ -1,99 +1,96 @@
-//package ru.acceleration.store.controller;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import lombok.RequiredArgsConstructor;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mockito;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-//import ru.acceleration.store.dto.sale.NewSaleDto;
-//import ru.acceleration.store.dto.sale.SaleDto;
-//import ru.acceleration.store.exceptions.DataNotFoundException;
-//import ru.acceleration.store.service.sale.SaleService;
-//
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//@AutoConfigureMockMvc
-//@SpringBootTest
-//@RequiredArgsConstructor
-//public class SaleControllerTests {
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private ObjectMapper mapper;
-//
-//    @MockBean
-//    private SaleService saleServiceMock;
-//
-//    private NewSaleDto newSaleDto;
-//    private NewSaleDto newSaleDtoWithNullProduct;
-//    private SaleDto saleDto;
-//    private NewSaleDto newSaleDtoWithPromotionDoesntExist;
-//    private NewSaleDto newSaleDtoWithoutPromotion;
-//    private SaleDto saleDtoWithoutPromotion;
-//
-//    @BeforeEach
-//    void beforeEach() {
-//        newSaleDto = new NewSaleDto("Такая вот скидка в подборке", "200", 1L);
-//        newSaleDtoWithNullProduct = new NewSaleDto("Такая вот скидка", "200", 1L);
-//        saleDto = new SaleDto(1L, "Такая вот скидка в подборке", "200", 1L, 1L);
-//        newSaleDtoWithPromotionDoesntExist = new NewSaleDto("Такая вот скидка", "200", 1000L);
-//        newSaleDtoWithoutPromotion = new NewSaleDto("Такая вот скидка", "200", null);
-//        saleDtoWithoutPromotion = new SaleDto(1L, "Такая вот скидка", "200", 2L, null);
-//    }
-//
-//    @Test
-//    void postSaleWithPromotion() throws Exception {
-//        Mockito.when(saleServiceMock.addSale(1L, this.newSaleDto)).thenReturn(saleDto);
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .post("/product/1/sale")
-//                        .content(mapper.writeValueAsString(saleDto))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Такая вот скидка в подборке"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.quantity").value("200"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.productId").value(1))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.promotionId").value(1));
-//    }
-//
-//    @Test
-//    void postSaleWithNullProduct() throws Exception {
-//        Mockito.when(saleServiceMock.addSale(4L, newSaleDtoWithNullProduct)).thenThrow(DataNotFoundException.class);
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .post("/product/4/sale")
-//                        .content(mapper.writeValueAsString(newSaleDtoWithNullProduct))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
-//
-//    @Test
-//    void postSaleWithoutPromotion() throws Exception {
-//        Mockito.when(saleServiceMock.addSale(2L, newSaleDtoWithoutPromotion)).thenReturn(saleDtoWithoutPromotion);
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .post("/product/2/sale")
-//                        .content(mapper.writeValueAsString(saleDtoWithoutPromotion))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Такая вот скидка"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.quantity").value("200"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.productId").value(2))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.promotionId").doesNotExist());
-//    }
-//
-//    @Test
-//    void postSaleWithPromotionWhichDoesntExist() throws Exception {
-//        Mockito.when(saleServiceMock.addSale(2L, newSaleDtoWithPromotionDoesntExist)).thenThrow(DataNotFoundException.class);
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .post("/product/2/sale")
-//                        .content(mapper.writeValueAsString(newSaleDtoWithPromotionDoesntExist))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
-//}
+package ru.acceleration.store.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import ru.acceleration.store.dto.model.NewModelDto;
+import ru.acceleration.store.dto.sale.NewSaleDto;
+import ru.acceleration.store.dto.sale.UpdateSaleDto;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@AutoConfigureMockMvc
+@SpringBootTest
+@RequiredArgsConstructor
+public class SaleControllerTests {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper mapper;
+
+    NewSaleDto newSaleDto = new NewSaleDto(1L, 30);
+    NewSaleDto newSaleDtoWithNullModel = new NewSaleDto(null, 30);
+    NewSaleDto newSaleDtoWithModelWhichDoesntExist = new NewSaleDto(3L, 30);
+    NewSaleDto newSaleDtoWithNullPercent = new NewSaleDto(1L, null);
+    UpdateSaleDto updateSaleDto = new UpdateSaleDto(10);
+    NewModelDto modelCreateDto = new NewModelDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L);
+
+
+    @Test
+    void postSaleShouldReturnBadRequestWithNullModel() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/sale")
+                        .content(mapper.writeValueAsString(newSaleDtoWithNullModel))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void postSaleShouldReturnBadRequestWithNullPercent() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/sale")
+                        .content(mapper.writeValueAsString(newSaleDtoWithNullPercent))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void postSaleShouldReturnNotFoundWhenModelDoesntExist() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/sale")
+                        .content(mapper.writeValueAsString(newSaleDtoWithModelWhichDoesntExist))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void postSaleShouldAddOnlyOneSaleForOneModel() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/models/1/model")
+                        .content(mapper.writeValueAsString(modelCreateDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/sale")
+                        .content(mapper.writeValueAsString(newSaleDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.modelId").value(newSaleDto.getModelId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.percent").value(newSaleDto.getPercent()));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/sale")
+                        .content(mapper.writeValueAsString(newSaleDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    void shouldEditSale() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .patch("/sale/1")
+                        .content(mapper.writeValueAsString(updateSaleDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.modelId").value(1L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.percent").value(10));
+    }
+}

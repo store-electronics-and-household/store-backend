@@ -1,0 +1,8 @@
+@import './_extends';
+
+@mixin fontStyle ($fontS, $fontW, $textD: none) {
+  @extend %fontStyle;
+  font-size: $fontS;
+  font-weight: $fontW;
+  text-decoration: $textD;
+}

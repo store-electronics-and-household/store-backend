@@ -1,0 +1,47 @@
+.contacts__container {
+  max-width: 1130px;
+  margin: auto;
+  padding: 44px 20px 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.contacts__header {
+  margin: 0;
+  font-size: 68px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.contacts__info {
+  font-size: 56px;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.contacts__phone-time {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: normal;
+  max-width: 400px;
+  margin: 0;
+}
+
+.contacts__adress {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 0;
+  margin-bottom: 32px;
+  max-width: 899px;
+}
+
+.contacts__map {
+  width: 100%;
+  max-height: 721px;
+  object-fit: cover;
+  border-radius: 25px;
+}

@@ -1,0 +1,74 @@
+.about-company__container {
+    box-sizing: border-box;
+    max-width: 1440px;
+    margin: auto;
+    padding: 44px 271px 140px 155px;
+}
+
+.about-company__header {
+  font-size: 68px;
+  font-weight: 700;
+  line-height: 100%;
+  margin-top: 0;
+  margin-bottom: 64px;
+}
+
+.about-company__feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 'goal delivery' 'new delivery';
+  column-gap: 139px;
+  row-gap: 64px;
+}
+
+.about-company__feature {
+  display: grid;
+  grid-template-areas: 'a b' 'a c';
+  column-gap: 9px;
+  height: fit-content;
+}
+
+.about-company__feature:first-of-type {
+  grid-area: goal;
+}
+
+.about-company__feature:nth-last-of-type(2) {
+  grid-area: delivery;
+}
+
+.about-company__feature:last-of-type {
+  grid-area: new;
+}
+
+.about-company__feature-name {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 146%;
+  margin-top: 0;
+  margin-bottom: 24px;
+  grid-area: b;
+}
+
+.about-company__feature-icon {
+  grid-area: a;
+  width: 38px;
+  height: 38px;
+}
+
+.about-company__feature-text {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  max-width: 386px;
+}
+
+.about-company__feature-content {
+  grid-area: c;
+}
+
+.about-company__feature-text:last-of-type {
+  margin-bottom: 0;
+}

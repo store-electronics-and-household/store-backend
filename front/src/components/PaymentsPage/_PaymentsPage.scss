@@ -1,0 +1,137 @@
+.payments-page {
+  margin: 0 0 auto;
+
+}
+
+.payments-page__title {
+  margin: 44px 0 44px 40px;
+  @include fontStyle($fontSH2, $fontWH2)
+}
+
+.payments-page__container {
+  width: 1360px;
+  margin: 0 auto 140px;
+  display: flex;
+}
+
+.payments-page__input-containers {
+  width: 899px;
+  height: 635px;
+}
+
+.payments-page__client-name {
+  width: 100%;
+  height: 220px;
+  margin-bottom: 24px;
+  background-color: $greyColor;
+  border-radius: 24px;
+}
+
+.payments-page__client-address {
+  width: 100%;
+  height: 391px;
+  background-color: $greyColor;
+  border-radius: 24px;
+}
+
+.payments-page__title-container {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 40px;
+}
+
+.payments-page__form-title {
+  @include fontStyle($fontSPriceSmall, $fontWPriceSmall);
+  padding: 40px 0 24px 40px;
+}
+
+.payments-page__line {
+  border-bottom: 1px #B6B6B6 solid;
+  margin: 0 40px;
+}
+
+.payments-page__delivery-type {
+  background: var(--main-white, #FFF);
+  width: 126px;
+  height: 35px;
+  border-radius: 24px;
+  @include fontStyle($fontSBodyBold, $fontWBodyBold);
+  margin: auto 0;
+  border: none;
+}
+
+.payments-page__delivery-type:first-of-type {
+  width: 92px;
+  margin: auto 24px auto auto;
+}
+
+.payments-page__delivery-type:last-of-type {
+  width: 126px;
+}
+
+.payments-page__summary-conatiner {
+  // display: flex;
+}
+
+.payments-page__summary {
+  background-color: $greyColor;
+  border-radius: 24px;
+  width: 437px;
+  margin-left: 24px;
+
+}
+
+.payments-page__cart-container {
+  margin: 24px 40px 24px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 16px;
+}
+
+.payments-page__good {
+  background: var(--main-white, #FFF);
+  width: 100px;
+  height: 100px;
+  border-radius: 13.333px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.payments-page__good-photo {
+  margin: auto;
+  height: 72px;
+  max-width: 59px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.payments-page__good-numbers {
+  position: absolute;
+  @include fontStyle($fontSCaption, 600);
+  bottom: 6px;
+  right: 6px;
+  line-height: 14px;
+  font-family: 'Wix Madefor Display';
+}
+
+.payments-page__summary-data {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 40px 24px 40px;
+}
+
+.payments-page__summary-row {
+  @include fontStyle($fontSBody, $fontWBody)
+}
+
+.payments-page__summary-row_discount {
+  color: var(--Dark-gray, #B6B6B6);
+}
+
+.payments-page__summary-final {
+  @include fontStyle($fontSPriceSmall, $fontWPriceSmall);
+  margin: 24px 0 40px;
+}
+

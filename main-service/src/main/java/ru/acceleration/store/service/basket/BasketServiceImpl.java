@@ -9,10 +9,12 @@ import ru.acceleration.store.mapper.BasketMapper;
 import ru.acceleration.store.mapper.ProductMapper;
 import ru.acceleration.store.model.Basket;
 import ru.acceleration.store.model.Product;
-import ru.acceleration.store.model.User;
+//import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.BasketRepo;
 import ru.acceleration.store.repository.ProductRepository;
-import ru.acceleration.store.repository.UserRepository;
+import ru.acceleration.store.security.model.User;
+import ru.acceleration.store.security.repository.UserRepository;
+//import ru.acceleration.store.repository.UserRepository;
 
 import java.util.ArrayList;
 

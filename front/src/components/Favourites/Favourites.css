@@ -1,0 +1,38 @@
+.favourites {
+  display: flex;
+  width: 1440px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  min-height: max-content;
+}
+
+.favourites__container {
+  display: flex;
+  flex-direction: column;
+  margin: 64px auto 140px;
+  padding-right: 40px;
+  padding-left: 40px;
+  width: 1360px;
+}
+
+.favourites__header {
+  display: flex;
+  margin: 0;
+  align-self: flex-start;
+  font-family: Helvetica Neue;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 68.38px;
+}
+
+.favourites__content {
+  display: grid;
+  row-gap: 64px;
+  column-gap: 24px;
+  margin-top: 44px;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1360px;
+  list-style: none;
+}

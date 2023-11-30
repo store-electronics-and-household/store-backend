@@ -1,0 +1,39 @@
+.tile-main {
+  max-width: 1360px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 140px;
+}
+
+.tile-main__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 44px;
+  letter-spacing: 3px;
+}
+
+.tile-main__title {
+  font-family:
+    Helvetica Neue,
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  color: var(--Black, #222);
+  z-index: 1;
+}
+
+.tile-main__list {
+  max-width:  1360px;
+  display: grid;
+  grid-template-columns: repeat(4, 322px);
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

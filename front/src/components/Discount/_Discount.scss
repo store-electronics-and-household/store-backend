@@ -1,0 +1,31 @@
+.discount {
+  margin: 0 auto 140px auto;
+  height: 360px;
+  display: flex;
+  gap: 24px;
+  width: 1360px;
+}
+
+.discount__container {
+  height: 100%;
+}
+
+.discount__container:first-child {
+  width: 553px;
+}
+
+.discount__container:nth-child(2) {
+  width: 323px;
+}
+
+.discount__container:last-child {
+  width: 438px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 24px;
+}
+
+.discount__offer {
+  width: 100%;
+  height: 100%;
+}

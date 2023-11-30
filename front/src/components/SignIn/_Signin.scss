@@ -1,0 +1,171 @@
+.signin__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 440px;
+  min-height: 516px;
+  width: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  background-color: #fff;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 25px;
+}
+
+.signin__title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.signin__title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  font-family: 'Wix Madefor Display';
+  max-width: 400px;
+}
+
+.signin__subtitle {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  margin: 4px 0 0;
+  max-width: 400px;
+}
+
+.signin__inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+
+.signin__input {
+  padding: 10px 12px 10px;
+  border-radius: 12px;
+  border: 1px solid #B6B6B6;
+  width: 324px;
+  min-height: 24px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.signin__input:first-of-type {
+  margin-top: 0px;
+}
+
+.signin__input:focus {
+  border-color: black;
+}
+
+.signin__input_valid {
+  border: 1px solid #60FF23;
+}
+
+.signin__input_invalid {
+  border: 1px solid #FF014E;
+}
+
+.signin__error-text {
+  color: #FF014E;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  max-width: 324px;
+  margin: 8px 0 0;
+  align-self: flex-start;
+  padding-left: 25px;
+}
+
+.signin__buttons {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signin__button {
+  border-radius: 40px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 324px;
+  height: 56px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-family: 'Wix Madefor Display';
+}
+
+.signin__button:active {
+  transform: scale(0.95);
+}
+
+.signin__button:last-child {
+  margin-bottom: 12px;
+}
+
+.signin__button_enter {
+  background: #222;
+  color: #fff;
+  border: none;
+}
+
+.signin__button_enter:disabled {
+  background: #B6B6B6;
+}
+
+.signin__button_registr {
+  background: #fff;
+  color: black;
+}
+
+.signin__button_cls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  background-image: url('#{$images-dir2}icons/popup__button-close.svg');
+  box-sizing: border-box;
+  border-radius: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.signin__button_cls:active {
+  transform: scale(0.95);
+}
+
+.signin__link {
+  text-decoration: none;
+  margin-top: 16px;
+  align-self: center;
+  color: #0500FF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+}

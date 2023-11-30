@@ -1,0 +1,185 @@
+.card-medium {
+  margin: auto;
+  position: relative;
+  list-style: none;
+  padding-left: 0;
+}
+
+.card-medium__container {
+  width: 322px;
+  height: 459px;
+
+}
+
+.card-medium__like {
+  background-image: url('#{$imagesDir}1.svg');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  padding: 8px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.card-medium__like:hover {
+  background-image: url('#{$imagesDir}hover-like.svg');
+}
+
+.card-medium__like_active {
+  background-image: url('#{$imagesDir}liked.svg');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  padding: 8px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.card-medium__sticker {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--Black, #222);
+  width: 48px;
+  height: 19px;
+  padding: 8px;
+  border-radius: 40px;
+  background: #fff;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+}
+
+.card-medium__image {
+  padding: 114px 40px 115px;
+  border-radius: 25px;
+  background: var(--Gray, #ededed);
+  width: 241px;
+  height: 147px;
+}
+
+.card-medium__buy {
+  background-image: url('#{$imagesDir}shopping.svg');
+  width: 64px;
+  height: 56px;
+  background-position: center;
+  border-radius: 40px;
+  background-color: var(--Black, #222);
+  border: none;
+  padding: 16px 20px;
+  position: absolute;
+  top: 304px;
+  right: 16px;
+  background-repeat: no-repeat;
+}
+
+.card-medium__buy:hover {
+  background-color: var(--Pink, #f0c7ec);
+}
+
+.card-medium__title {
+  overflow: visible;
+  color: #1b1b1b;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  hyphens: auto;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.card-medium__price {
+  color: #1b1b1b;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+
+.card-medium__oldprice {
+  color: #bcbcbc;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration-line: line-through;
+  margin: 0;
+}
+
+.card-medium__price-container {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.card-medium__footer {
+  overflow: hidden;
+  height: 77px;
+}
+
+.card-medium__link {
+  hyphens: auto;
+  word-wrap: break-word;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-medium__counter {
+  color: var(--Black, #222);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  position: absolute;
+  top: 321px;
+  left: 244px;
+}
+
+.card-medium__buy_big {
+  width: 82px;
+  background-image: url('#{$imagesDir}shopping1.svg');
+  height: 56px;
+  background-position: 38px;
+  border-radius: 40px;
+  background-color: var(--White, #fff);
+  border: 1px solid var(--Black, #222);
+  padding-top: 16px;
+  position: absolute;
+  top: 304px;
+  right: 16px;
+  background-repeat: no-repeat;
+}
+
+.card-medium__container-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 77px;
+}
+
+.card-medium__container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

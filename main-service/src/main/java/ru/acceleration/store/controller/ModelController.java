@@ -39,8 +39,9 @@ public class ModelController {
                                                                      @RequestParam(value = "from", defaultValue = "0")
                                                                      @PositiveOrZero Integer from,
                                                                      @RequestParam(value = "size", defaultValue = "10")
-                                                                     @Positive Integer size) {
+                                                                     @Positive Integer size,
+                                                                     @RequestParam(defaultValue = "NAME") String sort) {
         log.info("GET: /models/{}?=" + from + "&size=" + size, categoryId);
-        return ResponseEntity.ok().body(modelService.getModelByCategory(categoryId, from, size));
+        return ResponseEntity.ok().body(modelService.getModelByCategory(categoryId, from, size, sort));
     }
 }

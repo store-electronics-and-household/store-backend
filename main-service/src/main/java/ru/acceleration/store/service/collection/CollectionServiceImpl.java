@@ -11,7 +11,9 @@ import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.CollectionMapper;
 import ru.acceleration.store.mapper.ModelMapper;
 import ru.acceleration.store.model.Collection;
+import ru.acceleration.store.model.enums.ModelSort;
 import ru.acceleration.store.repository.CollectionRepository;
+import ru.acceleration.store.service.model.ModelService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,7 @@ public class CollectionServiceImpl implements CollectionService {
     private final CollectionRepository collectionRepository;
     private final CollectionMapper collectionMapper;
     private final ModelMapper modelMapper;
+    private final ModelService modelService;
 
     @Override
     public CollectionDto createCollection(CollectionDto collectionDto) {
@@ -56,10 +59,11 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
-    public List<ModelShortDto> getCollection(Long collectionId) {
+    public List<ModelShortDto> getCollection(Long collectionId, String sort) {
         Collection collection = getExistingCollection(collectionId);
         return collection.getModels()
                 .stream()
+                .sorted(modelService.getComparator(ModelSort.valueOf(sort)))
                 .map(modelMapper::toModelShortDto)
                 .collect(Collectors.toList());
     }

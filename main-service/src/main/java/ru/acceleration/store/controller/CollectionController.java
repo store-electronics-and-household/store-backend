@@ -38,7 +38,7 @@ public class CollectionController {
     @GetMapping("/{collectionID}")
     public ResponseEntity<List<ModelShortDto>> getCollection(@PathVariable Long collectionID,
                                                              @RequestParam(defaultValue = "NAME") String sort) {
-        log.info("GET: /collections/{}", collectionID);
+        log.info("GET: /collections/{}?sort=" + sort, collectionID);
         return ResponseEntity.ok().body(collectionService.getCollection(collectionID, sort));
     }
 

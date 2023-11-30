@@ -15,7 +15,7 @@ public interface CollectionService {
 
     List<CollectionDto> getCollections();
 
-    List<ModelShortDto> getCollection(Long collectionId);
+    List<ModelShortDto> getCollection(Long collectionId, String sort);
 
     CollectionDto editCollection(Long collectionId, UpdateCollectionDto updateCollectionDto);
 

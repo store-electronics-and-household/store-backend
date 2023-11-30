@@ -1,6 +1,8 @@
 package ru.acceleration.store.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,15 +29,17 @@ public class CollectionController {
     }
 
     /**
-     * Метод передает список всех товаров со скидками, которые входят в определенную подборку
+     * Метод передает список всех товаров, которые входят в определенную подборку
      *
      * @param collectionID - ID подборки
+     * @param sort - Вариант сортировки: NAME, DESC_PRICE, ASC_PRICE. По умолчанию NAME.
      * @return список акционных товаров, входящих в подборку
      */
     @GetMapping("/{collectionID}")
-    public ResponseEntity<List<ModelShortDto>> getCollection(@PathVariable Long collectionID) {
+    public ResponseEntity<List<ModelShortDto>> getCollection(@PathVariable Long collectionID,
+                                                             @RequestParam(defaultValue = "NAME") String sort) {
         log.info("GET: /collections/{}", collectionID);
-        return ResponseEntity.ok().body(collectionService.getCollection(collectionID));
+        return ResponseEntity.ok().body(collectionService.getCollection(collectionID, sort));
     }
 
     @PostMapping

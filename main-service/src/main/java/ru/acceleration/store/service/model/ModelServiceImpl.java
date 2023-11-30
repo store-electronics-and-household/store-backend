@@ -2,24 +2,27 @@ package ru.acceleration.store.service.model;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.acceleration.store.abstraction.PageRequestUtil;
 import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.model.NewModelDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.ModelMapper;
 import ru.acceleration.store.model.Model;
+import ru.acceleration.store.model.enums.ModelSort;
 import ru.acceleration.store.repository.ModelRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ModelServiceImpl implements ModelService {
+public class ModelServiceImpl extends PageRequestUtil implements ModelService {
 
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
@@ -37,15 +40,37 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size) {
-        List<Model> models = modelRepository.findAllByCategoryId(categoryId, PageRequest.of(from, size, Sort.by("id").ascending()));
-        List<ModelShortDto> modelShortDtos = modelMapper.toModelShortDtoList(models);
-        return modelShortDtos;
+    public List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort) {
+        Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
+        Page<Model> models = modelRepository.findAllByCategoryId(categoryId, page);
+
+        return models.getContent()
+                .stream()
+                .map(modelMapper::toModelShortDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Model getExistingModel(Long modelId) {
         return modelRepository.findById(modelId).orElseThrow(()
                 -> new DataNotFoundException(String.format("Model with id=%d was not found", modelId)));
+    }
+
+
+    /**
+     * Метод для сортировки при применении сортировки в stream().sorted()
+     * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection} 
+     *
+     * @param sort - вариант сортировки
+     * @return Comparator
+     */
+    @Override
+    public Comparator<Model> getComparator(ModelSort sort) {
+        return switch (sort) {
+            case NAME -> Comparator.comparing(Model::getName);
+            case DESC_PRICE -> Comparator.comparing(Model::getPrice).reversed();
+            case ASC_PRICE -> Comparator.comparing(Model::getPrice);
+            default -> throw new IllegalArgumentException("Unsupported sorting option: " + sort);
+        };
     }
 }

@@ -15,4 +15,6 @@ public interface ModelService {
     ModelFullDto getModelById(Long modelId);
 
     Model getExistingModel(Long modelId);
+
+    List<ModelShortDto> getModelByCategory(Long categoryId, Integer from,  Integer size);
 }

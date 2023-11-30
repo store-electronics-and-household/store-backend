@@ -21,9 +21,9 @@ public class Authority {
     @Column(name = "authority_id")
     private Long id;
 
-    @Column(name = "username")
-    @NotBlank
-    private String username;
+//    @Column(name = "username")
+//    @NotBlank
+//    private String username;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")

@@ -1,15 +1,26 @@
 package ru.acceleration.store.service.attribute;
 
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.dto.attribute.AttributeCategoryRequest;
-import ru.acceleration.store.dto.attribute.AttributeCategoryResponse;
-import ru.acceleration.store.dto.attribute.AttributeProductRequest;
-import ru.acceleration.store.dto.attribute.AttributeProductResponse;
+import ru.acceleration.store.dto.attribute.*;
+
+import java.util.List;
 
 @Service
 public interface AttributeService {
 
-    AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto);
 
-    AttributeProductResponse getAttributeProduct(AttributeProductRequest dto);
+    CategoryAttributeDtoResponse postCategoryAttribute(Long attributeId, Long categoryId,
+                                                       CategoryAttributeDtoRequest categoryAttributeDtoRequest);
+
+    ModelAttributeDtoResponse postModelAttribute(Long modelId, Long categoryAttributeId,
+                                                 ModelAttributeDtoRequest modelAttributeDtoRequest);
+
+
+    List<ModelAttributeDtoResponse> getAllModelAttributeByModelId(Long modelId);
+
+
+
+//    AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto);
+//
+//    AttributeProductResponse getAttributeProduct(AttributeProductRequest dto);
 }

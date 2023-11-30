@@ -37,16 +37,18 @@ public class Model {
     private ModelStatus status;
 
     @OneToOne
-    @Column(name = "sale_id")
+    @JoinColumn(name = "model_id")
     private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany
+    @JoinColumn(name = "model_id")
     private List<ModelImage> modelImages;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany
+    @JoinColumn(name = "model_id")
     private List<ModelAttribute> modelAttributes;
 }

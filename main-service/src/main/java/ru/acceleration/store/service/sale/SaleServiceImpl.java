@@ -43,7 +43,7 @@ public class SaleServiceImpl implements SaleService {
         }
 
         Sale sale = saleMapper.toSale(newSaleDto);
-        sale.setModel(model);
+//        sale.setModel(model);
 
         Sale savedSale = saleRepository.save(sale);
         log.info("Added new sale for model with ID: {}, sale: {}", model.getId(), savedSale);
@@ -54,7 +54,7 @@ public class SaleServiceImpl implements SaleService {
      * Метод изменяет поля скидки, прикрепленной к товару.
      * Можно изменить name, quantity или переместить скидку в другой существующий баннер.
      *
-     * @param productId Id товара
+     * @param "productId" Id товара
      * @param updateSaleDto данные для обновления
      * @return обновленный объект скидки
      */

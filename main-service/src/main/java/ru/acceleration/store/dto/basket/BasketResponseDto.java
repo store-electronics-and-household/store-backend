@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.dto.model.ModelFullDto;
+import ru.acceleration.store.dto.model.ModelShortDto;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public class BasketResponseDto {
 
     private Long userId;
 
-    private List<ModelFullDto> products;
+    private List<ModelShortDto> products;
 }

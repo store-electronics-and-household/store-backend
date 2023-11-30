@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.dto.model.ModelFullDto;
+import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.basket.BasketService;
 
@@ -44,17 +45,17 @@ public class BasketControllerTests {
 
     @BeforeEach
     void beforeEach() {
-        ModelFullDto firstProductCreateDto = new ModelFullDto(1L, "XY73GS33", "Apple iPhone 13 Pro Max 256GB", "1000");
-        ModelFullDto secondProductCreateDto = new ModelFullDto(2L, "YY735S3HG", "Apple iPhone 18 Pro Min 128GB", "2000");
-        ModelFullDto thirdProductCreateDto = new ModelFullDto(3L, "YT738BB93NHG", "Apple iPhone 4000 Pro Ultra 1TB", "13900");
-        List<ModelFullDto> firstUserProductList = new ArrayList<>();
+        ModelShortDto firstProductCreateDto = new ModelShortDto(1L, "XY73GS33", "1234", 100L, new ArrayList<>());
+        ModelShortDto secondProductCreateDto = new ModelShortDto(2L, "YY735S3HG", "123456", 200L, new ArrayList<>());
+        ModelShortDto thirdProductCreateDto = new ModelShortDto(3L, "YT738BB93NHG", "654421", 300L, new ArrayList<>());
+        List<ModelShortDto> firstUserProductList = new ArrayList<>();
         firstUserProductList.add(firstProductCreateDto);
         firstUserProductList.add(thirdProductCreateDto);
-        List<ModelFullDto> secondUserProductList = new ArrayList<>();
+        List<ModelShortDto> secondUserProductList = new ArrayList<>();
         secondUserProductList.add(firstProductCreateDto);
         secondUserProductList.add(secondProductCreateDto);
         secondUserProductList.add(thirdProductCreateDto);
-        List<ModelFullDto> thirdUserProductList = new ArrayList<>();
+        List<ModelShortDto> thirdUserProductList = new ArrayList<>();
         thirdUserProductList.add(firstProductCreateDto);
         thirdUserProductList.add(thirdProductCreateDto);
         thirdUserProductList.remove(firstProductCreateDto);
@@ -73,8 +74,8 @@ public class BasketControllerTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].name").value("Apple iPhone 13 Pro Max 256GB"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].vendorCode").value("XY73GS33"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].name").value("XY73GS33"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].price").value(100))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].id").value(1));
         Mockito.when(basketServiceMock.addProductToBasket(3L, 1L))
                 .thenReturn(basketResponseDto1);
@@ -84,8 +85,8 @@ public class BasketControllerTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].name").value("Apple iPhone 4000 Pro Ultra 1TB"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].vendorCode").value("YT738BB93NHG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].name").value("YT738BB93NHG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].price").value("300"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products.length()").value(2));
     }
@@ -100,8 +101,8 @@ public class BasketControllerTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].name").value("Apple iPhone 13 Pro Max 256GB"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].vendorCode").value("XY73GS33"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].name").value("XY73GS33"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].price").value(100))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products[0].id").value(1));
         Mockito.when(basketServiceMock.addProductToBasket(2L, 2L))
                 .thenReturn(basketResponseDto2);
@@ -111,8 +112,8 @@ public class BasketControllerTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].name").value("Apple iPhone 18 Pro Min 128GB"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].vendorCode").value("YY735S3HG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].name").value("YY735S3HG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].price").value(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products[1].id").value(2));
         Mockito.when(basketServiceMock.addProductToBasket(3L, 2L))
                 .thenReturn(basketResponseDto2);
@@ -122,8 +123,8 @@ public class BasketControllerTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].name").value("Apple iPhone 4000 Pro Ultra 1TB"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].vendorCode").value("YT738BB93NHG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].name").value("YT738BB93NHG"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].price").value(300))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products.length()").value(3));
     }
@@ -148,7 +149,7 @@ public class BasketControllerTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.products.length()").value(3))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].vendorCode").value("YT738BB93NHG"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.products[2].name").value("YT738BB93NHG"));
 
     }
 

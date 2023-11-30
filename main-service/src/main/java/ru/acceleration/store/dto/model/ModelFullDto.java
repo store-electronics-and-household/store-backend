@@ -1,16 +1,12 @@
 package ru.acceleration.store.dto.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.dto.category.CategoryOutcomeDto;
 import ru.acceleration.store.dto.sale.SaleDto;
-import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.ModelAttribute;
 import ru.acceleration.store.model.ModelImage;
-import ru.acceleration.store.model.Sale;
-import ru.acceleration.store.model.enums.ModelStatus;
 
 import java.util.List;
 

@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.dto.category.CategoryOutcomeDto;
-import ru.acceleration.store.model.Attribute;
 import ru.acceleration.store.model.enums.AttributeType;
-import ru.acceleration.store.model.enums.CategoryType;
 
 @Data
 @NoArgsConstructor

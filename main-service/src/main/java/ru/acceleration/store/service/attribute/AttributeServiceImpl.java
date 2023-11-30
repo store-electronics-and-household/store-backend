@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.attribute.*;
-import ru.acceleration.store.service.model.ModelService;
 
 import java.util.List;
 

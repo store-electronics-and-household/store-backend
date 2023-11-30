@@ -10,12 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.enums.CategoryType;
 import ru.acceleration.store.validation.OnCreate;
 import ru.acceleration.store.validation.OnUpdate;
 
-import java.util.List;
 
 @Data
 @NoArgsConstructor

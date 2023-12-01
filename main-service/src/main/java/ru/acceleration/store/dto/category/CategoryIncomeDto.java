@@ -24,9 +24,6 @@ public class CategoryIncomeDto {
     @Size(min = 5, max = 50, groups = {OnCreate.class, OnUpdate.class})
     private String name;
 
-    @NotNull(groups = OnCreate.class)
-    private CategoryType categoryType;
-
     @PositiveOrZero(groups = {OnCreate.class, OnUpdate.class})
     @Nullable
     private Long parentCategoryId;

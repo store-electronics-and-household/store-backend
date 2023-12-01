@@ -1,19 +1,20 @@
 package ru.acceleration.store.mapper;
-
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.Mapping;
 import ru.acceleration.store.dto.attribute.CategoryAttributeDtoRequest;
 import ru.acceleration.store.dto.attribute.CategoryAttributeDtoResponse;
 import ru.acceleration.store.model.CategoryAttribute;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class})
 public interface CategoryAttributeMapper {
 
 
     CategoryAttributeDtoResponse toCategoryAttributeDtoResponse(CategoryAttributeDtoRequest categoryAttributeDtoRequest);
 
+    @Mapping(source = "attribute", target = "attributeDtoResponse")
     CategoryAttributeDtoResponse toCategoryAttributeDtoResponse(CategoryAttribute categoryAttribute);
 
+    @Mapping(source = "attributeDtoResponse", target = "attribute")
     CategoryAttribute toCategoryAttribute(CategoryAttributeDtoResponse categoryAttributeDtoResponse);
 
 }

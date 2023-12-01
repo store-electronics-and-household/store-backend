@@ -1,17 +1,20 @@
 package ru.acceleration.store.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import ru.acceleration.store.dto.attribute.ModelAttributeDtoRequest;
+import org.mapstruct.Mapping;
 import ru.acceleration.store.dto.attribute.ModelAttributeDtoResponse;
 import ru.acceleration.store.model.ModelAttribute;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {CategoryAttributeMapper.class, CategoryMapper.class})
 public interface ModelAttributeMapper {
 
-    ModelAttributeDtoResponse toModelAttributeDtoResponse(ModelAttributeDtoRequest modelAttributeDtoRequest);
-
+    @Mapping(source = "categoryAttribute", target = "categoryAttributeDtoResponse")
+    @Mapping(source = "model", target = "modelShortDto")
     ModelAttributeDtoResponse toModelAttributeDtoResponse(ModelAttribute modelAttribute);
 
-    ModelAttribute toModelAttribute(ModelAttributeDtoResponse modelAttributeDtoResponse);
+    @Mapping(source = "categoryAttribute", target = "categoryAttributeDtoResponse")
+    @Mapping(source = "model", target = "modelShortDto")
+    List<ModelAttributeDtoResponse> toModelAttributeDtoResponseList(List<ModelAttribute> modelAttributes);
 }

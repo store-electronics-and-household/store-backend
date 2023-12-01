@@ -46,7 +46,10 @@ public class Model {
     @JoinColumn(name = "model_id")
     private List<ModelImage> modelImages;
 
-    @OneToMany
-    @JoinColumn(name = "model_id")
+//    @OneToMany
+//    @JoinColumn(name = "model_id")
+//    private List<ModelAttribute> modelAttributes;
+//
+    @OneToMany(mappedBy = "model")
     private List<ModelAttribute> modelAttributes;
 }

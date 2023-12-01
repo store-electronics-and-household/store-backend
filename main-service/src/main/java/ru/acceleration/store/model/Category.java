@@ -22,16 +22,12 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private CategoryType categoryType;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
     @ToString.Exclude
     private Category parentCategory;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private List<CategoryAttribute> categoryAttributes;
 }

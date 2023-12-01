@@ -35,7 +35,7 @@ public class ModelControllerTests {
     ModelService modelService;
 
     NewModelDto productCreateDto = new NewModelDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L);
-    ModelShortDto productResponseDto = new ModelShortDto(1L,"XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L, new ArrayList<>());
+    ModelShortDto productResponseDto = new ModelShortDto(1L,"XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L, new ArrayList<>(), null, null);
     NewModelDto productCreateDtoWithEmptyName = new NewModelDto("XY73GS33", "", 200L);
     NewModelDto productCreateDtoWithEmptyVendorCode = new NewModelDto("", "Apple iPhone 13 Pro Max 256GB", 300L);
 

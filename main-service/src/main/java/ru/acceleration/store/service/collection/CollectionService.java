@@ -20,4 +20,6 @@ public interface CollectionService {
     CollectionDto editCollection(Long collectionId, UpdateCollectionDto updateCollectionDto);
 
     Collection getExistingCollection(Long collectionId);
+
+    void addModelToCollection(Long collectionId, Long modelId);
 }

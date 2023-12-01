@@ -57,4 +57,11 @@ public class CollectionController {
         log.info("PATCH: /collections/{}", collectionId);
         return ResponseEntity.ok().body(collectionService.editCollection(collectionId, updateCollectionDto));
     }
+
+    @PostMapping("/{collectionId}")
+    public ResponseEntity<Void> addModelToCollection(@PathVariable Long collectionId, @RequestParam Long modelId) {
+        log.info("POST: /collections/{}?modelId={}", collectionId, modelId);
+        collectionService.addModelToCollection(collectionId, modelId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

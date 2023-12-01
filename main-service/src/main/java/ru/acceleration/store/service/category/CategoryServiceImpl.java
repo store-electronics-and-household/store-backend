@@ -9,6 +9,7 @@ import ru.acceleration.store.dto.category.CategoryShortOutcomeDto;
 import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.CategoryMapper;
+import ru.acceleration.store.mapper.CategoryMapperImpl;
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.Model;
 import ru.acceleration.store.repository.CategoryRepository;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelRepository modelRepository;
-    private final CategoryMapper categoryMapper;
+    private final CategoryMapperImpl categoryMapper;
 
     @Override
     public CategoryOutcomeDto createCategory(CategoryIncomeDto categoryIncomeDto) {

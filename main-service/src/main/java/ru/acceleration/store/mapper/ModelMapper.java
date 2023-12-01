@@ -18,7 +18,8 @@ public interface ModelMapper {
     Model toModel(ModelShortDto modelShortDto);
 
     @Mapping(target = "percent", expression = "java(model.getSale() != null ? model.getSale().getPercent() : null)")
-    @Mapping(target = "salePrice", expression = "java(calculateSalePrice(model))")
+    @Mapping(target = "price", expression = "java(calculateSalePrice(model))")
+    @Mapping(target = "oldPrice", expression = "java(model.getSale() != null ? model.getPrice() : null)")
     ModelShortDto toModelShortDto(Model model);
 
     ModelShortDto toModelShortDto(NewModelDto newModelDto);
@@ -30,7 +31,7 @@ public interface ModelMapper {
         Integer percent = sale != null ? sale.getPercent() : null;
 
         if (percent == null) {
-            return null;
+            return model.getPrice();
         }
 
         return model.getPrice() - (model.getPrice() * percent / 100);

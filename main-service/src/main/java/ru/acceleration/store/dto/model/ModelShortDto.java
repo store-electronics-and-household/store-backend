@@ -23,5 +23,5 @@ public class ModelShortDto {
 
     private Integer percent;
 
-    private Long salePrice;
+    private Long oldPrice;
 }

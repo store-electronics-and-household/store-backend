@@ -12,8 +12,10 @@ import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.JwtService;
 import ru.acceleration.store.security.service.UserInfoService;
 
+import java.security.Principal;
+
 @RestController
-@RequestMapping("/auth")
+@RequestMapping
 public class UserController {
 
     @Autowired
@@ -36,23 +38,26 @@ public class UserController {
         return service.addUser(userInfo);
     }
 
-    @GetMapping("/user/userProfile")
+   // @GetMapping("/user/userProfile")
+    @GetMapping("/hello")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String userProfile() {
-        return "Welcome to User Profile";
+    public String userProfile(Principal principal) {
+        UserInfo userInfo=service.getUserInfo(principal.getName());
+        String ssss="Welcome to User  "+userInfo.toString();
+        return ssss;
     }
 
-    @GetMapping("/admin/adminProfile")
+/*    @GetMapping("/admin/adminProfile")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String adminProfile() {
         return "Welcome to Admin Profile";
-    }
+    }*/
 
     @PostMapping("/autoriz")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            return jwtService.generateToken(authRequest.getEmail());
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }

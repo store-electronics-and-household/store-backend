@@ -16,8 +16,8 @@ services:
   front:
     build: ./front
     container_name: front
-   # ports:
-   #   - "8080:8080"
+    ports:
+      - "3000:80"
     restart: on-failure
 
   store-db:

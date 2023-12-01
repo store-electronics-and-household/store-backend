@@ -79,7 +79,7 @@ public class AuthController {
             return new ResponseEntity<>(ExceptionMessage.INVALID_AUTHENTICATION.label, HttpStatus.FORBIDDEN);
         }
     }*/
-
+/*
     @PostMapping("/auth/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         log.info(LogMessage.TRY_LOGOUT.label);
@@ -100,5 +100,5 @@ public class AuthController {
     public ResponseEntity<Object> changePassword(@RequestBody @Validated(New.class) JwtRequest request) {
         log.info(LogMessage.TRY_CHANGE_PASSWORD.label);
         return changeService.changePass(request);
-    }
+    }*/
 }

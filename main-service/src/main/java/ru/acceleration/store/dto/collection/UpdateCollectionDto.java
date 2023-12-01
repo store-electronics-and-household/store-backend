@@ -13,5 +13,5 @@ public class UpdateCollectionDto {
     @Size(max = 100)
     private String name;
 
-    private String photoUrl;
+    private String imageLink;
 }

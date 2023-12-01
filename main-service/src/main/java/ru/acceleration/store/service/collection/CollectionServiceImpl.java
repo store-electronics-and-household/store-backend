@@ -11,6 +11,7 @@ import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.CollectionMapper;
 import ru.acceleration.store.mapper.ModelMapper;
 import ru.acceleration.store.model.Collection;
+import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.enums.ModelSort;
 import ru.acceleration.store.repository.CollectionRepository;
 import ru.acceleration.store.service.model.ModelService;
@@ -35,12 +36,6 @@ public class CollectionServiceImpl implements CollectionService {
         return collectionMapper.toCollectionDto(newCollection);
     }
 
-    /**
-     * Метод удаляет баннер.
-     * Если к баннеру привязаны акции (Sale), то они не удаляются, но отвязываются от баннера
-     *
-     * @param collectionId Id баннера/промо-акции
-     */
     @Transactional
     @Override
     public void deleteCollection(Long collectionId) {
@@ -69,7 +64,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     /**
-     * Метод меняет название или ссылку на фотографию у баннера.
+     * Метод меняет название и/или ссылку на фотографию у баннера.
      *
      * @param collectionId Id баннера
      * @param updateCollectionDto Данные для изменения
@@ -81,8 +76,8 @@ public class CollectionServiceImpl implements CollectionService {
         if (updateCollectionDto.getName() != null) {
             existingCollection.setName(updateCollectionDto.getName());
         }
-        if (updateCollectionDto.getPhotoUrl() != null) {
-            existingCollection.setImageLink(updateCollectionDto.getPhotoUrl());
+        if (updateCollectionDto.getImageLink() != null) {
+            existingCollection.setImageLink(updateCollectionDto.getImageLink());
         }
         Collection updatedCollection = collectionRepository.save(existingCollection);
         return collectionMapper.toCollectionDto(updatedCollection);
@@ -93,5 +88,14 @@ public class CollectionServiceImpl implements CollectionService {
         return collectionRepository.findById(collectionId).orElseThrow(() -> {
             throw new DataNotFoundException(String.format("Collection with id=%d was not found", collectionId));
         });
+    }
+
+    @Override
+    public void addModelToCollection(Long collectionId, Long modelId) {
+        Collection existingCollection = getExistingCollection(collectionId);
+        Model existingModel = modelService.getExistingModel(modelId);
+        existingCollection.getModels().add(existingModel);
+        collectionRepository.save(existingCollection);
+        log.info("Added Model with ID: {} to Collection with ID: {}", modelId, collectionId);
     }
 }

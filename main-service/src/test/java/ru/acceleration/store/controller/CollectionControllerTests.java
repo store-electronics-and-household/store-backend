@@ -31,7 +31,7 @@ public class CollectionControllerTests {
     CollectionDto collectionEditDto = new CollectionDto(null, "Телефоны со скидкой до -50%", "https://test.ru/link");
 
     @Test
-    void postCollectionTest() throws Exception {
+    void shouldAddNewCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
                         .content(mapper.writeValueAsString(collectionCreateDto))
@@ -42,7 +42,7 @@ public class CollectionControllerTests {
     }
 
     @Test
-    void postCollectionWithEmptyNameTest() throws Exception {
+    void postCollectionShouldReturnBadRequestWhenNameIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
                         .content(mapper.writeValueAsString(collectionCreateDtoWithEmptyName))
@@ -51,7 +51,7 @@ public class CollectionControllerTests {
     }
 
     @Test
-    void postCollectionWithEmptyLinkTest() throws Exception {
+    void postCollectionShouldReturnBadRequestWhenImageLinkIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
                         .content(mapper.writeValueAsString(collectionCreateDtoWithEmptyLink))
@@ -60,13 +60,13 @@ public class CollectionControllerTests {
     }
 
     @Test
-    void editCollectionTest() throws Exception {
+    void shouldEditCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/collections")
                 .content(mapper.writeValueAsString(collectionCreateDto))
                 .contentType(MediaType.APPLICATION_JSON));
         mockMvc.perform(MockMvcRequestBuilders
-                        .patch("/collections/2")
+                        .patch("/collections/1")
                         .content(mapper.writeValueAsString(collectionEditDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -75,7 +75,7 @@ public class CollectionControllerTests {
     }
 
     @Test
-    void deleteCollectionTest() throws Exception {
+    void shouldDeleteCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/collections")
                 .content(mapper.writeValueAsString(collectionCreateDto))

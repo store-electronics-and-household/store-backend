@@ -44,9 +44,9 @@ public class BasketControllerTests {
 
     @BeforeEach
     void beforeEach() {
-        ModelShortDto firstProductCreateDto = new ModelShortDto(1L, "XY73GS33", "1234", 100L, new ArrayList<>());
-        ModelShortDto secondProductCreateDto = new ModelShortDto(2L, "YY735S3HG", "123456", 200L, new ArrayList<>());
-        ModelShortDto thirdProductCreateDto = new ModelShortDto(3L, "YT738BB93NHG", "654421", 300L, new ArrayList<>());
+        ModelShortDto firstProductCreateDto = new ModelShortDto(1L, "XY73GS33", "1234", 100L, new ArrayList<>(), null, null);
+        ModelShortDto secondProductCreateDto = new ModelShortDto(2L, "YY735S3HG", "123456", 200L, new ArrayList<>(), null, null);
+        ModelShortDto thirdProductCreateDto = new ModelShortDto(3L, "YT738BB93NHG", "654421", 300L, new ArrayList<>(), null, null);
         List<ModelShortDto> firstUserProductList = new ArrayList<>();
         firstUserProductList.add(firstProductCreateDto);
         firstUserProductList.add(thirdProductCreateDto);

@@ -20,4 +20,8 @@ public class ModelShortDto {
     private Long price;
 
     List<ModelImage> modelsImages;
+
+    private Integer percent;
+
+    private Long salePrice;
 }

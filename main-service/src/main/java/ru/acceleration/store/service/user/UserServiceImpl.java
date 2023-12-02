@@ -1,4 +1,5 @@
 package ru.acceleration.store.service.user;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +15,6 @@ import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.AuthorityRepo;
 import ru.acceleration.store.repository.UserRepository;
 
-import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
@@ -29,13 +29,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto postUser(UserRequestDto userRequestDto) {
-        userRequestDto.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        //   userRequestDto.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         UserResponseDto userResponseDto = userMapper.toUserDto(userRequestDto);
         User user = userRepository.save(userMapper.toUser(userResponseDto));
         Authority authority = authorityMapper.toAuthority(userRequestDto);
         authority.setRole(Role.ROLE_USER);
-        user.setAuthorities(new ArrayList<>());
-        user.getAuthorities().add(authority);
+        //    user.setAuthorities(new ArrayList<>());
+        //   user.getAuthorities().add(authority);
         authorityRepo.save(authority);
         return userMapper.toUserDto(user);
     }

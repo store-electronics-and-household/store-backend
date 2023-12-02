@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.securiry.model.UserInfo;
 
 import java.util.List;
 
@@ -20,40 +21,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
-
-    @Column(name = "username", unique = true)
-    private String username;
-
-    @Column(name = "email", unique = true)
-    private String email;
-
-    @Column(name = "password")
-    private String password;
+    Long id;
 
     @Column(name = "enabled")
-    private Boolean enabled;
+    Boolean enabled;
 
     @Column(name = "first_name")
-    private String firstName;
+    String firstName;
 
     @Column(name = "last_name")
-    private String lastName;
+    String lastName;
 
     @Column(name = "phone")
-    private String phone;
-
-    @ManyToMany
-    @JoinTable(name = "users_authorities",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id"))
-    private List<Authority> authorities;
+    String phone;
 
     @ManyToMany
     @JoinTable(name = "user_favourites",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "model_id"))
-    private List<Model> models;
+    List<Model> models;
+
+    @OneToOne
+    @JoinColumn(name = "user_info_id")
+    UserInfo userInfo;
 
 
 //    @ManyToMany

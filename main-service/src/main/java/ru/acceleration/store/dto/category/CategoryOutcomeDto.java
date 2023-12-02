@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.dto.attribute.CategoryAttributeDtoResponse;
 import ru.acceleration.store.dto.attribute.CategoryAttributeShortDtoResponse;
-import ru.acceleration.store.model.enums.CategoryType;
 
 import java.util.List;
 

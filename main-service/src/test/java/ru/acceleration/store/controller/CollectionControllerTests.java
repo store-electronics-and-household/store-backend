@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.collection.CollectionDto;
@@ -31,6 +32,7 @@ public class CollectionControllerTests {
     CollectionDto collectionEditDto = new CollectionDto(null, "Телефоны со скидкой до -50%", "https://test.ru/link");
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldAddNewCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
@@ -42,6 +44,7 @@ public class CollectionControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postCollectionShouldReturnBadRequestWhenNameIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
@@ -51,6 +54,7 @@ public class CollectionControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postCollectionShouldReturnBadRequestWhenImageLinkIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/collections")
@@ -60,6 +64,7 @@ public class CollectionControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldEditCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/collections")
@@ -75,6 +80,7 @@ public class CollectionControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldDeleteCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/collections")

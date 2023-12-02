@@ -52,7 +52,7 @@ public class SaleServiceImpl implements SaleService {
      * Метод изменяет поля скидки, прикрепленной к товару.
      * Можно изменить name, quantity или переместить скидку в другой существующий баннер.
      *
-     * @param saleId Id товара
+     * @param saleId        Id товара
      * @param updateSaleDto данные для обновления
      * @return обновленный объект скидки
      */

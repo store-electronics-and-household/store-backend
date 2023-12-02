@@ -17,7 +17,7 @@ public interface ModelService {
 
     Model getExistingModel(Long modelId);
 
-    List<ModelShortDto> getModelByCategory(Long categoryId, Integer from,  Integer size, String sort);
+    List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort);
 
     Comparator<Model> getComparator(ModelSort sort);
 }

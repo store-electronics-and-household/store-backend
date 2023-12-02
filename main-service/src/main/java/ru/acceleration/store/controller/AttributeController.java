@@ -20,8 +20,8 @@ public class AttributeController {
 
     @PostMapping("/categories/{categoryId}/category-attributes")
     public ResponseEntity<CategoryAttributeDtoResponse> postCategoryAttribute(@PathVariable Long categoryId,
-                                                                   @RequestParam Long attributeId,
-                                                                   @Valid @RequestBody CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
+                                                                              @RequestParam Long attributeId,
+                                                                              @Valid @RequestBody CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
         log.info("POST: /categories/{}/category-attributes", categoryId);
         return ResponseEntity.status(201).body(attributeService.postCategoryAttribute(categoryId, attributeId, categoryAttributeDtoRequest));
     }

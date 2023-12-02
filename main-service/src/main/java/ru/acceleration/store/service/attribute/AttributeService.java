@@ -19,7 +19,6 @@ public interface AttributeService {
     List<ModelAttributeDtoResponse> getAllModelAttributeByModelId(Long modelId);
 
 
-
 //    AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto);
 //
 //    AttributeProductResponse getAttributeProduct(AttributeProductRequest dto);

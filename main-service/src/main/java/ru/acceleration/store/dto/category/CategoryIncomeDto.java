@@ -2,7 +2,6 @@ package ru.acceleration.store.dto.category;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import ru.acceleration.store.model.enums.CategoryType;
 import ru.acceleration.store.validation.OnCreate;
 import ru.acceleration.store.validation.OnUpdate;
 

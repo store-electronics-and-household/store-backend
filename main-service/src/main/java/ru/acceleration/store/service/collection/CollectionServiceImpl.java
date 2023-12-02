@@ -66,7 +66,7 @@ public class CollectionServiceImpl implements CollectionService {
     /**
      * Метод меняет название и/или ссылку на фотографию у баннера.
      *
-     * @param collectionId Id баннера
+     * @param collectionId        Id баннера
      * @param updateCollectionDto Данные для изменения
      * @return измененный банер
      */

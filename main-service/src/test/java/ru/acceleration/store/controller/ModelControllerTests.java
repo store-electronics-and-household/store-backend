@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.model.ModelShortDto;
@@ -16,6 +17,7 @@ import ru.acceleration.store.dto.model.NewModelDto;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.model.ModelService;
+
 import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,11 +37,12 @@ public class ModelControllerTests {
     ModelService modelService;
 
     NewModelDto productCreateDto = new NewModelDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L);
-    ModelShortDto productResponseDto = new ModelShortDto(1L,"XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L, new ArrayList<>(), null, null);
+    ModelShortDto productResponseDto = new ModelShortDto(1L, "XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L, new ArrayList<>(), null, null);
     NewModelDto productCreateDtoWithEmptyName = new NewModelDto("XY73GS33", "", 200L);
     NewModelDto productCreateDtoWithEmptyVendorCode = new NewModelDto("", "Apple iPhone 13 Pro Max 256GB", 300L);
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postProductTest() throws Exception {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenReturn(productResponseDto);
@@ -53,6 +56,7 @@ public class ModelControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postProductWithEmptyNameTest() throws Exception {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenThrow(DataNotFoundException.class);
@@ -64,6 +68,7 @@ public class ModelControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postProductWithEmptyVendorCodeTest() throws Exception {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenThrow(DataNotFoundException.class);

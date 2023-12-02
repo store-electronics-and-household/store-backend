@@ -8,7 +8,6 @@ import ru.acceleration.store.dto.category.CategoryOutcomeDto;
 import ru.acceleration.store.dto.category.CategoryShortOutcomeDto;
 import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
-import ru.acceleration.store.mapper.CategoryMapper;
 import ru.acceleration.store.mapper.CategoryMapperImpl;
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.Model;

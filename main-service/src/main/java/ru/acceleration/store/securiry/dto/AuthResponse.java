@@ -1,4 +1,4 @@
-package ru.acceleration.store.dto.category;
+package ru.acceleration.store.securiry.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class CategoryShortOutcomeDto {
+public class AuthResponse {
 
-    private Long id;
+    String token;
 
-    private String name;
+    String role;
 }

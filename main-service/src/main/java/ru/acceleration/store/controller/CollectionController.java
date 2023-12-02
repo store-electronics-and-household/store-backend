@@ -1,4 +1,5 @@
 package ru.acceleration.store.controller;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.collection.CollectionDto;
 import ru.acceleration.store.service.collection.CollectionService;
+
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class CollectionController {
      * Метод передает список всех товаров, которые входят в определенную подборку
      *
      * @param collectionID - ID подборки
-     * @param sort - Вариант сортировки: NAME, DESC_PRICE, ASC_PRICE. По умолчанию NAME.
+     * @param sort         - Вариант сортировки: NAME, DESC_PRICE, ASC_PRICE. По умолчанию NAME.
      * @return список акционных товаров, входящих в подборку
      */
     @GetMapping("/{collectionID}")

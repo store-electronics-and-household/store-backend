@@ -2,6 +2,7 @@ package ru.acceleration.store.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@Sql({"/schema-test.sql"})
+@Sql({"/data-test.sql"})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AttributeControllerTest {
@@ -41,7 +43,9 @@ public class AttributeControllerTest {
     private ObjectMapper mapper;
 
     @Test
-    void getAttributeCategory() throws Exception {
+    @SneakyThrows
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
+    void getAttributeCategory() {
         AttributeCategoryRequest attributeCategoryRequest = new AttributeCategoryRequest(1L);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/attribute/category")
@@ -60,6 +64,7 @@ public class AttributeControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void getAttributeProduct() throws Exception {
         AttributeProductRequest attributeProductRequest = new AttributeProductRequest(1L);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders

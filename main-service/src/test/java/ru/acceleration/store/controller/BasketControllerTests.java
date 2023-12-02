@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -64,6 +65,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void addProductsToBaskets() throws Exception {
         Mockito.when(basketServiceMock.addProductToBasket(1L, 1L))
                 .thenReturn(basketResponseDto1);
@@ -91,6 +93,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void addProductsToSecondUserBasket() throws Exception {
         Mockito.when(basketServiceMock.addProductToBasket(1L, 2L))
                 .thenReturn(basketResponseDto2);
@@ -129,6 +132,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void deleteProductFromUserBasket() throws Exception {
         Mockito.when(basketServiceMock.removeProductFromBasket(1L, 1L))
                 .thenReturn(basketResponseDto3);
@@ -140,6 +144,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void getUserBasket() throws Exception {
         Mockito.when(basketServiceMock.getBasket(2L))
                 .thenReturn(basketResponseDto2);
@@ -153,6 +158,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void addProductWithUserNotFound() throws Exception {
         Mockito.when(basketServiceMock.addProductToBasket(18L, 1L))
                 .thenThrow(DataNotFoundException.class);
@@ -163,6 +169,7 @@ public class BasketControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void addProductWithProductNotFound() throws Exception {
         Mockito.when(basketServiceMock.addProductToBasket(1L, 18L))
                 .thenThrow(DataNotFoundException.class);

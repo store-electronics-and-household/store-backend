@@ -15,7 +15,7 @@ import java.util.List;
 
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@Sql({"/schema-test.sql"})
+@Sql({"/data-test.sql"})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AttributeServiceTest {

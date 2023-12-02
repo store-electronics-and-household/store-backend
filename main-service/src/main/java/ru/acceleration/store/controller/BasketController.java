@@ -1,4 +1,5 @@
 package ru.acceleration.store.controller;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ public class BasketController {
 
     private final BasketService basketService;
 
+    @Operation(summary = "Добавление в корзину", description = "Доступ для пользователей")
     @PostMapping("/add/{productId}")
     public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long productId, @RequestParam Long userId) {
         log.info("POST: /basket/add/{}", productId);

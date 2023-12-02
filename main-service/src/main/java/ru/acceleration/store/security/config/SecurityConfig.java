@@ -3,11 +3,13 @@ package ru.acceleration.store.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,8 +25,10 @@ import ru.acceleration.store.security.service.UserInfoService;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+    @Lazy
     @Autowired
     private JwtAuthFilter authFilter;
 
@@ -44,7 +48,7 @@ public class SecurityConfig {
             //    .and()
              //   .authorizeHttpRequests().requestMatchers("/auth/user/**").authenticated()
              //   .and()
-                .requestMatchers("/regist","/autoriz","/welcome").permitAll()
+                .requestMatchers("/regist","/autoriz","/welcome","/swagger-ui/**","/swagger-resources/*","/v3/api-docs/**", "/**").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/hello").authenticated()
                 .and()

@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.model.enums.BasketStatus;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "baskets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,7 +19,7 @@ public class Basket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_basket_id")
+    @Column(name = "basket_id")
     private Long id;
 
     @ManyToOne
@@ -29,12 +27,15 @@ public class Basket {
     private User user;
 
     @Column(name = "created")
-    private LocalDateTime created;
+    @Builder.Default
+    private LocalDateTime created = LocalDateTime.now();
 
     @OneToMany
     @JoinColumn(name = "basket_id")
     private List<ModelSet> productModelSets;
 
     @Column(name = "status")
-    private BasketStatus basketStatus;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private BasketStatus basketStatus = BasketStatus.ACTIVE;
 }

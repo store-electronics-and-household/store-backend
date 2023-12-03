@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.securiry.model.UserInfo;
 
@@ -12,6 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -24,7 +22,8 @@ public class User {
     Long id;
 
     @Column(name = "enabled")
-    Boolean enabled;
+    @Builder.Default
+    Boolean enabled = true;
 
     @Column(name = "first_name")
     String firstName;

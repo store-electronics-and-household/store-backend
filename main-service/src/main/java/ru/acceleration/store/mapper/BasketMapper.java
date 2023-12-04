@@ -1,5 +1,4 @@
 package ru.acceleration.store.mapper;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

@@ -13,28 +13,28 @@ import ru.acceleration.store.service.sale.SaleService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/sale")
+@RequestMapping("/product")
 @Slf4j
 public class SaleController {
 
     private final SaleService saleService;
 
-    @PatchMapping("/{saleId}")
-    public ResponseEntity<SaleDto> editSale(@PathVariable Long saleId, @Valid @RequestBody UpdateSaleDto updateSaleDto) {
-        log.info("PATCH: /sale/{}", saleId);
-        return ResponseEntity.ok().body(saleService.editSale(saleId, updateSaleDto));
+    @PostMapping("/{productId}/sale")
+    public ResponseEntity<SaleDto> addSale(@PathVariable Long productId, @Valid @RequestBody NewSaleDto newSaleDto) {
+        log.info("POST: /product/{}/sale", productId);
+        return ResponseEntity.status(201).body(saleService.addSale(productId, newSaleDto));
     }
 
-    @PostMapping
-    public ResponseEntity<SaleDto> addSale(@Valid @RequestBody NewSaleDto newSaleDto) {
-        log.info("POST: /sale");
-        return ResponseEntity.status(201).body(saleService.addSale(newSaleDto));
+    @PatchMapping("/{productId}/sale")
+    public ResponseEntity<SaleDto> editSale(@PathVariable Long productId, @RequestBody UpdateSaleDto updateSaleDto) {
+        log.info("PATCH: /product/{}/sale", productId);
+        return ResponseEntity.ok().body(saleService.editSale(productId, updateSaleDto));
     }
 
-    @DeleteMapping("/{saleId}")
-    public ResponseEntity<Void> deleteSale(@PathVariable Long saleId) {
-        log.info("DELETE: /sale/{}", saleId);
-        saleService.deleteSale(saleId);
+    @DeleteMapping("/{productId}/sale")
+    public ResponseEntity<Void> deleteSale(@PathVariable Long productId) {
+        log.info("DELETE: /product/{}/sale", productId);
+        saleService.deleteSale(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

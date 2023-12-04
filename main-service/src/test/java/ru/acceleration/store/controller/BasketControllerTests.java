@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @RequiredArgsConstructor
-@Sql({"/data-test1.sql"})
+@Sql({"/data-test.sql"})
 public class BasketControllerTests {
 /*
     @Autowired

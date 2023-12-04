@@ -8,7 +8,7 @@ import ru.acceleration.store.model.ModelSet;
 public interface ModelSetMapper {
 
     @Mapping(source = "model", target = "modelShortDto")
-    ModelSetResponseDto toModelSetDtoResponse (ModelSet modelSet);
+    ModelSetResponseDto toModelSetDtoResponse(ModelSet modelSet);
 
     ModelSet toModelSet(ModelSetResponseDto modelSetResponseDto);
 }

@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
-
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.model.enums.BasketStatus;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

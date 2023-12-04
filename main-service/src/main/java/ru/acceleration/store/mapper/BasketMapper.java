@@ -1,8 +1,6 @@
 package ru.acceleration.store.mapper;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.model.Basket;
 import ru.acceleration.store.service.user.UserService;

@@ -60,13 +60,6 @@ public class BasketServiceImpl implements BasketService {
                 modelSetRepository.save(modelSet1);
                 return basketMapper.toBasketResponseDto(basket);
             }
-//            for (ModelSet modelSet : modelSetList) {
-//                if (modelSet.getModel().getId().equals(model.getId())) {
-//                    modelSet.setCount(modelSet.getCount() + 1);
-//                    modelSetRepository.save(modelSet);
-//                    return basketMapper.toBasketResponseDto(basket);
-//                }
-//            }
             ModelSet newModelSet = new ModelSet();
             newModelSet.setModel(model);
             basket.getModelSets().add(newModelSet);
@@ -91,7 +84,7 @@ public class BasketServiceImpl implements BasketService {
                 -> new DataNotFoundException("product with id: " + productId + " not found"));
         ModelShortDto modelFullDto = productMapper.toModelShortDto(product);
         BasketResponseDto basketResponseDto = basketMapper.toBasketResponseDto(basket);
-        basketResponseDto.getModelSetResponseDtos().remove(modelFullDto);
+//        basketResponseDto.getModelSetResponseDtos().remove(modelFullDto);
         return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
     }
 }

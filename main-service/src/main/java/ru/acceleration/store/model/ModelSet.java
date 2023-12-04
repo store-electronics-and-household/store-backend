@@ -39,3 +39,4 @@ public class ModelSet {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
 }
+

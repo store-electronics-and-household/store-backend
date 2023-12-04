@@ -53,3 +53,4 @@ public class Model {
     @OneToMany(mappedBy = "model")
     private List<ModelAttribute> modelAttributes;
 }
+

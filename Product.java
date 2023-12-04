@@ -1,25 +1,29 @@
 package ru.acceleration.store.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data
 @Entity
+@Table(name = "products")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "promotions")
-public class Promotion {
+@ToString(exclude = "model")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promotion_id")
+    @Column(name = "product_id")
     private Long id;
 
-    @Column(name = "promotion_name")
-    private String name;
+    @Column(name = "serial_number")
+    private String serialNumber;
 
-    @Column(name = "image_link")
-    private String url;
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
 }

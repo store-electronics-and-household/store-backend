@@ -14,7 +14,6 @@ public interface SaleMapper {
 
     Sale toSale(SaleDto saleDto);
 
-    @Mapping(source = "product.id", target = "productId")
-    @Mapping(source = "promotion.id", target = "promotionId")
+    @Mapping(source = "id", target = "modelId")
     SaleDto toSaleDto(Sale sale);
 }

@@ -1,7 +1,7 @@
 package ru.acceleration.store.dto.sale;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateSaleDto {
 
-    @Size(max = 100)
-    private String name;
-
-    private String quantity;
-
+    @NotNull
     @Positive
-    private Long promotionId;
+    private Integer percent;
 }

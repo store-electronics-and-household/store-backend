@@ -1,35 +1,41 @@
 package ru.acceleration.store.model;
+
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.model.enums.BasketStatus;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "users_basket")
+@Table(name = "baskets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_basket_id")
-    Long id;
+    @Column(name = "basket_id")
+    private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
-//    @OneToMany(mappedBy = "users_basket")
-//    List<Product> product;
+    @Column(name = "created")
+    @Builder.Default
+    private LocalDateTime created = LocalDateTime.now();
+
     @OneToMany
-    @JoinTable(
-            name = "basket_products",
-            joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    List<Product> products;
+    @JoinColumn(name = "basket_id")
+    private List<ModelSet> productModelSets;
+
+    @Column(name = "status")
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private BasketStatus basketStatus = BasketStatus.ACTIVE;
 }

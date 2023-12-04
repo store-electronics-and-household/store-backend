@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.attribute.*;
-import ru.acceleration.store.mapper.AttributeProductMapper;
-import ru.acceleration.store.model.ProductAttributes;
-import ru.acceleration.store.repository.ProductAttributesRepository;
-import ru.acceleration.store.service.product.ProductService;
+import ru.acceleration.store.mapper.ModelAttributeMapper;
+import ru.acceleration.store.model.ModelAttribute;
+import ru.acceleration.store.repository.ModelAttributeRepository;
 
 import java.util.List;
 
@@ -16,28 +15,25 @@ import java.util.List;
 @Slf4j
 public class AttributeServiceImpl implements AttributeService {
 
-    private final ProductAttributesRepository productAttributesRepository;
+    private final ModelAttributeRepository modelAttributeRepository;
 
-    private final ProductService productService;
+    private final ModelAttributeMapper modelAttributeMapper;
+
 
     @Override
-    public AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto) {
-        log.info("AttributeServiceImpl getAttributeCategory dto {}", dto);
-        List<Long> productListId = productService.getProductIdByCategory(dto.getCategoryId());
-        List<ProductAttributes> attributeList = productAttributesRepository.findAllAttributeCategory(productListId);
-        AttributeCategoryResponse attributeCategoryResponse = AttributeProductMapper.toAttributeCategoryResponse(attributeList);
-        return attributeCategoryResponse;
+    public CategoryAttributeDtoResponse postCategoryAttribute(Long attributeId, Long categoryId, CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
+        return null;
     }
 
     @Override
-    public AttributeProductResponse getAttributeProduct(AttributeProductRequest dto) {
-        log.info("AttributeServiceImpl getAttributeProduct dto {}", dto);
-        List<ProductAttributes> attributeList = productAttributesRepository.findAllByProductId(dto.getProductId());
-        List<ProductAttributesDto> productAttributesDtos = attributeList.stream()
-                .map(AttributeProductMapper::toProductAttributesDto)
-                .toList();
-        return AttributeProductResponse.builder()
-                .attributes(productAttributesDtos)
-                .build();
+    public ModelAttributeDtoResponse postModelAttribute(Long modelId, Long categoryAttributeId, ModelAttributeDtoRequest modelAttributeDtoRequest) {
+        return null;
+    }
+
+    @Override
+    public List<ModelAttributeDtoResponse> getAllModelAttributeByModelId(Long modelId) {
+        List<ModelAttribute> modelAttributes = modelAttributeRepository.findAllByModelIdOrderByCategoryAttributePriority(modelId);
+        List<ModelAttributeDtoResponse> modelAttributeDtoResponses = modelAttributeMapper.toModelAttributeDtoResponseList(modelAttributes);
+        return modelAttributeDtoResponses;
     }
 }

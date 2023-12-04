@@ -1,10 +1,15 @@
 package ru.acceleration.store.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.securiry.model.UserInfo;
+
+import java.util.List;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,17 +21,9 @@ public class User {
     @Column(name = "user_id")
     Long id;
 
-    @Column(name = "username", unique = true)
-    String username;
-
-    @Column(name = "email", unique = true)
-    String email;
-
-    @Column(name = "password")
-    String password;
-
     @Column(name = "enabled")
-    private Boolean enabled;
+    @Builder.Default
+    Boolean enabled = true;
 
     @Column(name = "first_name")
     String firstName;
@@ -37,8 +34,16 @@ public class User {
     @Column(name = "phone")
     String phone;
 
-    @Column(name = "address_id")
-    Long addressId;
+    @ManyToMany
+    @JoinTable(name = "user_favourites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id"))
+    List<Model> models;
+
+    @OneToOne
+    @JoinColumn(name = "user_info_id")
+    UserInfo userInfo;
+
 
 //    @ManyToMany
 //    @JoinTable(name = "user_addresses",

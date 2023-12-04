@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sales")
@@ -17,17 +17,10 @@ public class Sale {
     @Column(name = "sale_id")
     private Long id;
 
-    @Column(name = "sale_name")
-    private String name;
-
-    @Column(name = "quantity")
-    private String quantity;
+    @Column(name = "percent")
+    private Integer percent;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "promotion_id")
-    private Promotion promotion;
+    @JoinColumn(name = "model_id")
+    private Model model;
 }

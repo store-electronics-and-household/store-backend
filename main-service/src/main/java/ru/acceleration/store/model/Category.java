@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"parentCategory", "categoryAttributes"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Category {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
-    @ToString.Exclude
+//    @ToString.Exclude
     private Category parentCategory;
 
     @OneToMany(fetch = FetchType.LAZY)

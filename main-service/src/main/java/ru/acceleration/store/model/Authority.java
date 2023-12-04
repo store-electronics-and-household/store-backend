@@ -1,12 +1,9 @@
 package ru.acceleration.store.model;
 
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 
 @Entity
@@ -21,9 +18,9 @@ public class Authority {
     @Column(name = "authority_id")
     private Long id;
 
-    @Column(name = "username")
-    @NotBlank
-    private String username;
+//    @Column(name = "username")
+//    @NotBlank
+//    private String username;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")

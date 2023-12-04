@@ -1,10 +1,8 @@
 package ru.acceleration.store.mapper;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.acceleration.store.dto.attribute.ModelAttributeDtoResponse;
 import ru.acceleration.store.model.ModelAttribute;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {CategoryAttributeMapper.class, CategoryMapper.class})

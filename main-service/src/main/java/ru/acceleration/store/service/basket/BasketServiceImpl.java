@@ -3,18 +3,25 @@ package ru.acceleration.store.service.basket;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.dto.product.ProductFullDto;
+import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.BasketMapper;
-import ru.acceleration.store.mapper.ProductMapper;
+import ru.acceleration.store.mapper.ModelMapper;
+import ru.acceleration.store.mapper.ModelSetMapper;
 import ru.acceleration.store.model.Basket;
-import ru.acceleration.store.model.Product;
+import ru.acceleration.store.model.Model;
+import ru.acceleration.store.model.ModelSet;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.BasketRepo;
-import ru.acceleration.store.repository.ProductRepository;
+import ru.acceleration.store.repository.ModelRepository;
+import ru.acceleration.store.repository.ModelSetRepository;
 import ru.acceleration.store.repository.UserRepository;
+import ru.acceleration.store.securiry.model.UserInfo;
+import ru.acceleration.store.securiry.service.UserInfoService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,29 +30,52 @@ public class BasketServiceImpl implements BasketService {
     private final UserRepository userRepository;
     private final BasketMapper basketMapper;
     private final BasketRepo basketRepo;
-    private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
+    private final ModelRepository modelRepository;
+    private final ModelMapper productMapper;
+    private final ModelSetRepository modelSetRepository;
 
     @Override
     public BasketResponseDto addProductToBasket(Long productId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()
                 -> new DataNotFoundException("user with id: " + userId + " not found"));
-        Product product = productRepository.findById(productId).orElseThrow(()
+        Model model = modelRepository.findById(productId).orElseThrow(()
                 -> new DataNotFoundException("product with id: " + productId + " not found"));
         if (basketRepo.findBasketByUserId(userId).isEmpty()) {
-            BasketResponseDto basketResponseDto = new BasketResponseDto();
-            basketResponseDto.setUserId(user.getId());
-            basketResponseDto.setProducts(new ArrayList<>());
-            basketResponseDto.getProducts().add(productMapper.toProductFullDto(product));
-            return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
+            ModelSet modelSet = new ModelSet();
+            modelSet.setModel(model);
+            Basket basket = new Basket();
+            basket.setUser(user);
+            basket.setModelSets(new ArrayList<>());
+            basket.getModelSets().add(modelSet);
+            modelSetRepository.save(modelSet);
+            basketRepo.save(basket);
+            return basketMapper.toBasketResponseDto(basket);
         } else {
             Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
-                    -> new DataNotFoundException("basket for user with id " + userId + "not found"));
-            System.out.println(basket);
-            BasketResponseDto basketResponseDto = basketMapper.toBasketResponseDto(basket);
-            basketResponseDto.setUserId(user.getId());
-            basketResponseDto.getProducts().add(productMapper.toProductFullDto(product));
-            return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
+                    -> new DataNotFoundException("basket for user with id: " + userId + "not found"));
+            List<ModelSet> modelSetList = basket.getModelSets();
+            Optional<ModelSet> modelSet = modelSetList.stream()
+                    .filter(modelSet1 -> modelSet1.getModel().getId().equals(model.getId()))
+                    .findAny();
+            if (modelSet.isPresent()) {
+                ModelSet modelSet1 = modelSet.get();
+                modelSet1.setCount(modelSet1.getCount() + 1);
+                modelSetRepository.save(modelSet1);
+                return basketMapper.toBasketResponseDto(basket);
+            }
+//            for (ModelSet modelSet : modelSetList) {
+//                if (modelSet.getModel().getId().equals(model.getId())) {
+//                    modelSet.setCount(modelSet.getCount() + 1);
+//                    modelSetRepository.save(modelSet);
+//                    return basketMapper.toBasketResponseDto(basket);
+//                }
+//            }
+            ModelSet newModelSet = new ModelSet();
+            newModelSet.setModel(model);
+            basket.getModelSets().add(newModelSet);
+            modelSetRepository.save(newModelSet);
+            basketRepo.save(basket);
+            return basketMapper.toBasketResponseDto(basket);
         }
     }
 
@@ -58,13 +88,13 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public BasketResponseDto removeProductFromBasket(Long productId, Long basketId) {
-       Basket basket = basketRepo.findById(basketId).orElseThrow(()
+        Basket basket = basketRepo.findById(basketId).orElseThrow(()
                 -> new DataNotFoundException("basket with id: " + basketId + " not found"));
-       Product product = productRepository.findById(productId).orElseThrow(()
+        Model product = modelRepository.findById(productId).orElseThrow(()
                 -> new DataNotFoundException("product with id: " + productId + " not found"));
-       ProductFullDto productFullDto = productMapper.toProductFullDto(product);
-       BasketResponseDto basketResponseDto = basketMapper.toBasketResponseDto(basket);
-       basketResponseDto.getProducts().remove(productFullDto);
-       return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
+        ModelShortDto modelFullDto = productMapper.toModelShortDto(product);
+        BasketResponseDto basketResponseDto = basketMapper.toBasketResponseDto(basket);
+        basketResponseDto.getModelSetResponseDtos().remove(modelFullDto);
+        return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
     }
 }

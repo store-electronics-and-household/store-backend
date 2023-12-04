@@ -9,12 +9,10 @@ import ru.acceleration.store.dto.sale.UpdateSaleDto;
 import ru.acceleration.store.exceptions.ConflictException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.SaleMapper;
-import ru.acceleration.store.model.Product;
-import ru.acceleration.store.model.Promotion;
+import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.Sale;
 import ru.acceleration.store.repository.SaleRepository;
-import ru.acceleration.store.service.product.ProductService;
-import ru.acceleration.store.service.promotion.PromotionService;
+import ru.acceleration.store.service.model.ModelService;
 
 @Service
 @Slf4j
@@ -23,38 +21,30 @@ public class SaleServiceImpl implements SaleService {
 
     private final SaleRepository saleRepository;
     private final SaleMapper saleMapper;
-    private final ProductService productService;
-    private final PromotionService promotionService;
+    private final ModelService modelService;
 
     /**
      * Метод создает скидку к товару.
-     * Скидку можно добавить в баннер, если указан promotionId и он создан заранее.
      * Нельзя добавить скидку повторно к одному и тому же товару.
      *
-     * @param productId Id товара
      * @param newSaleDto Данные добавляемой скидки
      * @return SaleDto - созданная скидка
      */
     @Override
-    public SaleDto addSale(Long productId, NewSaleDto newSaleDto) {
-        Product product = productService.getExistingProduct(productId);
+    public SaleDto addSale(NewSaleDto newSaleDto) {
+        Model model = modelService.getExistingModel(newSaleDto.getModelId());
 
         // Проверка на наличие скидки у товара
-        Sale checkExistingSale = saleRepository.findSaleByProductId(productId);
+        Sale checkExistingSale = saleRepository.findSaleByModelId(model.getId());
         if (checkExistingSale != null) {
-            throw new ConflictException(String.format("Sale for product with id=%d already exists. Cannot add another sale.", productId));
+            throw new ConflictException(String.format("Sale for model with id=%d already exists. Cannot add another sale.", model.getId()));
         }
 
         Sale sale = saleMapper.toSale(newSaleDto);
-        sale.setProduct(product);
-
-        if (newSaleDto.getPromotionId() != null) {
-            Promotion promotion = promotionService.getPromotionById(newSaleDto.getPromotionId());
-            sale.setPromotion(promotion);
-        }
+        sale.setModel(model);
 
         Sale savedSale = saleRepository.save(sale);
-        log.info("Added new sale for product with ID: {}, sale: {}", productId, savedSale);
+        log.info("Added new sale for model with ID: {}, sale: {}", model.getId(), savedSale);
         return saleMapper.toSaleDto(savedSale);
     }
 
@@ -62,36 +52,31 @@ public class SaleServiceImpl implements SaleService {
      * Метод изменяет поля скидки, прикрепленной к товару.
      * Можно изменить name, quantity или переместить скидку в другой существующий баннер.
      *
-     * @param productId Id товара
+     * @param saleId        Id товара
      * @param updateSaleDto данные для обновления
      * @return обновленный объект скидки
      */
     @Override
-    public SaleDto editSale(Long productId, UpdateSaleDto updateSaleDto) {
-        Sale existingSale = saleRepository.findSaleByProductId(productId);
-        if (existingSale == null) {
-            throw new DataNotFoundException(String.format("Sale not found for product with id=%d", productId));
-        }
-        if (updateSaleDto.getName() != null) {
-            existingSale.setName(updateSaleDto.getName());
-        }
-        if (updateSaleDto.getQuantity() != null) {
-            existingSale.setQuantity(updateSaleDto.getQuantity());
-        }
-        if (updateSaleDto.getPromotionId() != null) {
-            Promotion promotion = promotionService.getPromotionById(updateSaleDto.getPromotionId());
-            existingSale.setPromotion(promotion);
-        }
+    public SaleDto editSale(Long saleId, UpdateSaleDto updateSaleDto) {
+        Sale existingSale = getExistingSale(saleId);
+        existingSale.setPercent(updateSaleDto.getPercent());
 
         Sale updatedSale = saleRepository.save(existingSale);
-        log.info("Updated sale with ID: {}, new data: {}", updatedSale.getId(), updatedSale);
+        log.info("Updated sale with ID: {}, new data: {}", saleId, updatedSale);
         return saleMapper.toSaleDto(updatedSale);
     }
 
     @Override
-    public void deleteSale(Long productId) {
-        Sale saleToDelete = saleRepository.findSaleByProductId(productId);
+    public void deleteSale(Long saleId) {
+        Sale saleToDelete = getExistingSale(saleId);
         saleRepository.delete(saleToDelete);
         log.info("Deleted sale with ID: {}", saleToDelete.getId());
+    }
+
+    @Override
+    public Sale getExistingSale(Long saleId) {
+        return saleRepository.findById(saleId).orElseThrow(() -> {
+            throw new DataNotFoundException(String.format("Sale with id=%d was not found", saleId));
+        });
     }
 }

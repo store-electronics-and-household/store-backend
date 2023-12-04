@@ -11,11 +11,7 @@ public class SaleDto {
 
     private Long id;
 
-    private String name;
+    private Long modelId;
 
-    private String quantity;
-
-    private Long productId;
-
-    private Long promotionId;
+    private Integer percent;
 }

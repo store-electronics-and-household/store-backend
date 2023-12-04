@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "models")
-@ToString(exclude = {"sale", "category"})
 public class Model {
 
     @Id
@@ -36,6 +35,7 @@ public class Model {
 
     @OneToOne
     @JoinColumn(name = "model_id")
+    @ToString.Exclude
     private Sale sale;
 
     @ManyToOne

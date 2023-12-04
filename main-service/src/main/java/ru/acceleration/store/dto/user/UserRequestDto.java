@@ -1,22 +1,27 @@
 package ru.acceleration.store.dto.user;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-@Data
 public class UserRequestDto {
 
-    Boolean enabled;
+    @NotBlank
+    @Size(max = 250)
+    private String username;
 
-    String firstName;
+    @Email
+    @NotBlank
+    @Size(max = 250)
+    private String email;
 
-    String lastName;
-
-    String phone;
-
-    Long addressId;
+    @NotBlank
+    private String password;
 }

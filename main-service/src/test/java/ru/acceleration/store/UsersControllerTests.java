@@ -1,27 +1,24 @@
-package ru.acceleration.store.controller;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-/*import com.fasterxml.jackson.databind.ObjectMapper;
+package ru.acceleration.store;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.acceleration.store.dto.user.UserRequestDto;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;*/
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 @RequiredArgsConstructor
 public class UsersControllerTests {
 
-/*    @Autowired
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -35,11 +32,11 @@ public class UsersControllerTests {
 
     @BeforeEach()
     void beforeEach() {
-        userRequestDto = new UserRequestDto("user", "user123@mail.com", "user");
-        userRequestDtoWithEmptyName = new UserRequestDto("", "user123@mail.com", "user");
-        userRequestDtoWithEmptyPassword = new UserRequestDto("user", "user123@mail.com", "");
-        userRequestDtoWithEmptyEmail = new UserRequestDto("user", "", "user");
-        userRequestDtoWithIncorrectEmail = new UserRequestDto("user", "user123mail.com", "user");
+        userRequestDto = new UserRequestDto("user", "user123@mail.com","user");
+        userRequestDtoWithEmptyName = new UserRequestDto("", "user123@mail.com","user");
+        userRequestDtoWithEmptyPassword = new UserRequestDto("user", "user123@mail.com","");
+        userRequestDtoWithEmptyEmail = new UserRequestDto("user", "","user");
+        userRequestDtoWithIncorrectEmail = new UserRequestDto("user", "user123mail.com","user");
     }
 
     @Test
@@ -89,5 +86,5 @@ public class UsersControllerTests {
                         .content(mapper.writeValueAsString(userRequestDtoWithIncorrectEmail))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
-    }*/
+    }
 }

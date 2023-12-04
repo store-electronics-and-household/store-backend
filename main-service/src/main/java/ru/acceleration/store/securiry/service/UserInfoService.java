@@ -54,4 +54,6 @@ public class UserInfoService implements UserDetailsService {
         UserInfo userDetail = repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found id " + id));
         return userDetail;
     }
+
+
 }

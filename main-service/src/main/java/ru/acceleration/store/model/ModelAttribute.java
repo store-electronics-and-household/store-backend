@@ -4,14 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "model_attributes")
-@ToString(exclude = {"categoryAttribute", "model"})
 public class ModelAttribute {
 
     @Id

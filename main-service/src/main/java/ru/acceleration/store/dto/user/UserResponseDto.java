@@ -3,14 +3,22 @@ package ru.acceleration.store.dto.user;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-@Data
 public class UserResponseDto {
 
     Long id;
+
+    String username;
+
+    String email;
+
+    String password;
 
     @Builder.Default
     Boolean enabled = true;
@@ -22,5 +30,4 @@ public class UserResponseDto {
     String phone;
 
     Long addressId;
-
 }

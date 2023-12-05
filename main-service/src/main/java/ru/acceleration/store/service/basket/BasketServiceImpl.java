@@ -60,6 +60,13 @@ public class BasketServiceImpl implements BasketService {
                 modelSetRepository.save(modelSet1);
                 return basketMapper.toBasketResponseDto(basket);
             }
+//            for (ModelSet modelSet : modelSetList) {
+//                if (modelSet.getModel().getId().equals(model.getId())) {
+//                    modelSet.setCount(modelSet.getCount() + 1);
+//                    modelSetRepository.save(modelSet);
+//                    return basketMapper.toBasketResponseDto(basket);
+//                }
+//            }
             ModelSet newModelSet = new ModelSet();
             newModelSet.setModel(model);
             basket.getModelSets().add(newModelSet);
@@ -70,22 +77,27 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public BasketResponseDto getBasket(Long basketId) {
-        Basket basket = basketRepo.findById(basketId).orElseThrow(()
-                -> new DataNotFoundException("basket with id: " + basketId + " not found"));
+    public BasketResponseDto getBasket(Long userId) {
+        Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
+                -> new DataNotFoundException("basket for user with : " + userId + " not found"));
         return basketMapper.toBasketResponseDto(basket);
     }
 
     @Override
-    public BasketResponseDto removeProductFromBasket(Long productId, Long basketId) {
-        Basket basket = basketRepo.findById(basketId).orElseThrow(()
-                -> new DataNotFoundException("basket with id: " + basketId + " not found"));
-        Model product = modelRepository.findById(productId).orElseThrow(()
+    public BasketResponseDto removeProductFromBasket(Long productId, Long userId) {
+        Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
+                -> new DataNotFoundException("basket for user with : " + userId + " not found"));
+        Model model = modelRepository.findById(productId).orElseThrow(()
                 -> new DataNotFoundException("product with id: " + productId + " not found"));
-        ModelShortDto modelFullDto = productMapper.toModelShortDto(product);
-        BasketResponseDto basketResponseDto = basketMapper.toBasketResponseDto(basket);
-//        basketResponseDto.getModelSetResponseDtos().remove(modelFullDto);
-        return basketMapper.toBasketResponseDto(basketRepo.save(basketMapper.toBasket(basketResponseDto)));
+        List<ModelSet> modelSetList = basket.getModelSets();
+        Optional<ModelSet> modelSet = modelSetList.stream()
+                .filter(modelSet1 -> modelSet1.getModel().getId().equals(model.getId()))
+                .findAny();
+        if (modelSet.isPresent()) {
+            basket.getModelSets().remove(modelSet.get());
+            modelSetRepository.deleteById(modelSet.get().getId());
+        }
+        return basketMapper.toBasketResponseDto(basket);
     }
 }
 

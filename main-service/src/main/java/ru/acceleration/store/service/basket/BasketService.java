@@ -7,9 +7,9 @@ import ru.acceleration.store.dto.basket.BasketResponseDto;
 @Service
 public interface BasketService {
 
-    BasketResponseDto addProductToBasket(Long productId, Long userId);
+    BasketResponseDto addProductToBasket(Long modelId, Long userId);
 
-    BasketResponseDto getBasket(Long basketId);
+    BasketResponseDto getBasket(Long userId);
 
-    BasketResponseDto removeProductFromBasket(Long productId, Long basketId);
+    BasketResponseDto removeProductFromBasket(Long modelId, Long userId);
 }

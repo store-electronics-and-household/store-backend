@@ -1,9 +1,7 @@
 package ru.acceleration.store.service.basket;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.BasketMapper;
 import ru.acceleration.store.mapper.ModelMapper;

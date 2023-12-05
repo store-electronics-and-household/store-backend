@@ -17,6 +17,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping(path = "basket")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class BasketController {
 
     private final BasketService basketService;

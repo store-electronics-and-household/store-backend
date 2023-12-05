@@ -24,25 +24,27 @@ public class BasketController {
 
     private final UserInfoService userInfoService;
 
-    @PostMapping("/add/{productId}")
+    @PostMapping("/model/{modelId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long productId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("POST: /basket/add/{}", productId);
-        return ResponseEntity.status(201).body(basketService.addProductToBasket(productId, userInfo.getId()));
+        log.info("POST: /basket/add/{}/user", modelId);
+        return ResponseEntity.status(201).body(basketService.addProductToBasket(modelId, userInfo.getId()));
     }
 
-    @GetMapping("/{basketId}")
+    @GetMapping("/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> getBasket(@PathVariable Long basketId) {
-        log.info("GET: /basket/{}", basketId);
-        return ResponseEntity.ok().body(basketService.getBasket(basketId));
+    public ResponseEntity<BasketResponseDto> getBasket(Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("GET: /basket/{}", userInfo.getId());
+        return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));
     }
 
-    @PatchMapping("/remove/{productId}")
+    @PatchMapping("/model/{modelId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long productId, @RequestParam Long basketId) {
-        log.info("PATCH: /basket/remove/{}", productId);
-        return ResponseEntity.ok().body(basketService.removeProductFromBasket(productId, basketId));
+    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/remove/{}", modelId);
+        return ResponseEntity.ok().body(basketService.removeProductFromBasket(modelId, userInfo.getId()));
     }
 }

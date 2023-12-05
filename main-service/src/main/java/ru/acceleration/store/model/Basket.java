@@ -1,10 +1,7 @@
 package ru.acceleration.store.model;
-
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.model.enums.BasketStatus;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +11,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "baskets")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket {
 
     @Id
@@ -32,7 +28,7 @@ public class Basket {
 
     @OneToMany
     @JoinColumn(name = "basket_id")
-    private List<ModelSet> productModelSets;
+    private List<ModelSet> modelSets;
 
     @Column(name = "status")
     @Builder.Default

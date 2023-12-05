@@ -1,7 +1,9 @@
 package ru.acceleration.store.controller;
 
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +12,13 @@ import ru.acceleration.store.service.attribute.AttributeService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AttributeController {
 
-    private final AttributeService attributeService;
-
+    AttributeService attributeService;
 
     @PostMapping("/categories/{categoryId}/category-attributes")
     public ResponseEntity<CategoryAttributeDtoResponse> postCategoryAttribute(@PathVariable Long categoryId,
@@ -51,4 +53,46 @@ public class AttributeController {
 //        log.info("AttributeController getAttributeProduct dto {}", dto);
 //        return attributeService.getAttributeProduct(dto);
 //    }
+
+    @GetMapping(path = "/attributes/{attributeId}")
+    public ResponseEntity<AttributeDtoResponse> getAttributeById(
+            @PathVariable Long attributeId)
+    {
+        log.info("GET: /attributes/{} request", attributeId);
+        AttributeDtoResponse attributeDtoResponse = attributeService.getAttributeById(attributeId);
+        log.info("GET: /attributes/{} completed: {}", attributeId, attributeDtoResponse);
+        return ResponseEntity.ok().body(attributeDtoResponse);
+    }
+
+    @PostMapping(path = "/attributes")
+    public ResponseEntity<AttributeDtoResponse> createAttribute(
+            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
+    {
+        log.info("POST: /attributes request: {}", attributeDtoRequest);
+        AttributeDtoResponse attributeDtoResponse = attributeService.createAttribute(attributeDtoRequest);
+        log.info("POST: /attributes completed: {}", attributeDtoResponse);
+        return ResponseEntity.status(201).body(attributeDtoResponse);
+    }
+
+    @PatchMapping(path = "/attributes/{attributesId}")
+    public ResponseEntity<AttributeDtoResponse> patchAttribute(
+            @PathVariable Long attributesId,
+            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
+    {
+        log.info("PATCH: /attributes/{} request: {}",attributesId, attributeDtoRequest);
+        AttributeDtoResponse attributeDtoResponse = attributeService.patchAttribute(attributeDtoRequest, attributesId);
+        log.info("PATCH: /attributes/{} completed: {}",attributesId, attributeDtoResponse);
+        return ResponseEntity.ok().body(attributeDtoResponse);
+    }
+
+    @DeleteMapping(path = "/attributes/{attributesId}")
+    public ResponseEntity<?> deleteCategory(
+            @PathVariable Long attributesId
+    )
+    {
+        log.info("DELETE: /attributes/{} request",attributesId);
+        attributeService.deleteAttribute(attributesId);
+        log.info("PATCH: /attributes/{} completed",attributesId);
+        return ResponseEntity.noContent().build();
+    }
 }

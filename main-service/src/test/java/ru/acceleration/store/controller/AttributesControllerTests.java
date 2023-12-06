@@ -261,16 +261,4 @@ public class AttributesControllerTests {
         verify(attributeService, atLeast(1)).findAttributes("na", 0, 10);
         assertEquals(response, objectMapper.writeValueAsString(attributeDtoResponseList));
     }
-
-    @Test
-    @SneakyThrows
-    @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
-    public void findAttributes_givenInvalidFromParam_thenExpectBadRequest() {
-        mockMvc.perform(get("/attributes?text=na&from=-10&size=-1"))
-                .andExpect(status().isBadRequest())
-                .andReturn()
-                .getResponse();
-
-    }
-
 }

@@ -26,6 +26,8 @@ public interface AttributeService {
 
     void deleteAttribute(Long attributeId);
 
+    List<AttributeDtoResponse> findAttributes(String text, int from, int size);
+
 //    AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto);
 //
 //    AttributeProductResponse getAttributeProduct(AttributeProductRequest dto);

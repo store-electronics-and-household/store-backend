@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 import ru.acceleration.store.dto.attribute.AttributeDtoRequest;
 import ru.acceleration.store.dto.attribute.AttributeDtoResponse;
 import ru.acceleration.store.exceptions.BadRequestException;
@@ -18,6 +19,7 @@ import ru.acceleration.store.model.Attribute;
 import ru.acceleration.store.repository.AttributeRepository;
 import ru.acceleration.store.service.attribute.AttributeServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -151,5 +153,32 @@ public class AttributesServiceTests {
 
         verify(attributeRepository, atLeast(1)).findById(17L);
         verify(attributeRepository, atLeast(1)).delete(any(Attribute.class));
+    }
+
+    @Test
+    public void findAttributes_givenValidData() {
+        List<Attribute> attributesList =
+                List.of(Attribute.builder().id(17L).name("name").build());
+        when(attributeRepository.findByNameContainingIgnoreCase("na", PageRequest.of(0,10)))
+                .thenReturn(attributesList);
+
+        List<AttributeDtoResponse> attributeDtoResponseList = attributeServiceImpl.findAttributes("na", 0, 10);
+
+        assertNotNull(attributeDtoResponseList);
+        assertEquals(1, attributeDtoResponseList.size());
+        assertEquals(17L, attributeDtoResponseList.get(0).getId());
+        assertEquals("name", attributeDtoResponseList.get(0).getName());
+        verify(attributeRepository, atLeast(1))
+                .findByNameContainingIgnoreCase("na", PageRequest.of(0, 10));
+    }
+
+    @Test
+    public void findAttributes_givenInvalidFromParam() {
+        assertThrows(BadRequestException.class, () -> attributeServiceImpl.findAttributes("na", -1, 10));
+    }
+
+    @Test
+    public void findAttributes_givenInvalidSizeParam() {
+        assertThrows(BadRequestException.class, () -> attributeServiceImpl.findAttributes("na", 0, 0));
     }
 }

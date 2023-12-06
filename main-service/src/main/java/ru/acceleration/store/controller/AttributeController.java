@@ -1,6 +1,8 @@
 package ru.acceleration.store.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -56,12 +58,23 @@ public class AttributeController {
 
     @GetMapping(path = "/attributes/{attributeId}")
     public ResponseEntity<AttributeDtoResponse> getAttributeById(
-            @PathVariable Long attributeId)
-    {
+            @PathVariable Long attributeId) {
         log.info("GET: /attributes/{} request", attributeId);
         AttributeDtoResponse attributeDtoResponse = attributeService.getAttributeById(attributeId);
         log.info("GET: /attributes/{} completed: {}", attributeId, attributeDtoResponse);
         return ResponseEntity.ok().body(attributeDtoResponse);
+    }
+
+    @GetMapping(path = "/attributes")
+    public ResponseEntity<List<AttributeDtoResponse>> findAttributes(
+            @RequestParam(value = "text") String text,
+            @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(required = false, defaultValue = "10") @Positive int size)
+    {
+        log.info("GET: /attributes request: text={},from={}, size={}", text, from, size);
+        List<AttributeDtoResponse> attributeDtoResponseList = attributeService.findAttributes(text, from, size);
+        log.info("GET: /attributes completed: text={},from={}, size={}", text, from, size);
+        return ResponseEntity.ok().body(attributeDtoResponseList);
     }
 
     @PostMapping(path = "/attributes")
@@ -87,8 +100,7 @@ public class AttributeController {
 
     @DeleteMapping(path = "/attributes/{attributesId}")
     public ResponseEntity<?> deleteCategory(
-            @PathVariable Long attributesId
-    )
+            @PathVariable Long attributesId)
     {
         log.info("DELETE: /attributes/{} request",attributesId);
         attributeService.deleteAttribute(attributesId);

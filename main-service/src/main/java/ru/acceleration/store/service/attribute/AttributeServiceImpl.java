@@ -1,13 +1,12 @@
 package ru.acceleration.store.service.attribute;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import ru.acceleration.store.dto.attribute.*;
 import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
@@ -19,6 +18,7 @@ import ru.acceleration.store.repository.AttributeRepository;
 import ru.acceleration.store.repository.ModelAttributeRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -86,9 +86,28 @@ public class AttributeServiceImpl implements AttributeService {
         attributeRepository.delete(attribute);
     }
 
+    @Override
+    public List<AttributeDtoResponse> findAttributes(String text, int from, int size) {
+        List<Attribute> attributesList = attributeRepository
+                .findByNameContainingIgnoreCase(text, validatePageRequest(from, size));
+        return attributesList.stream()
+                .map(attributeMapper::toAttributeDtoResponse)
+                .collect(Collectors.toList());
+    }
+
     private void validateAttribute(String attributeName) {
         if (attributeName == null || attributeName.isEmpty() || attributeName.length() > 100) {
             throw new BadRequestException("Attribute name is incorrect");
         }
+    }
+
+    private PageRequest validatePageRequest(int from, int size) {
+        if (from < 0) {
+            throw new BadRequestException("From parameter must be positive or zero");
+        }
+        if (size <= 0) {
+            throw new BadRequestException("Size parameter must be positive");
+        }
+        return PageRequest.of(from > 0 ? from / size : 0, size);
     }
 }

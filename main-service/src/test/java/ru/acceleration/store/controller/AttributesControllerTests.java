@@ -17,6 +17,8 @@ import ru.acceleration.store.dto.attribute.AttributeDtoResponse;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.attribute.AttributeService;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -241,4 +243,34 @@ public class AttributesControllerTests {
 
         verify(attributeService, atLeast(1)).deleteAttribute(17L);
     }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
+    public void findAttributes_givenValidData_thenExpectOk() {
+        List<AttributeDtoResponse> attributeDtoResponseList =
+                List.of(AttributeDtoResponse.builder().id(17L).name("name").build());
+        when(attributeService.findAttributes("na", 0 ,10)).thenReturn(attributeDtoResponseList);
+
+        String response = mockMvc.perform(get("/attributes?text=na"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        verify(attributeService, atLeast(1)).findAttributes("na", 0, 10);
+        assertEquals(response, objectMapper.writeValueAsString(attributeDtoResponseList));
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
+    public void findAttributes_givenInvalidFromParam_thenExpectBadRequest() {
+        mockMvc.perform(get("/attributes?text=na&from=-10&size=-1"))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse();
+
+    }
+
 }

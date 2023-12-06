@@ -122,6 +122,21 @@ public class AttributesControllerTests {
     @Test
     @SneakyThrows
     @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
+    public void postAttribute_givenAttributeNameOver100chars_thenExpectBadRequest() {
+        AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
+                .name(String.format("%101c", '1')).build();
+
+        mockMvc.perform(post("/attributes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(attributeDtoRequest)))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse();
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
     public void patchAttribute_givenValidRequest_thenExpectOkWithBody() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttribute").build();
         AttributeDtoResponse attributeDtoResponse = AttributeDtoResponse.builder().id(17L).name("NewAttribute").build();
@@ -175,6 +190,21 @@ public class AttributesControllerTests {
     @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
     public void patchAttribute_givenAttributeNameBlank_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("").build();
+
+        mockMvc.perform(patch("/attributes/17")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(attributeDtoRequest)))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse();
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
+    public void patchAttribute_givenAttributeNameOver100Chars_thenExpectBadRequest() {
+        AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
+                .name(String.format("%101c", '1')).build();
 
         mockMvc.perform(patch("/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)

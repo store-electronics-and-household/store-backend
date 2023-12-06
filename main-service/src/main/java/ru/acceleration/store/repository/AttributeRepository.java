@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface AttributeRepository extends JpaRepository<Attribute, Long> {
 
-    Optional<Attribute> findAttributeById(Long attributeId);
 }

@@ -1,12 +1,15 @@
 package ru.acceleration.store.service.attribute;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import ru.acceleration.store.dto.attribute.*;
+import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.AttributeMapper;
 import ru.acceleration.store.mapper.ModelAttributeMapper;
@@ -50,13 +53,14 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public AttributeDtoResponse getAttributeById(Long attributeId) {
-        return attributeMapper.toAttributeDtoResponse(attributeRepository.findAttributeById(attributeId)
+        return attributeMapper.toAttributeDtoResponse(attributeRepository.findById(attributeId)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Attribute %s is not found", attributeId))));
     }
 
     @Override
     @Transactional
     public AttributeDtoResponse createAttribute(AttributeDtoRequest attributeDtoRequest) {
+        validateAttribute(attributeDtoRequest.getName());
         Attribute attribute = Attribute.builder()
                 .name(attributeDtoRequest.getName())
                 .build();
@@ -67,7 +71,8 @@ public class AttributeServiceImpl implements AttributeService {
     @Override
     @Transactional
     public AttributeDtoResponse patchAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId) {
-        Attribute attribute = attributeRepository.findAttributeById(attributeId)
+        validateAttribute(attributeDtoRequest.getName());
+        Attribute attribute = attributeRepository.findById(attributeId)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Attribute %s is not found", attributeId)));
         attribute.setName(attributeDtoRequest.getName());
         attributeRepository.save(attribute);
@@ -76,8 +81,14 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void deleteAttribute(Long attributeId) {
-        Attribute attribute = attributeRepository.findAttributeById(attributeId)
+        Attribute attribute = attributeRepository.findById(attributeId)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Attribute %s is not found", attributeId)));
         attributeRepository.delete(attribute);
+    }
+
+    private void validateAttribute(String attributeName) {
+        if (attributeName == null || attributeName.isEmpty() || attributeName.length() > 100) {
+            throw new BadRequestException("Attribute name is incorrect");
+        }
     }
 }

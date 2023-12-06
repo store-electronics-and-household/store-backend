@@ -22,6 +22,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping(path = "/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserInfoController {
 
     private final UserInfoService userInfoService;

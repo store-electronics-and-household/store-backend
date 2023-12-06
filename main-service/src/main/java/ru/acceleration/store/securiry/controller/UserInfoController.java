@@ -1,6 +1,7 @@
 package ru.acceleration.store.securiry.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,23 +36,16 @@ public class UserInfoController {
 
     @Operation(summary = "Добавление пользователя", description = "Доступ для всех")
     @PostMapping("/registration")
-    public UserInfoResponseDto addNewUser(@RequestBody UserInfoRequestDto userInfoRequestDto) {
+    public UserInfoResponseDto addNewUser(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
+        userInfoRequestDto.setRoles("ROLE_USER");
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
         userInfoService.addUser(userInfo);
         return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
 
-    @GetMapping("/hello")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String userProfile(Principal principal) {
-        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        String ssss = "Welcome to User  " + userInfo.toString();
-        return ssss;
-    }
-
     @Operation(summary = "Вход пользователя", description = "Доступ для всех")
     @PostMapping("/login")
-    public AuthResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public AuthResponse authenticateAndGetToken(@RequestBody @Valid AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             UserInfo userInfo = userInfoService.getUserInfo(authRequest.getEmail());

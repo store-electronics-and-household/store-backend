@@ -50,6 +50,11 @@ public class UserInfoService implements UserDetailsService {
         return userDetail;
     }
 
+    public Long getUserId(String email) {
+        UserInfo userDetail = repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found " + email));
+        return userDetail.getId();
+    }
+
     public UserInfo getUserInfobyId(Long id) {
         UserInfo userDetail = repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found id " + id));
         return userDetail;

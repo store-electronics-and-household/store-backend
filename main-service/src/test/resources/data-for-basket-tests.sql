@@ -20,21 +20,26 @@ INSERT INTO collections values (7, 'Marshall', 'https://sun9-5.userapi.com/impg/
 INSERT INTO collections values (8, 'JBL колонки', 'https://sun9-4.userapi.com/impg/JjR3U_YGAyqKs-CsHbcAiSAuAKV4vDbbq9mkOg/IUNA4q_S3YQ.jpg?size=1280x492&quality=95&sign=ad6436a97c152c7855214d1673a6641c&type=album');
 INSERT INTO collections values (9, 'Ноутбуки для геймеров', 'https://sun9-68.userapi.com/impg/SbdrCocORKiWCULQwMQT6Buu8ihPDzk4WvMTlQ/FL5Uq2XCjK8.jpg?size=1280x492&quality=95&sign=8a7cfe61527c10cefd4fa8fd6dc7d7d6&type=album');
 
---
--- INSERT INTO attributes values (1, 'diagonal');
--- INSERT INTO attributes values (2, 'height');
--- INSERT INTO attributes values (3, 'weight');
--- INSERT INTO attributes values (4, 'width');
--- INSERT INTO attributes values (5, 'socket');
---
--- INSERT INTO category_attributes values (1, 1, 1, 2, 'ONE_TYPE');
--- INSERT INTO category_attributes values (2, 2, 2, 3, 'SECOND_TYPE');
--- INSERT INTO category_attributes values (3, 3, 3, 4, 'THIRD_TYPE');
--- INSERT INTO category_attributes values (4, 4, 4, 5, 'FOURTH_TYPE');
--- INSERT INTO category_attributes values (5, 5, 5, 1, 'FIFTH_TYPE');
---
--- insert into model_attributes values (1, 1, 'FirstValue', 1);
--- insert into model_attributes values (2, 1, 'SecondValue', 2);
--- insert into model_attributes values (3, 1, 'ThirdValue', 3);
--- insert into model_attributes values (4, 1, 'ForthValue', 4);
--- insert into model_attributes values (5, 1, 'FifthValue', 1);
+INSERT INTO attributes values (1, 'diagonal');
+INSERT INTO attributes values (2, 'height');
+INSERT INTO attributes values (3, 'weight');
+INSERT INTO attributes values (4, 'width');
+INSERT INTO attributes values (5, 'socket');
+
+INSERT INTO category_attributes values (1, 1, 1, 2, 'ONE_TYPE');
+INSERT INTO category_attributes values (2, 2, 2, 3, 'SECOND_TYPE');
+INSERT INTO category_attributes values (3, 3, 3, 4, 'THIRD_TYPE');
+INSERT INTO category_attributes values (4, 4, 4, 5, 'FOURTH_TYPE');
+INSERT INTO category_attributes values (5, 5, 5, 1, 'FIFTH_TYPE');
+
+INSERT INTO models values (1, 'ModelOne', 'ModelOneDesc', 100, 1, 'SomeStatus');
+INSERT INTO models values (2, 'ModelTwo', 'ModelTwoDesc', 200, 1, 'SomeStatus');
+INSERT INTO models values (3, 'ModelThree', 'ModelThreeDesc', 300, 1, 'SomeStatus');
+INSERT INTO models values (4, 'ModelFour', 'ModelFourDesc', 400, 1, 'SomeStatus');
+INSERT INTO models values (5, 'ModelFive', 'ModelFiveDesc', 500, 1, 'SomeStatus');
+
+insert into model_attributes values (1, 1, 'FirstValue', 1);
+insert into model_attributes values (2, 1, 'SecondValue', 2);
+insert into model_attributes values (3, 1, 'ThirdValue', 3);
+insert into model_attributes values (4, 1, 'ForthValue', 4);
+insert into model_attributes values (5, 1, 'FifthValue', 1);

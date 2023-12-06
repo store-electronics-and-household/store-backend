@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import ru.acceleration.store.model.enums.BasketStatus;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Data
@@ -24,9 +25,9 @@ public class Basket {
 
     @Column(name = "created")
     @Builder.Default
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "basket_id")
     private List<ModelSet> modelSets;
 

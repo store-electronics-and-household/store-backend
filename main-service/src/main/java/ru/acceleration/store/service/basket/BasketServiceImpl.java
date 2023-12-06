@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.BasketMapper;
-import ru.acceleration.store.mapper.ModelMapper;
 import ru.acceleration.store.model.Basket;
 import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.ModelSet;
@@ -26,11 +25,10 @@ public class BasketServiceImpl implements BasketService {
     private final BasketMapper basketMapper;
     private final BasketRepo basketRepo;
     private final ModelRepository modelRepository;
-    private final ModelMapper productMapper;
     private final ModelSetRepository modelSetRepository;
 
     @Override
-    public BasketResponseDto addProductToBasket(Long productId, Long userId) {
+    public BasketResponseDto addModelToBasket(Long productId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()
                 -> new DataNotFoundException("user with id: " + userId + " not found"));
         Model model = modelRepository.findById(productId).orElseThrow(()
@@ -58,13 +56,6 @@ public class BasketServiceImpl implements BasketService {
                 modelSetRepository.save(modelSet1);
                 return basketMapper.toBasketResponseDto(basket);
             }
-//            for (ModelSet modelSet : modelSetList) {
-//                if (modelSet.getModel().getId().equals(model.getId())) {
-//                    modelSet.setCount(modelSet.getCount() + 1);
-//                    modelSetRepository.save(modelSet);
-//                    return basketMapper.toBasketResponseDto(basket);
-//                }
-//            }
             ModelSet newModelSet = new ModelSet();
             newModelSet.setModel(model);
             basket.getModelSets().add(newModelSet);
@@ -82,7 +73,7 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public BasketResponseDto removeProductFromBasket(Long productId, Long userId) {
+    public BasketResponseDto removeModelFromBasket(Long productId, Long userId) {
         Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
                 -> new DataNotFoundException("basket for user with : " + userId + " not found"));
         Model model = modelRepository.findById(productId).orElseThrow(()

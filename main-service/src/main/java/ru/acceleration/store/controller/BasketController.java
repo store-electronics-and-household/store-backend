@@ -29,7 +29,7 @@ public class BasketController {
     public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("POST: /basket/add/{}/user", modelId);
-        return ResponseEntity.status(201).body(basketService.addProductToBasket(modelId, userInfo.getId()));
+        return ResponseEntity.status(201).body(basketService.addModelToBasket(modelId, userInfo.getId()));
     }
 
     @GetMapping("/user")
@@ -45,6 +45,6 @@ public class BasketController {
     public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("PATCH: /basket/remove/{}", modelId);
-        return ResponseEntity.ok().body(basketService.removeProductFromBasket(modelId, userInfo.getId()));
+        return ResponseEntity.ok().body(basketService.removeModelFromBasket(modelId, userInfo.getId()));
     }
 }

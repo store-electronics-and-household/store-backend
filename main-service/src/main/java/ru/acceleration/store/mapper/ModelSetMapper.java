@@ -10,5 +10,6 @@ public interface ModelSetMapper {
     @Mapping(source = "model", target = "modelShortDto")
     ModelSetResponseDto toModelSetDtoResponse(ModelSet modelSet);
 
+    @Mapping(source = "modelShortDto", target = "model")
     ModelSet toModelSet(ModelSetResponseDto modelSetResponseDto);
 }

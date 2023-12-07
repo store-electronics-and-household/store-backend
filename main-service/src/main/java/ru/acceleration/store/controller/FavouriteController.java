@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000")
 public class FavouriteController {
 
-
     private final UserInfoService userInfoService;
 
     private final UserService userService;
@@ -58,9 +57,7 @@ public class FavouriteController {
         Long userId = userInfoService.getUserId(principal.getName());
         log.info("FavouriteController addFavoriteModel userId={}", userId);
         Set<Model> models = userService.getAllFavorite(userId);
-        FavouriteResponseDto favouriteResponseDto = new FavouriteResponseDto(models.stream()
-                .map(modelMapper::toModelShortDto)
-                .collect(Collectors.toSet()));
+        FavouriteResponseDto favouriteResponseDto = new FavouriteResponseDto(models.stream().map(modelMapper::toModelShortDto).collect(Collectors.toSet()));
         return favouriteResponseDto;
     }
 }

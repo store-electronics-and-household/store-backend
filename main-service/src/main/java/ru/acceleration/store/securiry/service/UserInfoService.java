@@ -18,7 +18,7 @@ import java.util.Optional;
 public class UserInfoService implements UserDetailsService {
 
     @Autowired
-    private UserInfoRepository repository;
+    private UserInfoRepository userInfoRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -29,7 +29,7 @@ public class UserInfoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Optional<UserInfo> userDetail = repository.findByEmail(email);
+        Optional<UserInfo> userDetail = userInfoRepository.findByEmail(email);
 
         // Converting userDetail to UserDetails
         return userDetail.map(UserInfoDetails::new)
@@ -40,24 +40,30 @@ public class UserInfoService implements UserDetailsService {
         userInfo.setPassword(encoder.encode(userInfo.getPassword()));
         User user = new User();
         user.setUserInfo(userInfo);
-        repository.save(userInfo);
+        userInfoRepository.save(userInfo);
         userRepository.save(user);
         return userInfo;
     }
 
     public UserInfo getUserInfo(String email) {
-        UserInfo userDetail = repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found " + email));
+        UserInfo userDetail = userInfoRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found " + email));
         return userDetail;
     }
 
     public Long getUserId(String email) {
-        UserInfo userDetail = repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found " + email));
+        UserInfo userDetail = userInfoRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found " + email));
         return userDetail.getId();
     }
 
     public UserInfo getUserInfobyId(Long id) {
-        UserInfo userDetail = repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found id " + id));
+        UserInfo userDetail = userInfoRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found id " + id));
         return userDetail;
+    }
+
+    public UserInfo changePassword(UserInfo userInfo) {
+        UserInfo userDetail = userInfoRepository.findByEmail(userInfo.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found " + userInfo.getEmail()));
+        userDetail.setPassword(encoder.encode(userInfo.getPassword()));
+        return userInfoRepository.save(userDetail);
     }
 
 

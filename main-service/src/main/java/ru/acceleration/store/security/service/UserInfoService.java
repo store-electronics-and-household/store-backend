@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.service;
+package ru.acceleration.store.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,9 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.UserRepository;
-import ru.acceleration.store.securiry.config.UserInfoDetails;
-import ru.acceleration.store.securiry.model.UserInfo;
-import ru.acceleration.store.securiry.repository.UserInfoRepository;
+import ru.acceleration.store.security.config.UserInfoDetails;
+import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.security.repository.UserInfoRepository;
 
 import java.util.Optional;
 

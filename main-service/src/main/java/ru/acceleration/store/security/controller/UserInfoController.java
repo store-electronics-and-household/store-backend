@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.controller;
+package ru.acceleration.store.security.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +8,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.securiry.dto.AuthRequest;
-import ru.acceleration.store.securiry.dto.AuthResponse;
-import ru.acceleration.store.securiry.dto.UserInfoRequestDto;
-import ru.acceleration.store.securiry.dto.UserInfoResponseDto;
-import ru.acceleration.store.securiry.mapper.UserInfoMapper;
-import ru.acceleration.store.securiry.model.UserInfo;
-import ru.acceleration.store.securiry.service.JwtService;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.dto.AuthRequest;
+import ru.acceleration.store.security.dto.AuthResponse;
+import ru.acceleration.store.security.dto.UserInfoRequestDto;
+import ru.acceleration.store.security.dto.UserInfoResponseDto;
+import ru.acceleration.store.security.mapper.UserInfoMapper;
+import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.security.service.JwtService;
+import ru.acceleration.store.security.service.UserInfoService;
 
 import java.security.Principal;
 

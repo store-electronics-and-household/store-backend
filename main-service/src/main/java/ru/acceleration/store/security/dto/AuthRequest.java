@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.dto;
+package ru.acceleration.store.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

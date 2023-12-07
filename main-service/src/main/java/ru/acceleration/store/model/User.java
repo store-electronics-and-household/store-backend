@@ -3,7 +3,7 @@ package ru.acceleration.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.acceleration.store.securiry.model.UserInfo;
+import ru.acceleration.store.security.model.UserInfo;
 
 import java.util.List;
 

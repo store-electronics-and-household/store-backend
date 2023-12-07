@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.config;
+package ru.acceleration.store.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.acceleration.store.securiry.filter.JwtAuthFilter;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.filter.JwtAuthFilter;
+import ru.acceleration.store.security.service.UserInfoService;
 
 @Configuration
 @EnableWebSecurity

@@ -18,8 +18,6 @@ import ru.acceleration.store.repository.CategoryRepository;
 import ru.acceleration.store.repository.ModelRepository;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -48,19 +46,25 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
     }
 
     @Override
-    public List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort) {
+    public Page<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort) {
         Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
         Page<Model> models = modelRepository.findAllByCategoryId(categoryId, page);
-        return models.getContent()
-                .stream()
-                .map(modelMapper::toModelShortDto)
-                .collect(Collectors.toList());
+
+        return models.map(modelMapper::toModelShortDto);
     }
 
     @Override
     public Model getExistingModel(Long modelId) {
         return modelRepository.findById(modelId).orElseThrow(()
                 -> new DataNotFoundException(String.format("Model with id=%d was not found", modelId)));
+    }
+
+    @Override
+    public Page<ModelShortDto> searchModels(String text, Integer from, Integer size, String sort) {
+        Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
+        Page<Model> models = modelRepository.searchModels(text, page);
+
+        return models.map(modelMapper::toModelShortDto);
     }
 
     /**

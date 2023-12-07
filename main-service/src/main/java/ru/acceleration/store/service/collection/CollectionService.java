@@ -1,5 +1,6 @@
 package ru.acceleration.store.service.collection;
 
+import org.springframework.data.domain.Page;
 import ru.acceleration.store.dto.collection.CollectionDto;
 import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
@@ -15,7 +16,7 @@ public interface CollectionService {
 
     List<CollectionDto> getCollections();
 
-    List<ModelShortDto> getCollection(Long collectionId, String sort);
+    Page<ModelShortDto> getCollection(Long collectionId, String sort, Integer from, Integer size);
 
     CollectionDto editCollection(Long collectionId, UpdateCollectionDto updateCollectionDto);
 

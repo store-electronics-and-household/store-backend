@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.favourite.FavouriteResponseDto;
 import ru.acceleration.store.mapper.ModelMapper;
 import ru.acceleration.store.model.Model;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.user.UserService;
 
 import java.security.Principal;

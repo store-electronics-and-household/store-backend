@@ -40,11 +40,11 @@ public class BasketController {
         return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));
     }
 
-    @PatchMapping("/model/{modelId}/user")
+    @PatchMapping("/modelSet/{modelSetId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelSetId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("PATCH: /basket/remove/{}", modelId);
-        return ResponseEntity.ok().body(basketService.removeModelFromBasket(modelId, userInfo.getId()));
+        log.info("PATCH: /basket/remove/{}", modelSetId);
+        return ResponseEntity.ok().body(basketService.removeModelSetFromBasket(modelSetId, userInfo.getId()));
     }
 }

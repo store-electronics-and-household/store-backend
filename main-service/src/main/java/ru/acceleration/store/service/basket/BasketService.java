@@ -11,5 +11,5 @@ public interface BasketService {
 
     BasketResponseDto getBasket(Long userId);
 
-    BasketResponseDto removeModelFromBasket(Long modelId, Long userId);
+    BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userId);
 }

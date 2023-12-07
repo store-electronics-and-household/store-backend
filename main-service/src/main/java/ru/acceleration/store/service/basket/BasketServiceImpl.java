@@ -73,19 +73,13 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public BasketResponseDto removeModelFromBasket(Long productId, Long userId) {
+    public BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userId) {
         Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
                 -> new DataNotFoundException("basket for user with : " + userId + " not found"));
-        Model model = modelRepository.findById(productId).orElseThrow(()
-                -> new DataNotFoundException("product with id: " + productId + " not found"));
-        List<ModelSet> modelSetList = basket.getModelSets();
-        Optional<ModelSet> modelSet = modelSetList.stream()
-                .filter(modelSet1 -> modelSet1.getModel().getId().equals(model.getId()))
-                .findAny();
-        if (modelSet.isPresent()) {
-            basket.getModelSets().remove(modelSet.get());
-            modelSetRepository.deleteById(modelSet.get().getId());
-        }
+        ModelSet modelSet = modelSetRepository.findById(modelSetId).orElseThrow(()
+                -> new DataNotFoundException("modelSet with id: " + modelSetId + " not found"));
+        basket.getModelSets().remove(modelSet);
+        modelSetRepository.deleteById(modelSet.getId());
         return basketMapper.toBasketResponseDto(basket);
     }
 }

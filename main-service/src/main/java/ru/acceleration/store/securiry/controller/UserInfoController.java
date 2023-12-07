@@ -1,8 +1,8 @@
 package ru.acceleration.store.securiry.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,8 +16,6 @@ import ru.acceleration.store.securiry.mapper.UserInfoMapper;
 import ru.acceleration.store.securiry.model.UserInfo;
 import ru.acceleration.store.securiry.service.JwtService;
 import ru.acceleration.store.securiry.service.UserInfoService;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -35,23 +33,16 @@ public class UserInfoController {
 
     @Operation(summary = "Добавление пользователя", description = "Доступ для всех")
     @PostMapping("/registration")
-    public UserInfoResponseDto addNewUser(@RequestBody UserInfoRequestDto userInfoRequestDto) {
+    public UserInfoResponseDto addNewUser(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
+        userInfo.setRoles("ROLE_USER");
         userInfoService.addUser(userInfo);
         return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
 
-    @GetMapping("/hello")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String userProfile(Principal principal) {
-        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        String ssss = "Welcome to User  " + userInfo.toString();
-        return ssss;
-    }
-
     @Operation(summary = "Вход пользователя", description = "Доступ для всех")
     @PostMapping("/login")
-    public AuthResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public AuthResponse authenticateAndGetToken(@RequestBody @Valid AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             UserInfo userInfo = userInfoService.getUserInfo(authRequest.getEmail());
@@ -62,5 +53,13 @@ public class UserInfoController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+
+    @Operation(summary = "Изменение пароля", description = "Доступ для всех")
+    @PatchMapping("/change")
+    public UserInfoResponseDto changePassword(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
+        UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
+        userInfoService.changePassword(userInfo);
+        return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
 }

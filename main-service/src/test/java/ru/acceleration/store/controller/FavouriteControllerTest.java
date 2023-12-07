@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@Sql({"/data-for-basket-tests.sql"})
+@Sql({"/schema-test.sql", "/data-for-basket-tests.sql","/data-for-favorite-tests.sql"})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class FavouriteControllerTest {

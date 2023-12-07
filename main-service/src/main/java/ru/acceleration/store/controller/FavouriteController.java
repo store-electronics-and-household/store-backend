@@ -46,7 +46,7 @@ public class FavouriteController {
     @Operation(summary = "Удаление товара из избранного", description = "Для авторизованного пользователя")
     public void deleteFavoriteModel(@RequestBody @NotNull Long modelId, Principal principal) {
         Long userId = userInfoService.getUserId(principal.getName());
-        log.info("FavouriteController addFavoriteModel modelId={}, userId={}", modelId, userId);
+        log.info("FavouriteController deleteFavoriteModel modelId={}, userId={}", modelId, userId);
         userService.deleteFavoriteModel(modelId, userId);
     }
 
@@ -55,7 +55,7 @@ public class FavouriteController {
     @Operation(summary = "Удаление товара из избранного", description = "Для авторизованного пользователя")
     public FavouriteResponseDto getAllFavorite(Principal principal) {
         Long userId = userInfoService.getUserId(principal.getName());
-        log.info("FavouriteController addFavoriteModel userId={}", userId);
+        log.info("FavouriteController getAllFavorite userId={}", userId);
         Set<Model> models = userService.getAllFavorite(userId);
         FavouriteResponseDto favouriteResponseDto = new FavouriteResponseDto(models.stream().map(modelMapper::toModelShortDto).collect(Collectors.toSet()));
         return favouriteResponseDto;

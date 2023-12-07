@@ -42,7 +42,7 @@ public class BasketController {
 
     @PatchMapping("/modelSet/{modelSetId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelSetId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> removeModelSetFromBasket(@PathVariable Long modelSetId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("PATCH: /basket/modelSet/{}/user", modelSetId);
         return ResponseEntity.ok().body(basketService.removeModelSetFromBasket(modelSetId, userInfo.getId()));

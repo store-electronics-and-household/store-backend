@@ -59,6 +59,14 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
                 -> new DataNotFoundException(String.format("Model with id=%d was not found", modelId)));
     }
 
+    @Override
+    public Page<ModelShortDto> searchModels(String text, Integer from, Integer size, String sort) {
+        Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
+        Page<Model> models = modelRepository.searchModels(text, page);
+
+        return models.map(modelMapper::toModelShortDto);
+    }
+
     /**
      * Метод для сортировки при применении сортировки в stream().sorted()
      * {@link ru.acceleration.store.service.collection.CollectionServiceImpl#getCollection}

@@ -45,7 +45,7 @@ public class CollectionController {
                                                              @RequestParam(defaultValue = "NAME") String sort,
                                                              @RequestParam(value = "from", defaultValue = "0")
                                                              @PositiveOrZero Integer from,
-                                                             @RequestParam(value = "size", defaultValue = "10")
+                                                             @RequestParam(value = "size", defaultValue = "20")
                                                              @Positive Integer size) {
         log.info("GET: /collections/{}?sort=" + sort + "&from=" + from + "&size=" + size, collectionID);
         return ResponseEntity.ok().body(collectionService.getCollection(collectionID, sort, from, size));

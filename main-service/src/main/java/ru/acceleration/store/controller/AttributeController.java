@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.attribute.*;
 import ru.acceleration.store.service.attribute.AttributeService;
@@ -56,6 +57,7 @@ public class AttributeController {
 //        return attributeService.getAttributeProduct(dto);
 //    }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(path = "/attributes/{attributeId}")
     public ResponseEntity<AttributeDtoResponse> getAttributeById(
             @PathVariable Long attributeId) {
@@ -65,6 +67,7 @@ public class AttributeController {
         return ResponseEntity.ok().body(attributeDtoResponse);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(path = "/attributes")
     public ResponseEntity<List<AttributeDtoResponse>> findAttributes(
             @RequestParam(value = "text") String text,
@@ -77,6 +80,7 @@ public class AttributeController {
         return ResponseEntity.ok().body(attributeDtoResponseList);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(path = "/attributes")
     public ResponseEntity<AttributeDtoResponse> createAttribute(
             @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
@@ -87,6 +91,7 @@ public class AttributeController {
         return ResponseEntity.status(201).body(attributeDtoResponse);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping(path = "/attributes/{attributesId}")
     public ResponseEntity<AttributeDtoResponse> patchAttribute(
             @PathVariable Long attributesId,
@@ -98,6 +103,7 @@ public class AttributeController {
         return ResponseEntity.ok().body(attributeDtoResponse);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/attributes/{attributesId}")
     public ResponseEntity<?> deleteCategory(
             @PathVariable Long attributesId)

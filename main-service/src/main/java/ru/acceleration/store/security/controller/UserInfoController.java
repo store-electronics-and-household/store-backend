@@ -62,4 +62,11 @@ public class UserInfoController {
         userInfoService.changePassword(userInfo);
         return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
+
+    @Operation(summary = "Проверка почты в базе данных", description = "Доступ для всех")
+    @GetMapping("/check")
+    public boolean changePassword(@RequestBody String email) {
+        userInfoService.loadUserByUsername(email);
+        return true;
+    }
 }

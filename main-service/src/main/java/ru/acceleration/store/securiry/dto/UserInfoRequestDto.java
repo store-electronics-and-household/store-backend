@@ -21,6 +21,4 @@ public class UserInfoRequestDto {
     @NotBlank
     @NotNull
     String password;
-
-    String roles;
 }

@@ -3,7 +3,6 @@ package ru.acceleration.store.securiry.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,8 +16,6 @@ import ru.acceleration.store.securiry.mapper.UserInfoMapper;
 import ru.acceleration.store.securiry.model.UserInfo;
 import ru.acceleration.store.securiry.service.JwtService;
 import ru.acceleration.store.securiry.service.UserInfoService;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -37,8 +34,8 @@ public class UserInfoController {
     @Operation(summary = "Добавление пользователя", description = "Доступ для всех")
     @PostMapping("/registration")
     public UserInfoResponseDto addNewUser(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
-        userInfoRequestDto.setRoles("ROLE_USER");
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
+        userInfo.setRoles("ROLE_USER");
         userInfoService.addUser(userInfo);
         return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
@@ -56,5 +53,13 @@ public class UserInfoController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+
+    @Operation(summary = "Изменение пароля", description = "Доступ для всех")
+    @PatchMapping("/change")
+    public UserInfoResponseDto changePassword(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
+        UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
+        userInfoService.changePassword(userInfo);
+        return userInfoMapper.userInfoToUserResponseDto(userInfo);
     }
 }

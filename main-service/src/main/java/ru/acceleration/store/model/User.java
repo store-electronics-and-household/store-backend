@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.securiry.model.UserInfo;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -38,7 +38,7 @@ public class User {
     @JoinTable(name = "user_favourites",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "model_id"))
-    List<Model> models;
+    Set<Model> models;
 
     @OneToOne
     @JoinColumn(name = "user_info_id")

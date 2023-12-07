@@ -28,7 +28,7 @@ public class BasketController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("POST: /basket/add/{}/user", modelId);
+        log.info("POST: /basket/model/{}/user", modelId);
         return ResponseEntity.status(201).body(basketService.addModelToBasket(modelId, userInfo.getId()));
     }
 
@@ -36,15 +36,15 @@ public class BasketController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<BasketResponseDto> getBasket(Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("GET: /basket/{}", userInfo.getId());
+        log.info("GET: /basket/user/{}", userInfo.getId());
         return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));
     }
 
-    @PatchMapping("/model/{modelId}/user")
+    @PatchMapping("/modelSet/{modelSetId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long modelId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> removeModelSetFromBasket(@PathVariable Long modelSetId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("PATCH: /basket/remove/{}", modelId);
-        return ResponseEntity.ok().body(basketService.removeModelFromBasket(modelId, userInfo.getId()));
+        log.info("PATCH: /basket/modelSet/{}/user", modelSetId);
+        return ResponseEntity.ok().body(basketService.removeModelSetFromBasket(modelSetId, userInfo.getId()));
     }
 }

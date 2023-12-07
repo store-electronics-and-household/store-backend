@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.filter;
+package ru.acceleration.store.security.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.acceleration.store.securiry.service.JwtService;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.service.JwtService;
+import ru.acceleration.store.security.service.UserInfoService;
 
 import java.io.IOException;
 

@@ -2,8 +2,11 @@ package ru.acceleration.store.service.collection;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.acceleration.store.abstraction.PageRequestUtil;
 import ru.acceleration.store.dto.collection.CollectionDto;
 import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CollectionServiceImpl implements CollectionService {
+public class CollectionServiceImpl extends PageRequestUtil implements CollectionService {
 
     private final CollectionRepository collectionRepository;
     private final CollectionMapper collectionMapper;
@@ -54,13 +57,21 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
-    public List<ModelShortDto> getCollection(Long collectionId, String sort) {
+    public Page<ModelShortDto> getCollection(Long collectionId, String sort, Integer from, Integer size) {
         Collection collection = getExistingCollection(collectionId);
-        return collection.getModels()
+
+        List<ModelShortDto> sortedModels = collection.getModels()
                 .stream()
                 .sorted(modelService.getComparator(ModelSort.valueOf(sort)))
                 .map(modelMapper::toModelShortDto)
-                .collect(Collectors.toList());
+                .toList();
+
+        int startIndex = Math.min(from, sortedModels.size());
+        int toIndex = Math.min(from + size, sortedModels.size());
+
+        List<ModelShortDto> paginatedModels = sortedModels.subList(startIndex, toIndex);
+
+        return new PageImpl<>(paginatedModels, createPageRequest(from, size), sortedModels.size());
     }
 
     /**

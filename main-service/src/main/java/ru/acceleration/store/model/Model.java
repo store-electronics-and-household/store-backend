@@ -30,6 +30,9 @@ public class Model {
     @Column(name = "price")
     private Long price;
 
+    @Column(name = "popular")
+    private Boolean popular;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ModelStatus status;
@@ -46,10 +49,6 @@ public class Model {
     @JoinColumn(name = "model_id")
     private List<ModelImage> modelImages;
 
-    //    @OneToMany
-//    @JoinColumn(name = "model_id")
-//    private List<ModelAttribute> modelAttributes;
-//
     @OneToMany(mappedBy = "model")
     private List<ModelAttribute> modelAttributes;
 }

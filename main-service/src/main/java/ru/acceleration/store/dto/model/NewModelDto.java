@@ -1,5 +1,6 @@
 package ru.acceleration.store.dto.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,4 +22,7 @@ public class NewModelDto {
 
     @NotNull
     private Long price;
+
+    @Nullable
+    private Boolean popular;
 }

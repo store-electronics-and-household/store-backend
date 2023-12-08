@@ -20,6 +20,8 @@ public class ModelShortDto {
 
     private Long price;
 
+    private Boolean popular;
+
     List<ModelImage> modelsImages;
 
     private Integer percent;

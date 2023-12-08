@@ -1,4 +1,4 @@
-package ru.acceleration.store.controller;
+package ru.acceleration.store.controller.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
@@ -27,10 +27,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AttributesControllerTests {
+public class AdminAttributesControllerTests {
 
 
     @Autowired
@@ -49,7 +50,7 @@ public class AttributesControllerTests {
         AttributeDtoResponse attributeDtoResponse = AttributeDtoResponse.builder().id(17L).name("Attribute17").build();
         when(attributeService.getAttributeById(17L)).thenReturn(attributeDtoResponse);
 
-        String response = mockMvc.perform(get("/attributes/17"))
+        String response = mockMvc.perform(get("/admin/attributes/17"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -65,7 +66,7 @@ public class AttributesControllerTests {
     public void getAttributeById_givenInvalidId_thenExpectOkWithBody() {
         when(attributeService.getAttributeById(17L)).thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(get("/attributes/17"))
+        mockMvc.perform(get("/admin/attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -81,7 +82,7 @@ public class AttributesControllerTests {
         AttributeDtoResponse attributeDtoResponse = AttributeDtoResponse.builder().id(17L).name("NewAttribute").build();
         when(attributeService.createAttribute(attributeDtoRequest)).thenReturn(attributeDtoResponse);
 
-        String response = mockMvc.perform(post("/attributes")
+        String response = mockMvc.perform(post("/admin/attributes")
                         .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isCreated())
@@ -99,7 +100,7 @@ public class AttributesControllerTests {
     public void postAttribute_givenAttributeNameNULL_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name(null).build();
 
-        mockMvc.perform(post("/attributes")
+        mockMvc.perform(post("/admin/attributes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -113,7 +114,7 @@ public class AttributesControllerTests {
     public void postAttribute_givenAttributeNameEMPTY_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("").build();
 
-        mockMvc.perform(post("/attributes")
+        mockMvc.perform(post("/admin/attributes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -128,7 +129,7 @@ public class AttributesControllerTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
                 .name(String.format("%101c", '1')).build();
 
-        mockMvc.perform(post("/attributes")
+        mockMvc.perform(post("/admin/attributes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -144,7 +145,7 @@ public class AttributesControllerTests {
         AttributeDtoResponse attributeDtoResponse = AttributeDtoResponse.builder().id(17L).name("NewAttribute").build();
         when(attributeService.patchAttribute(attributeDtoRequest, 17L)).thenReturn(attributeDtoResponse);
 
-        String response = mockMvc.perform(patch("/attributes/17")
+        String response = mockMvc.perform(patch("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isOk())
@@ -163,7 +164,7 @@ public class AttributesControllerTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttribute").build();
         when(attributeService.patchAttribute(attributeDtoRequest, 17L)).thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(patch("/attributes/17")
+        mockMvc.perform(patch("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isNotFound())
@@ -179,7 +180,7 @@ public class AttributesControllerTests {
     public void patchAttribute_givenAttributeNameNULL_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name(null).build();
 
-        mockMvc.perform(patch("/attributes/17")
+        mockMvc.perform(patch("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -193,7 +194,7 @@ public class AttributesControllerTests {
     public void patchAttribute_givenAttributeNameBlank_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("").build();
 
-        mockMvc.perform(patch("/attributes/17")
+        mockMvc.perform(patch("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -208,7 +209,7 @@ public class AttributesControllerTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
                 .name(String.format("%101c", '1')).build();
 
-        mockMvc.perform(patch("/attributes/17")
+        mockMvc.perform(patch("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -222,7 +223,7 @@ public class AttributesControllerTests {
     public void deleteAttribute_givenValidId_thenExpect204() {
         doNothing().when(attributeService).deleteAttribute(17L);
 
-        mockMvc.perform(delete("/attributes/17"))
+        mockMvc.perform(delete("/admin/attributes/17"))
                 .andExpect(status().is(204))
                 .andReturn()
                 .getResponse();
@@ -236,7 +237,7 @@ public class AttributesControllerTests {
     public void deleteAttribute_givenInvalidId_thenExpect204() {
         doThrow(DataNotFoundException.class).when(attributeService).deleteAttribute(17L);
 
-        mockMvc.perform(delete("/attributes/17"))
+        mockMvc.perform(delete("/admin/attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -252,7 +253,7 @@ public class AttributesControllerTests {
                 List.of(AttributeDtoResponse.builder().id(17L).name("name").build());
         when(attributeService.findAttributes("na", 0 ,10)).thenReturn(attributeDtoResponseList);
 
-        String response = mockMvc.perform(get("/attributes?text=na"))
+        String response = mockMvc.perform(get("/admin/attributes?text=na"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()

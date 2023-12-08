@@ -25,4 +25,10 @@ public class NewModelDto {
 
     @Nullable
     private Boolean popular;
+
+    public NewModelDto(String name, String description, Long price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 }

@@ -27,4 +27,14 @@ public class ModelShortDto {
     private Integer percent;
 
     private Long oldPrice;
+
+    public ModelShortDto(Long id, String name, String description, Long price, List<ModelImage> modelsImages, Integer percent, Long oldPrice) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.modelsImages = modelsImages;
+        this.percent = percent;
+        this.oldPrice = oldPrice;
+    }
 }

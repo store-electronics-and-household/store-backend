@@ -50,7 +50,8 @@ public class AdminCategoryAttributesController {
     {
         log.info("POST: /admin/category-attributes request: categoryId={}, attributeID={}, dto={}",
                 categoryId, attributeId, categoryAttributeDtoRequest);
-        var dtoResponse = categoryAttributesService.createCategoryAttributes(categoryId, attributeId, categoryAttributeDtoRequest);
+        CategoryAttributeDtoResponse dtoResponse = categoryAttributesService
+                .createCategoryAttributes(categoryId, attributeId, categoryAttributeDtoRequest);
         return ResponseEntity.status(201).body(dtoResponse);
     }
 
@@ -63,7 +64,7 @@ public class AdminCategoryAttributesController {
     {
         log.info("PUT: /admin/category-attributes/{id} request: dto={}, id={}, categoryId={}, attributeId={}",
                 categoryAttributeDtoRequest, id, categoryId, attributeId);
-        var dtoResponse = categoryAttributesService.updateCategoryAttribute(
+        CategoryAttributeDtoResponse dtoResponse = categoryAttributesService.updateCategoryAttribute(
                 id, categoryId, attributeId, categoryAttributeDtoRequest);
         return ResponseEntity.ok().body(dtoResponse);
     }

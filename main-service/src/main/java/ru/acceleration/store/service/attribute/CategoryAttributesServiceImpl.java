@@ -11,12 +11,10 @@ import ru.acceleration.store.mapper.CategoryAttributeMapper;
 import ru.acceleration.store.model.Attribute;
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.CategoryAttribute;
-import ru.acceleration.store.model.enums.AttributeType;
 import ru.acceleration.store.repository.AttributeRepository;
 import ru.acceleration.store.repository.CategoryAttributeRepository;
 import ru.acceleration.store.repository.CategoryRepository;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +54,7 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
     @Override
     public List<CategoryAttributeDtoResponse> getCategoryAttributesByCategoryId(Long categoryId) {
         validateCategoryById(categoryId);
-        return categoryAttributeRepository.findAllCategoryAttributeByCategoryIdOrderByPriority(categoryId).stream()
+        return categoryAttributeRepository.findAllCategoryAttributeByCategoryIdOrderByPriorityDesc(categoryId).stream()
                 .map(categoryAttributeMapper::toCategoryAttributeDtoResponse)
                 .collect(Collectors.toList());
     }

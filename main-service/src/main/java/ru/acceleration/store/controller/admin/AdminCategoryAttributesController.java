@@ -29,15 +29,15 @@ public class AdminCategoryAttributesController {
             @PathVariable Long id)
     {
         log.info("GET: /admin/category-attributes/{} request", id);
-        CategoryAttributeDtoResponse dtoResponse = categoryAttributesService.findCategoryAttributeById(id);
+        CategoryAttributeDtoResponse dtoResponse = categoryAttributesService.getCategoryAttributeById(id);
         return ResponseEntity.ok().body(dtoResponse);
     }
 
-    @GetMapping(path = "/{categoryId}")
+    @GetMapping()
     public ResponseEntity<List<CategoryAttributeDtoResponse>> getAllCategoryAttributesByCategoryId(
-            @PathVariable Long categoryId)
+            @RequestParam Long categoryId)
     {
-        log.info("GET: /admin/category-attributes request: categoryId={}", categoryId);
+        log.info("GET: /admin/category-attributes?categoryId={} request", categoryId);
         var list = categoryAttributesService.getCategoryAttributesByCategoryId(categoryId);
         return ResponseEntity.ok().body(list);
     }

@@ -9,7 +9,7 @@ public interface CategoryAttributesService {
 
     CategoryAttributeDtoResponse createCategoryAttributes(Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest);
 
-    CategoryAttributeDtoResponse findCategoryAttributeById(Long categoryAttributeId);
+    CategoryAttributeDtoResponse getCategoryAttributeById(Long categoryAttributeId);
 
     List<CategoryAttributeDtoResponse> getCategoryAttributesByCategoryId(Long categoryId);
 

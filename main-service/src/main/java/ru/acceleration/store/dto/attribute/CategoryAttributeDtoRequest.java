@@ -18,7 +18,6 @@ public class CategoryAttributeDtoRequest {
     @NotNull
     private Long priority;
 
-    @NotEmpty
-    @Size(max = 100, message = "AttributeType must be less than 100 characters")
+    @NotNull
     private AttributeType attributeType;
 }

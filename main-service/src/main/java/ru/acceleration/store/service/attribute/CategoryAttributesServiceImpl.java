@@ -15,6 +15,7 @@ import ru.acceleration.store.repository.AttributeRepository;
 import ru.acceleration.store.repository.CategoryAttributeRepository;
 import ru.acceleration.store.repository.CategoryRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
     }
 
     @Override
-    public CategoryAttributeDtoResponse findCategoryAttributeById(Long categoryAttributeId) {
+    public CategoryAttributeDtoResponse getCategoryAttributeById(Long categoryAttributeId) {
         CategoryAttribute categoryAttribute = validateCategoryAttributeById(categoryAttributeId);
         return categoryAttributeMapper.toCategoryAttributeDtoResponse(categoryAttribute);
     }
@@ -56,6 +57,7 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
         validateCategoryById(categoryId);
         return categoryAttributeRepository.findAllCategoryAttributeByCategoryId(categoryId).stream()
                 .map(categoryAttributeMapper::toCategoryAttributeDtoResponse)
+                .sorted(Comparator.comparing(CategoryAttributeDtoResponse::getPriority))
                 .collect(Collectors.toList());
     }
 

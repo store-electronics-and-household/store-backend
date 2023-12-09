@@ -1,4 +1,4 @@
-package ru.acceleration.store.controller.admin;
+package ru.acceleration.store.controller.attributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;

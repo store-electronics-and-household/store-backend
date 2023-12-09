@@ -55,7 +55,6 @@ public class AdminAttributeController {
         return ResponseEntity.status(201).body(attributeDtoResponse);
     }
 
-
     @PatchMapping(path = "/{attributesId}")
     public ResponseEntity<AttributeDtoResponse> patchAttribute(
             @PathVariable Long attributesId,

@@ -11,6 +11,7 @@ import ru.acceleration.store.mapper.CategoryAttributeMapper;
 import ru.acceleration.store.model.Attribute;
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.CategoryAttribute;
+import ru.acceleration.store.model.enums.AttributeType;
 import ru.acceleration.store.repository.AttributeRepository;
 import ru.acceleration.store.repository.CategoryAttributeRepository;
 import ru.acceleration.store.repository.CategoryRepository;
@@ -55,26 +56,22 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
     @Override
     public List<CategoryAttributeDtoResponse> getCategoryAttributesByCategoryId(Long categoryId) {
         validateCategoryById(categoryId);
-        return categoryAttributeRepository.findAllCategoryAttributeByCategoryId(categoryId).stream()
+        return categoryAttributeRepository.findAllCategoryAttributeByCategoryIdOrderByPriority(categoryId).stream()
                 .map(categoryAttributeMapper::toCategoryAttributeDtoResponse)
-                .sorted(Comparator.comparing(CategoryAttributeDtoResponse::getPriority))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CategoryAttributeDtoResponse updateCategoryAttribute(
             Long id, Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
-        validateCategoryAttributeById(id);
+        CategoryAttribute categoryAttribute = validateCategoryAttributeById(id);
         Category category = validateCategoryById(id);
         Attribute attribute = validateAttributeById(id);
-        CategoryAttribute categoryAttributeUpdate = CategoryAttribute.builder()
-                .id(id)
-                .category(category)
-                .attribute(attribute)
-                .priority(categoryAttributeDtoRequest.getPriority())
-                .attributeType(categoryAttributeDtoRequest.getAttributeType())
-                .build();
-        CategoryAttribute categoryAttributeSaved = categoryAttributeRepository.save(categoryAttributeUpdate);
+        categoryAttribute.setCategory(category);
+        categoryAttribute.setAttribute(attribute);
+        categoryAttribute.setPriority(categoryAttributeDtoRequest.getPriority());
+        categoryAttribute.setAttributeType(categoryAttributeDtoRequest.getAttributeType());
+        CategoryAttribute categoryAttributeSaved = categoryAttributeRepository.save(categoryAttribute);
         return categoryAttributeMapper.toCategoryAttributeDtoResponse(categoryAttributeSaved);
     }
 

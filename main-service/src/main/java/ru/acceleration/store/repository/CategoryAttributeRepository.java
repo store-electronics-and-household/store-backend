@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CategoryAttributeRepository extends JpaRepository<CategoryAttribute, Long> {
 
-    List<CategoryAttribute> findAllCategoryAttributeByCategoryId(Long categoryId);
+    List<CategoryAttribute> findAllCategoryAttributeByCategoryIdOrderByPriority(Long categoryId);
 }

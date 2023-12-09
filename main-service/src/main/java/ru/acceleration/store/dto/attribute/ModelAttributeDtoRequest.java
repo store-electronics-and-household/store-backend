@@ -1,6 +1,7 @@
 package ru.acceleration.store.dto.attribute;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModelAttributeDtoRequest {
 
-    @NotBlank
+    @NotEmpty
+    @Size(max = 250, message = "ModelAttribute value must be less than 250 characters")
     private String value;
 }

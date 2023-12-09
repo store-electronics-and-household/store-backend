@@ -32,7 +32,8 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
     AttributeRepository attributeRepository;
 
     @Override
-    public CategoryAttributeDtoResponse createCategoryAttributes(Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
+    public CategoryAttributeDtoResponse createCategoryAttributes(
+            Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
         Category category = validateCategoryById(categoryId);
         Attribute attribute = validateAttributeById(attributeId);
         CategoryAttribute categoryAttribute = CategoryAttribute.builder()
@@ -63,8 +64,8 @@ public class CategoryAttributesServiceImpl implements CategoryAttributesService 
     public CategoryAttributeDtoResponse updateCategoryAttribute(
             Long id, Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
         CategoryAttribute categoryAttribute = validateCategoryAttributeById(id);
-        Category category = validateCategoryById(id);
-        Attribute attribute = validateAttributeById(id);
+        Category category = validateCategoryById(categoryId);
+        Attribute attribute = validateAttributeById(attributeId);
         categoryAttribute.setCategory(category);
         categoryAttribute.setAttribute(attribute);
         categoryAttribute.setPriority(categoryAttributeDtoRequest.getPriority());

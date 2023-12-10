@@ -98,7 +98,7 @@ public class ModelAttributeServiceImpl implements ModelAttributesService {
 
     private void validateModelAttributeDtoRequest(ModelAttributeDtoRequest modelAttributeDtoRequest) {
         String value = modelAttributeDtoRequest.getValue();
-        if (value == null || value.isEmpty() || value.length() > 250) {
+        if (value == null || value.isBlank() || value.length() > 250) {
             throw new BadRequestException("ModelAttribute value is not correct");
         }
     }

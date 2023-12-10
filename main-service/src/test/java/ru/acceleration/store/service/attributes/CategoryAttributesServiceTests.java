@@ -46,7 +46,6 @@ public class CategoryAttributesServiceTests {
     ArgumentCaptor<CategoryAttribute> captor;
 
     @Spy
-    @InjectMocks
     CategoryAttributeMapper CategoryAttributemapper = Mappers.getMapper(CategoryAttributeMapper.class);
 
     @Test

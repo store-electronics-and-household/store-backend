@@ -46,7 +46,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public List<ModelAttributeDtoResponse> getAllModelAttributeByModelId(Long modelId) {
-        List<ModelAttribute> modelAttributes = modelAttributeRepository.findAllByModelIdOrderByCategoryAttributePriority(modelId);
+        List<ModelAttribute> modelAttributes = modelAttributeRepository.findAllByModelIdOrderByCategoryAttributePriorityDesc(modelId);
         List<ModelAttributeDtoResponse> modelAttributeDtoResponses = modelAttributeMapper.toModelAttributeDtoResponseList(modelAttributes);
         return modelAttributeDtoResponses;
     }
@@ -70,7 +70,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     @Transactional
-    public AttributeDtoResponse patchAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId) {
+    public AttributeDtoResponse updateAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId) {
         validateAttribute(attributeDtoRequest.getName());
         Attribute attribute = attributeRepository.findById(attributeId)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Attribute %s is not found", attributeId)));

@@ -35,7 +35,7 @@ public class ModelAttributeServiceImpl implements ModelAttributesService {
     @Override
     public List<ModelAttributeDtoResponse> getModelAttributesByModelId(Long modelId) {
         validateModelId(modelId);
-        return modelAttributeRepository.findAllByModelIdOrderByCategoryAttributePriority(modelId).stream()
+        return modelAttributeRepository.findAllByModelIdOrderByCategoryAttributePriorityDesc(modelId).stream()
                 .map(modelAttributeMapper::toModelAttributeDtoResponse)
                 .collect(Collectors.toList());
     }

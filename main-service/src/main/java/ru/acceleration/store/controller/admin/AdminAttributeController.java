@@ -55,13 +55,13 @@ public class AdminAttributeController {
         return ResponseEntity.status(201).body(attributeDtoResponse);
     }
 
-    @PatchMapping(path = "/{attributesId}")
-    public ResponseEntity<AttributeDtoResponse> patchAttribute(
+    @PutMapping(path = "/{attributesId}")
+    public ResponseEntity<AttributeDtoResponse> updateAttribute(
             @PathVariable Long attributesId,
             @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
     {
         log.info("PATCH: /admin/attributes/{} request: {}",attributesId, attributeDtoRequest);
-        AttributeDtoResponse attributeDtoResponse = attributeService.patchAttribute(attributeDtoRequest, attributesId);
+        AttributeDtoResponse attributeDtoResponse = attributeService.updateAttribute(attributeDtoRequest, attributesId);
         return ResponseEntity.ok().body(attributeDtoResponse);
     }
 

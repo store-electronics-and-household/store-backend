@@ -5,9 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import ru.acceleration.store.dto.attribute.AttributeDtoRequest;
@@ -36,8 +34,10 @@ public class AttributesServiceTests {
     AttributeRepository attributeRepository;
 
     @Spy
-    @InjectMocks
     AttributeMapper attributeMapper = Mappers.getMapper(AttributeMapper.class);
+
+    @Captor
+    ArgumentCaptor<Attribute> captor;
 
     @Test
     public void getAttributeById_givenValidId() {
@@ -62,15 +62,14 @@ public class AttributesServiceTests {
 
     @Test
     public void createAttribute_givenValidData() {
-        Attribute attribute = Attribute.builder().id(1L).name("AttributeName").build();
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("AttributeName").build();
-        when(attributeRepository.save(any(Attribute.class))).thenReturn(attribute);
+        attributeServiceImpl.createAttribute(attributeDtoRequest);
 
-        AttributeDtoResponse attributeDtoResponse = attributeServiceImpl.createAttribute(attributeDtoRequest);
+        verify(attributeRepository).save(captor.capture());
+        Attribute attributeSaved = captor.getValue();
 
-        assertNotNull(attributeDtoResponse);
-        assertEquals(1L, attributeDtoResponse.getId());
-        assertEquals("AttributeName", attributeDtoResponse.getName());
+        assertNotNull(attributeSaved);
+        assertEquals("AttributeName", attributeSaved.getName());
         verify(attributeRepository, atLeast(1)).save(any(Attribute.class));
     }
 
@@ -97,18 +96,18 @@ public class AttributesServiceTests {
     }
 
     @Test
-    public void pathAttribute_givenValidData() {
-        Attribute attribute = Attribute.builder().id(17L).name("NewAttributeName").build();
+    public void updateAttribute_givenValidData() {
+        Attribute attribute = Attribute.builder().id(17L).name("oldAttributeName").build();
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttributeName").build();
-        when(attributeRepository.save(any(Attribute.class))).thenReturn(attribute);
         when(attributeRepository.findById(17L)).thenReturn(Optional.of(attribute));
 
-        AttributeDtoResponse attributeDtoResponse = attributeServiceImpl.patchAttribute(attributeDtoRequest, 17L);
+        attributeServiceImpl.updateAttribute(attributeDtoRequest, 17L);
 
-        assertNotNull(attributeDtoResponse);
-        assertEquals(17L, attributeDtoResponse.getId());
-        assertEquals("NewAttributeName", attributeDtoResponse.getName());
-        verify(attributeRepository, atLeast(1)).save(any(Attribute.class));
+        verify(attributeRepository).save(captor.capture());
+        Attribute attributeSaved = captor.getValue();
+        assertNotNull(attributeSaved);
+        assertEquals(17L, attributeSaved.getId());
+        assertEquals("NewAttributeName", attributeSaved.getName());
         verify(attributeRepository, atLeast(1)).findById(17L);
     }
 
@@ -117,7 +116,7 @@ public class AttributesServiceTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttributeName").build();
         when(attributeRepository.findById(17L)).thenReturn(Optional.empty());
 
-        assertThrows(DataNotFoundException.class, () -> attributeServiceImpl.patchAttribute(attributeDtoRequest, 17L));
+        assertThrows(DataNotFoundException.class, () -> attributeServiceImpl.updateAttribute(attributeDtoRequest, 17L));
         verify(attributeRepository, atLeast(1)).findById(17L);
     }
 
@@ -125,14 +124,14 @@ public class AttributesServiceTests {
     public void patchAttribute_givenAttributeNameNull() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name(null).build();
 
-        assertThrows(BadRequestException.class, () -> attributeServiceImpl.patchAttribute(attributeDtoRequest, 17L));
+        assertThrows(BadRequestException.class, () -> attributeServiceImpl.updateAttribute(attributeDtoRequest, 17L));
     }
 
     @Test
     public void patchAttribute_givenAttributeNameEmpty() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("").build();
 
-        assertThrows(BadRequestException.class, () -> attributeServiceImpl.patchAttribute(attributeDtoRequest, 17L));
+        assertThrows(BadRequestException.class, () -> attributeServiceImpl.updateAttribute(attributeDtoRequest, 17L));
     }
 
     @Test
@@ -140,7 +139,7 @@ public class AttributesServiceTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
                 .name(String.format("%101c", '1')).build();
 
-        assertThrows(BadRequestException.class, () -> attributeServiceImpl.patchAttribute(attributeDtoRequest, 17L));
+        assertThrows(BadRequestException.class, () -> attributeServiceImpl.updateAttribute(attributeDtoRequest, 17L));
     }
 
     @Test

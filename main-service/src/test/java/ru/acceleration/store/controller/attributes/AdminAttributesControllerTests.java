@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdminAttributesControllerTests {
-
 
     @Autowired
     MockMvc mockMvc;
@@ -143,9 +142,9 @@ public class AdminAttributesControllerTests {
     public void patchAttribute_givenValidRequest_thenExpectOkWithBody() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttribute").build();
         AttributeDtoResponse attributeDtoResponse = AttributeDtoResponse.builder().id(17L).name("NewAttribute").build();
-        when(attributeService.patchAttribute(attributeDtoRequest, 17L)).thenReturn(attributeDtoResponse);
+        when(attributeService.updateAttribute(attributeDtoRequest, 17L)).thenReturn(attributeDtoResponse);
 
-        String response = mockMvc.perform(patch("/admin/attributes/17")
+        String response = mockMvc.perform(put("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isOk())
@@ -153,7 +152,7 @@ public class AdminAttributesControllerTests {
                 .getResponse()
                 .getContentAsString();
 
-        verify(attributeService, atLeast(1)).patchAttribute(attributeDtoRequest, 17L);
+        verify(attributeService, atLeast(1)).updateAttribute(attributeDtoRequest, 17L);
         assertEquals(response, objectMapper.writeValueAsString(attributeDtoResponse));
     }
 
@@ -162,16 +161,16 @@ public class AdminAttributesControllerTests {
     @WithMockUser(username = "admin@mail.ru", authorities = "ROLE_ADMIN")
     public void patchAttribute_givenInvalidId_thenExpectNotFound() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("NewAttribute").build();
-        when(attributeService.patchAttribute(attributeDtoRequest, 17L)).thenThrow(DataNotFoundException.class);
+        when(attributeService.updateAttribute(attributeDtoRequest, 17L)).thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(patch("/admin/attributes/17")
+        mockMvc.perform(put("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
 
-        verify(attributeService, atLeast(1)).patchAttribute(attributeDtoRequest, 17L);
+        verify(attributeService, atLeast(1)).updateAttribute(attributeDtoRequest, 17L);
     }
 
     @Test
@@ -180,7 +179,7 @@ public class AdminAttributesControllerTests {
     public void patchAttribute_givenAttributeNameNULL_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name(null).build();
 
-        mockMvc.perform(patch("/admin/attributes/17")
+        mockMvc.perform(put("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -194,7 +193,7 @@ public class AdminAttributesControllerTests {
     public void patchAttribute_givenAttributeNameBlank_thenExpectBadRequest() {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder().name("").build();
 
-        mockMvc.perform(patch("/admin/attributes/17")
+        mockMvc.perform(put("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())
@@ -209,7 +208,7 @@ public class AdminAttributesControllerTests {
         AttributeDtoRequest attributeDtoRequest = AttributeDtoRequest.builder()
                 .name(String.format("%101c", '1')).build();
 
-        mockMvc.perform(patch("/admin/attributes/17")
+        mockMvc.perform(put("/admin/attributes/17")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(attributeDtoRequest)))
                 .andExpect(status().isBadRequest())

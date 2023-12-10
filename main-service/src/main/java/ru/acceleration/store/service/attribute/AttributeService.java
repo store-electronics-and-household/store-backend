@@ -22,7 +22,7 @@ public interface AttributeService {
 
     AttributeDtoResponse createAttribute(AttributeDtoRequest attributeDtoRequest);
 
-    AttributeDtoResponse patchAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId);
+    AttributeDtoResponse updateAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId);
 
     void deleteAttribute(Long attributeId);
 

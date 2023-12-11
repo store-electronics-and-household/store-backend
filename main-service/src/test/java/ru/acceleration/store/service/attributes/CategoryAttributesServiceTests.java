@@ -46,7 +46,7 @@ public class CategoryAttributesServiceTests {
     ArgumentCaptor<CategoryAttribute> captor;
 
     @Spy
-    CategoryAttributeMapper CategoryAttributeMapper = Mappers.getMapper(CategoryAttributeMapper.class);
+    CategoryAttributeMapper categoryAttributeMapper = Mappers.getMapper(CategoryAttributeMapper.class);
 
     @Test
     public void getCategoryAttributeById_givenValidId_thenExpectSuccess() {

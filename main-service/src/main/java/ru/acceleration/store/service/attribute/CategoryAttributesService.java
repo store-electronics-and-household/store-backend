@@ -15,5 +15,5 @@ public interface CategoryAttributesService {
 
     CategoryAttributeDtoResponse updateCategoryAttribute(Long id, Long categoryId, Long attributeId, CategoryAttributeDtoRequest categoryAttributeDtoRequest);
 
-    void deleteCategoryAttributeById(Long Id);
+    void deleteCategoryAttributeById(Long id);
 }

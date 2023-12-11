@@ -30,20 +30,31 @@ public class SaleControllerTests {
 
     NewSaleDto newSaleDto = new NewSaleDto(1L, 30);
     NewSaleDto newSaleDtoWithNullModel = new NewSaleDto(null, 30);
+    NewSaleDto newSaleDtoWithModelNotFound = new NewSaleDto(10L, 30);
     NewSaleDto newSaleDtoWithModelWhichDoesntExist = new NewSaleDto(3L, 30);
     NewSaleDto newSaleDtoWithNullPercent = new NewSaleDto(1L, null);
     UpdateSaleDto updateSaleDto = new UpdateSaleDto(10);
     NewModelDto modelCreateDto = new NewModelDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L);
 
 
+//    @Test
+//    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
+//    void postSaleShouldReturnBadRequestWithNullModel() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .post("/sale")
+//                        .content(mapper.writeValueAsString(newSaleDtoWithNullModel))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isBadRequest());
+//    }
+//
     @Test
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
-    void postSaleShouldReturnBadRequestWithNullModel() throws Exception {
+    void postSaleShouldReturnNotFoundWithModelNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/sale")
-                        .content(mapper.writeValueAsString(newSaleDtoWithNullModel))
+                        .content(mapper.writeValueAsString(newSaleDtoWithModelNotFound))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test

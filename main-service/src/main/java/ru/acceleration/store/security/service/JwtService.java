@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.service;
+package ru.acceleration.store.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

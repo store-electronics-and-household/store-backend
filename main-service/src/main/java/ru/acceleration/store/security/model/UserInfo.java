@@ -1,4 +1,4 @@
-package ru.acceleration.store.securiry.model;
+package ru.acceleration.store.security.model;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

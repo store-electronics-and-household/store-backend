@@ -10,8 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
-import ru.acceleration.store.securiry.model.UserInfo;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -103,11 +103,11 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        basketService.removeModelFromBasket(1L, 1L);
+        basketService.removeModelSetFromBasket(1L, 1L);
         basketService.addModelToBasket(1L, 2L);
         basketService.addModelToBasket(4L, 2L);
         basketService.addModelToBasket(1L, 2L);
-        basketService.removeModelFromBasket(4L, 2L);
+        basketService.removeModelSetFromBasket(4L, 2L);
         assertThat(basketService.getBasket(userInfoOne.getId()).getId(), equalTo(1L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().size(), equalTo(1));
         assertThat(basketService.getBasket(userInfoTwo.getId()).getId(), equalTo(2L));
@@ -164,7 +164,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelFromBasket(12L, 1L));
+        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelSetFromBasket(12L, 1L));
     }
 
     @Test
@@ -173,6 +173,6 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelFromBasket(1L, 2L));
+        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelSetFromBasket(1L, 2L));
     }
 }

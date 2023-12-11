@@ -1,7 +1,5 @@
-package ru.acceleration.store.securiry.dto;
+package ru.acceleration.store.security.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +8,10 @@ import lombok.experimental.FieldDefaults;
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserInfoRequestDto {
+public class UserInfoResponseDto {
 
-    @Email
-    @NotBlank
+    long id;
     String email;
-
-    @NotBlank
     String password;
-
     String roles;
 }

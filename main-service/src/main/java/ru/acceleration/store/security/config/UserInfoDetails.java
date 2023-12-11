@@ -1,8 +1,8 @@
-package ru.acceleration.store.securiry.config;
+package ru.acceleration.store.security.config;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.acceleration.store.securiry.model.UserInfo;
+import ru.acceleration.store.security.model.UserInfo;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 

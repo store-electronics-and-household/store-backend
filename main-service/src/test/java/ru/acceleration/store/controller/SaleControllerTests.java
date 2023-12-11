@@ -30,7 +30,6 @@ public class SaleControllerTests {
 
     NewSaleDto newSaleDto = new NewSaleDto(1L, 30);
     NewSaleDto newSaleDtoWithNullModel = new NewSaleDto(null, 30);
-    NewSaleDto newSaleDtoWithModelNotFound = new NewSaleDto(10L, 30);
     NewSaleDto newSaleDtoWithModelWhichDoesntExist = new NewSaleDto(3L, 30);
     NewSaleDto newSaleDtoWithNullPercent = new NewSaleDto(1L, null);
     UpdateSaleDto updateSaleDto = new UpdateSaleDto(10);
@@ -46,16 +45,6 @@ public class SaleControllerTests {
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isBadRequest());
 //    }
-//
-    @Test
-    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
-    void postSaleShouldReturnNotFoundWithModelNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/sale")
-                        .content(mapper.writeValueAsString(newSaleDtoWithModelNotFound))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")

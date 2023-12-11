@@ -56,7 +56,7 @@ public class AttributesServiceTests {
     public void getAttributeById_givenInvalidId() {
         when(attributeRepository.findById(17L)).thenReturn(Optional.empty());
 
-        assertThrows(DataNotFoundException.class, ()-> attributeServiceImpl.getAttributeById(17L));
+        assertThrows(DataNotFoundException.class, () -> attributeServiceImpl.getAttributeById(17L));
         verify(attributeRepository, atLeast(1)).findById(17L);
     }
 

@@ -46,8 +46,7 @@ public class AdminModelAttributesController {
     public ResponseEntity<ModelAttributeDtoResponse> createModelAttributeResponse(
             @PathVariable Long modelId,
             @RequestParam Long categoryAttributeId,
-            @Valid @RequestBody ModelAttributeDtoRequest modelAttributeDtoRequest)
-    {
+            @Valid @RequestBody ModelAttributeDtoRequest modelAttributeDtoRequest) {
         log.info("POST: /admin/category-attributes/model/{}?categoryAttributeId={} request, dto={}",
                 modelId, categoryAttributeId, modelAttributeDtoRequest);
         ModelAttributeDtoResponse modelAttributeDtoResponse =
@@ -60,8 +59,7 @@ public class AdminModelAttributesController {
             @PathVariable Long modelAttributeId,
             @RequestParam Long modelId,
             @RequestParam Long categoryAttributeId,
-            @Valid @RequestBody ModelAttributeDtoRequest modelAttributeDtoRequest)
-    {
+            @Valid @RequestBody ModelAttributeDtoRequest modelAttributeDtoRequest) {
         log.info("PUT: /admin/category-attributes/{}?modelId={}&categoryAttributeId={} request, dto={}",
                 modelAttributeId, modelId, categoryAttributeId, modelAttributeDtoRequest);
         ModelAttributeDtoResponse modelAttributeDtoResponse =
@@ -71,8 +69,7 @@ public class AdminModelAttributesController {
 
     @DeleteMapping(path = "/{modelAttributeId}")
     public ResponseEntity<?> deleteModelAttributeResponse(
-            @PathVariable Long modelAttributeId)
-    {
+            @PathVariable Long modelAttributeId) {
         log.info("DELETE: /admin/category-attributes/{} request", modelAttributeId);
         modelAttributesService.deleteModelAttribute(modelAttributeId);
         return ResponseEntity.noContent().build();

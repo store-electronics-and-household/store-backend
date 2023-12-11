@@ -250,7 +250,7 @@ public class AdminAttributesControllerTests {
     public void findAttributes_givenValidData_thenExpectOk() {
         List<AttributeDtoResponse> attributeDtoResponseList =
                 List.of(AttributeDtoResponse.builder().id(17L).name("name").build());
-        when(attributeService.findAttributes("na", 0 ,10)).thenReturn(attributeDtoResponseList);
+        when(attributeService.findAttributes("na",0,10)).thenReturn(attributeDtoResponseList);
 
         String response = mockMvc.perform(get("/admin/attributes?text=na"))
                 .andExpect(status().isOk())

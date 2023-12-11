@@ -27,7 +27,7 @@ public class Basket {
     @Builder.Default
     private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "basket_id")
     private List<ModelSet> modelSets;
 

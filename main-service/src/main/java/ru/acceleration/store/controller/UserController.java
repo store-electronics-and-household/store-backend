@@ -13,6 +13,7 @@ import ru.acceleration.store.service.user.UserService;
 @RequiredArgsConstructor
 @RequestMapping(path = "/user")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;

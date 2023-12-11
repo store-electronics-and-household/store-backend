@@ -15,6 +15,7 @@ import ru.acceleration.store.service.sale.SaleService;
 @RequiredArgsConstructor
 @RequestMapping("/sale")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class SaleController {
 
     private final SaleService saleService;

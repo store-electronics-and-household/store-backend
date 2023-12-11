@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS model_sets
     count        INT                                                    NOT NULL,
     basket_id    BIGINT REFERENCES baskets (basket_id) ON DELETE RESTRICT,
     stock_id     BIGINT REFERENCES stocks (stock_id) ON DELETE RESTRICT,
-    type         VARCHAR(100)
+    status        VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS products

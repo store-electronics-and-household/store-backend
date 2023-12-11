@@ -1,27 +1,23 @@
 package ru.acceleration.store.controller;
 
 import jakarta.validation.Valid;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.attribute.CategoryAttributeDtoRequest;
-import ru.acceleration.store.dto.attribute.CategoryAttributeDtoResponse;
-import ru.acceleration.store.dto.attribute.ModelAttributeDtoRequest;
-import ru.acceleration.store.dto.attribute.ModelAttributeDtoResponse;
+import ru.acceleration.store.dto.attribute.*;
 import ru.acceleration.store.service.attribute.AttributeService;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class AttributeController {
 
-    AttributeService attributeService;
+    private final AttributeService attributeService;
+
 
     @PostMapping("/categories/{categoryId}/category-attributes")
     public ResponseEntity<CategoryAttributeDtoResponse> postCategoryAttribute(@PathVariable Long categoryId,

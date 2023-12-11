@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.securiry.model.UserInfo;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
 
 import java.security.Principal;
@@ -17,31 +17,34 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping(path = "basket")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class BasketController {
 
     private final BasketService basketService;
 
     private final UserInfoService userInfoService;
 
-    @PostMapping("/add/{productId}")
+    @PostMapping("/model/{modelId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long productId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("POST: /basket/add/{}", productId);
-        return ResponseEntity.status(201).body(basketService.addProductToBasket(productId, userInfo.getId()));
+        log.info("POST: /basket/model/{}/user", modelId);
+        return ResponseEntity.status(201).body(basketService.addModelToBasket(modelId, userInfo.getId()));
     }
 
-    @GetMapping("/{basketId}")
+    @GetMapping("/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> getBasket(@PathVariable Long basketId) {
-        log.info("GET: /basket/{}", basketId);
-        return ResponseEntity.ok().body(basketService.getBasket(basketId));
+    public ResponseEntity<BasketResponseDto> getBasket(Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("GET: /basket/user/{}", userInfo.getId());
+        return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));
     }
 
-    @PatchMapping("/remove/{productId}")
+    @PatchMapping("/modelSet/{modelSetId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> removeProductFromBasket(@PathVariable Long productId, @RequestParam Long basketId) {
-        log.info("PATCH: /basket/remove/{}", productId);
-        return ResponseEntity.ok().body(basketService.removeProductFromBasket(productId, basketId));
+    public ResponseEntity<BasketResponseDto> removeModelSetFromBasket(@PathVariable Long modelSetId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/modelSet/{}/user", modelSetId);
+        return ResponseEntity.ok().body(basketService.removeModelSetFromBasket(modelSetId, userInfo.getId()));
     }
 }

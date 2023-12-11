@@ -1,7 +1,10 @@
 package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -10,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@ToString(exclude = {"parentCategory", "categoryAttributes"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +25,6 @@ public class Category {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
-    @ToString.Exclude
     private Category parentCategory;
 
     @OneToMany(fetch = FetchType.LAZY)

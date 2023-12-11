@@ -1,11 +1,9 @@
 package ru.acceleration.store.model;
-
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.model.enums.BasketStatus;
-
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Data
@@ -14,7 +12,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "baskets")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket {
 
     @Id
@@ -28,11 +25,11 @@ public class Basket {
 
     @Column(name = "created")
     @Builder.Default
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "basket_id")
-    private List<ModelSet> productModelSets;
+    private List<ModelSet> modelSets;
 
     @Column(name = "status")
     @Builder.Default

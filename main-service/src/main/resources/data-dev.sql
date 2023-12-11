@@ -1,4 +1,4 @@
-INSERT INTO categories values (1, 'Игровые приставки', null);
+ INSERT INTO categories values (1, 'Игровые приставки', null);
 INSERT INTO categories values (2, 'Телефоны и аксессуары', null);
 INSERT INTO categories values (3, 'Планшеты', null);
 INSERT INTO categories values (4, 'Ноутбуки', null);
@@ -32,9 +32,9 @@ INSERT INTO collections values (9, 'Ноутбуки для геймеров', '
 -- INSERT INTO category_attributes values (3, 3, 3, 4, 'THIRD_TYPE');
 -- INSERT INTO category_attributes values (4, 4, 4, 5, 'FOURTH_TYPE');
 -- INSERT INTO category_attributes values (5, 5, 5, 1, 'FIFTH_TYPE');
-
---insert into model_attributes values (1, 1, 'FirstValue', 1);
---insert into model_attributes values (2, 1, 'SecondValue', 2);
---insert into model_attributes values (3, 1, 'ThirdValue', 3);
---insert into model_attributes values (4, 1, 'ForthValue', 4);
---insert into model_attributes values (5, 1, 'FifthValue', 1);
+--
+-- insert into model_attributes values (1, 1, 'FirstValue', 1);
+-- insert into model_attributes values (2, 1, 'SecondValue', 2);
+-- insert into model_attributes values (3, 1, 'ThirdValue', 3);
+-- insert into model_attributes values (4, 1, 'ForthValue', 4);
+-- insert into model_attributes values (5, 1, 'FifthValue', 1);

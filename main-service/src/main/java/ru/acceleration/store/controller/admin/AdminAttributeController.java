@@ -39,8 +39,7 @@ public class AdminAttributeController {
     public ResponseEntity<List<AttributeDtoResponse>> findAttributes(
             @RequestParam(value = "text") String text,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int from,
-            @RequestParam(required = false, defaultValue = "10") @Positive int size)
-    {
+            @RequestParam(required = false, defaultValue = "10") @Positive int size) {
         log.info("GET: /admin/attributes request: text={},from={}, size={}", text, from, size);
         List<AttributeDtoResponse> attributeDtoResponseList = attributeService.findAttributes(text, from, size);
         return ResponseEntity.ok().body(attributeDtoResponseList);
@@ -48,8 +47,7 @@ public class AdminAttributeController {
 
     @PostMapping()
     public ResponseEntity<AttributeDtoResponse> createAttribute(
-            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
-    {
+            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest) {
         log.info("POST: /admin/attributes request: {}", attributeDtoRequest);
         AttributeDtoResponse attributeDtoResponse = attributeService.createAttribute(attributeDtoRequest);
         return ResponseEntity.status(201).body(attributeDtoResponse);
@@ -58,8 +56,7 @@ public class AdminAttributeController {
     @PutMapping(path = "/{attributesId}")
     public ResponseEntity<AttributeDtoResponse> updateAttribute(
             @PathVariable Long attributesId,
-            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest)
-    {
+            @RequestBody @Valid AttributeDtoRequest attributeDtoRequest) {
         log.info("PATCH: /admin/attributes/{} request: {}",attributesId, attributeDtoRequest);
         AttributeDtoResponse attributeDtoResponse = attributeService.updateAttribute(attributeDtoRequest, attributesId);
         return ResponseEntity.ok().body(attributeDtoResponse);
@@ -67,8 +64,7 @@ public class AdminAttributeController {
 
     @DeleteMapping(path = "/{attributesId}")
     public ResponseEntity<?> deleteCategory(
-            @PathVariable Long attributesId)
-    {
+            @PathVariable Long attributesId) {
         log.info("DELETE: /admin/attributes/{} request",attributesId);
         attributeService.deleteAttribute(attributesId);
         return ResponseEntity.noContent().build();

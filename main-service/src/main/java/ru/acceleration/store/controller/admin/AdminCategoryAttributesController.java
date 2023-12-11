@@ -26,8 +26,7 @@ public class AdminCategoryAttributesController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CategoryAttributeDtoResponse> getCategoryAttributeById(
-            @PathVariable Long id)
-    {
+            @PathVariable Long id) {
         log.info("GET: /admin/category-attributes/{} request", id);
         CategoryAttributeDtoResponse dtoResponse = categoryAttributesService.getCategoryAttributeById(id);
         return ResponseEntity.ok().body(dtoResponse);
@@ -35,8 +34,7 @@ public class AdminCategoryAttributesController {
 
     @GetMapping()
     public ResponseEntity<List<CategoryAttributeDtoResponse>> getAllCategoryAttributesByCategoryId(
-            @RequestParam Long categoryId)
-    {
+            @RequestParam Long categoryId) {
         log.info("GET: /admin/category-attributes?categoryId={} request", categoryId);
         var list = categoryAttributesService.getCategoryAttributesByCategoryId(categoryId);
         return ResponseEntity.ok().body(list);
@@ -46,8 +44,7 @@ public class AdminCategoryAttributesController {
     public ResponseEntity<CategoryAttributeDtoResponse> createCategoryAttribute(
             @PathVariable Long categoryId,
             @RequestParam Long attributeId,
-            @RequestBody @Valid CategoryAttributeDtoRequest categoryAttributeDtoRequest)
-    {
+            @RequestBody @Valid CategoryAttributeDtoRequest categoryAttributeDtoRequest) {
         log.info("POST: /admin/category-attributes request: categoryId={}, attributeID={}, dto={}",
                 categoryId, attributeId, categoryAttributeDtoRequest);
         CategoryAttributeDtoResponse dtoResponse = categoryAttributesService
@@ -60,8 +57,7 @@ public class AdminCategoryAttributesController {
             @RequestBody @Valid CategoryAttributeDtoRequest categoryAttributeDtoRequest,
             @PathVariable Long id,
             @RequestParam Long categoryId,
-            @RequestParam Long attributeId)
-    {
+            @RequestParam Long attributeId) {
         log.info("PUT: /admin/category-attributes/{id} request: dto={}, id={}, categoryId={}, attributeId={}",
                 categoryAttributeDtoRequest, id, categoryId, attributeId);
         CategoryAttributeDtoResponse dtoResponse = categoryAttributesService.updateCategoryAttribute(
@@ -71,8 +67,7 @@ public class AdminCategoryAttributesController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteCategoryAttributeById(
-            @PathVariable Long id)
-    {
+            @PathVariable Long id) {
         log.info("DELETE: /admin/category-attributes/{id} request: id={}", id);
         categoryAttributesService.deleteCategoryAttributeById(id);
         return ResponseEntity.noContent().build();

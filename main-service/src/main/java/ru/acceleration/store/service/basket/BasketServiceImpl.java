@@ -1,7 +1,6 @@
 package ru.acceleration.store.service.basket;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.BasketMapper;
@@ -29,7 +28,6 @@ public class BasketServiceImpl implements BasketService {
     private final ModelSetRepository modelSetRepository;
 
     @Override
-    @Transactional
     public BasketResponseDto addModelToBasket(Long productId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()
                 -> new DataNotFoundException("user with id: " + userId + " not found"));
@@ -68,7 +66,6 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public BasketResponseDto getBasket(Long userId) {
         Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
                 -> new DataNotFoundException("basket for user with : " + userId + " not found"));
@@ -76,7 +73,6 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    @Transactional
     public BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userId) {
         Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
                 -> new DataNotFoundException("basket for user with : " + userId + " not found"));

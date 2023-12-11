@@ -1,4 +1,4 @@
- INSERT INTO categories values (1, 'Игровые приставки', null);
+INSERT INTO categories values (1, 'Игровые приставки', null);
 INSERT INTO categories values (2, 'Телефоны и аксессуары', null);
 INSERT INTO categories values (3, 'Планшеты', null);
 INSERT INTO categories values (4, 'Ноутбуки', null);

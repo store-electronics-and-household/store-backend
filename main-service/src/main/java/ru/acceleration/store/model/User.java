@@ -3,9 +3,9 @@ package ru.acceleration.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.securiry.model.UserInfo;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -38,7 +38,7 @@ public class User {
     @JoinTable(name = "user_favourites",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "model_id"))
-    Set<Model> models;
+    List<Model> models;
 
     @OneToOne
     @JoinColumn(name = "user_info_id")

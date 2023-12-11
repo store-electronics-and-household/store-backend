@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
-import ru.acceleration.store.security.model.UserInfo;
-import ru.acceleration.store.security.service.UserInfoService;
+import ru.acceleration.store.securiry.model.UserInfo;
+import ru.acceleration.store.securiry.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
 
 import java.security.Principal;

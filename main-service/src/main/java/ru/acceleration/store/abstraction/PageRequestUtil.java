@@ -5,10 +5,10 @@ import ru.acceleration.store.model.enums.ModelSort;
 
 public abstract class PageRequestUtil {
     protected PageRequest createPageRequest(int from, int size) {
-        return PageRequest.of(from, size);
+        return PageRequest.of(from / size, size);
     }
 
     protected PageRequest createPageRequest(int from, int size, ModelSort sort) {
-        return PageRequest.of(from, size, sort.getSortValue());
+        return PageRequest.of(from / size, size, sort.getSortValue());
     }
 }

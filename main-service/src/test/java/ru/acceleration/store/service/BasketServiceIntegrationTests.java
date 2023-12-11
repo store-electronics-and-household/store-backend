@@ -10,8 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
-import ru.acceleration.store.securiry.model.UserInfo;
-import ru.acceleration.store.securiry.service.UserInfoService;
+import ru.acceleration.store.security.model.UserInfo;
+import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
 
 import static org.hamcrest.MatcherAssert.assertThat;

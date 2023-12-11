@@ -1,5 +1,6 @@
 package ru.acceleration.store.service.model;
 
+import org.springframework.data.domain.Page;
 import ru.acceleration.store.dto.model.NewModelDto;
 import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
@@ -7,7 +8,6 @@ import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.enums.ModelSort;
 
 import java.util.Comparator;
-import java.util.List;
 
 public interface ModelService {
 
@@ -17,7 +17,9 @@ public interface ModelService {
 
     Model getExistingModel(Long modelId);
 
-    List<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort);
+    Page<ModelShortDto> getModelByCategory(Long categoryId, Integer from, Integer size, String sort);
 
     Comparator<Model> getComparator(ModelSort sort);
+
+    Page<ModelShortDto> searchModels(String text, Integer from, Integer size, String sort);
 }

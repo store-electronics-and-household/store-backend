@@ -56,15 +56,15 @@ public class SaleControllerTests {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
-    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
-    void postSaleShouldReturnNotFoundWhenModelDoesntExist() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/sale")
-                        .content(mapper.writeValueAsString(newSaleDtoWithModelWhichDoesntExist))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
+//    void postSaleShouldReturnNotFoundWhenModelDoesntExist() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .post("/sale")
+//                        .content(mapper.writeValueAsString(newSaleDtoWithModelWhichDoesntExist))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")

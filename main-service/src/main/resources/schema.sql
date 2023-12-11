@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS models
     name        VARCHAR(100)                                                  NOT NULL,
     description VARCHAR(500)                                                  NOT NULL,
     price       BIGINT                                                        NOT NULL,
+    popular     BOOLEAN                                    DEFAULT false      NOT NULL,
     category_id BIGINT REFERENCES categories (category_id) ON DELETE RESTRICT NOT NULL,
     status      VARCHAR(100)
 );

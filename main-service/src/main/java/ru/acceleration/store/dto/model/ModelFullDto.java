@@ -24,6 +24,8 @@ public class ModelFullDto {
 
     private Long price;
 
+    private Boolean popular;
+
     private SaleDto sale;
 
     private CategoryOutcomeDto category;

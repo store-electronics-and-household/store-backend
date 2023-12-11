@@ -14,6 +14,8 @@ import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.model.NewModelDto;
 import ru.acceleration.store.service.model.ModelService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -43,6 +45,12 @@ public class ModelController {
                                                                      @RequestParam(defaultValue = "NAME") String sort) {
         log.info("GET: /models/{}?from=" + from + "&size=" + size + "&sort=" + sort, categoryId);
         return ResponseEntity.ok().body(modelService.getModelByCategory(categoryId, from, size, sort));
+    }
+
+    @GetMapping("/category/{categoryId}/models/popular")
+    public ResponseEntity<List<ModelShortDto>> getPopularModelsByCategoryId(@PathVariable @Positive Long categoryId) {
+        log.info("GET: /category/{}/models/popular" , categoryId);
+        return ResponseEntity.ok().body(modelService.getPopularModelsByCategoryId(categoryId));
     }
 
     /**

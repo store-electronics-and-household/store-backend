@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.acceleration.store.abstraction.PageRequestUtil;
 import ru.acceleration.store.dto.model.ModelFullDto;
@@ -18,6 +19,8 @@ import ru.acceleration.store.repository.CategoryRepository;
 import ru.acceleration.store.repository.ModelRepository;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -51,6 +54,12 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
         Page<Model> models = modelRepository.findAllByCategoryId(categoryId, page);
 
         return models.map(modelMapper::toModelShortDto);
+    }
+
+    @Override
+    public List<ModelShortDto> getPopularModelsByCategoryId(Long categoryId) {
+        List<Model> models = modelRepository.findAllByCategoryIdAndPopular(categoryId, true);
+        return models.stream().map(modelMapper::toModelShortDto).collect(Collectors.toList());
     }
 
     @Override

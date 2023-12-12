@@ -27,8 +27,7 @@ public class Basket {
     @Builder.Default
     private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "basket_id")
+    @OneToMany(mappedBy = "basket", fetch = FetchType.LAZY)
     private List<ModelSet> modelSets;
 
     @Column(name = "status")

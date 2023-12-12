@@ -26,7 +26,7 @@ public class BasketController {
 
     @PostMapping("/model/{modelId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> addProductToBasket(@PathVariable Long modelId, Principal principal) {
+    public ResponseEntity<BasketResponseDto> addModelToBasket(@PathVariable Long modelId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("POST: /basket/model/{}/user", modelId);
         return ResponseEntity.status(201).body(basketService.addModelToBasket(modelId, userInfo.getId()));
@@ -46,5 +46,21 @@ public class BasketController {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("PATCH: /basket/modelSet/{}/user", modelSetId);
         return ResponseEntity.ok().body(basketService.removeModelSetFromBasket(modelSetId, userInfo.getId()));
+    }
+
+    @PatchMapping("/modelSet/{modelSetId}/count-plus/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<BasketResponseDto> plusCountModelSet(@PathVariable Long modelSetId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/modelSet/{}/count-plus/user", modelSetId);
+        return ResponseEntity.ok().body(basketService.plusCountModelSet(modelSetId, userInfo.getId()));
+    }
+
+    @PatchMapping("/modelSet/{modelSetId}/count-minus/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<BasketResponseDto> minusCountModelSet(@PathVariable Long modelSetId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/modelSet/{}/count-minus/user", modelSetId);
+        return ResponseEntity.ok().body(basketService.minusCountModelSet(modelSetId, userInfo.getId()));
     }
 }

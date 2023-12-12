@@ -30,11 +30,11 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     @Transactional
-    public BasketResponseDto addModelToBasket(Long productId, Long userId) {
+    public BasketResponseDto addModelToBasket(Long modelId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()
                 -> new DataNotFoundException("user with id: " + userId + " not found"));
-        Model model = modelRepository.findById(productId).orElseThrow(()
-                -> new DataNotFoundException("product with id: " + productId + " not found"));
+        Model model = modelRepository.findById(modelId).orElseThrow(()
+                -> new DataNotFoundException("product with id: " + modelId + " not found"));
         if (basketRepo.findBasketByUserId(userId).isEmpty()) {
             ModelSet modelSet = new ModelSet();
             modelSet.setModel(model);
@@ -42,6 +42,7 @@ public class BasketServiceImpl implements BasketService {
             basket.setUser(user);
             basket.setModelSets(new ArrayList<>());
             basket.getModelSets().add(modelSet);
+            modelSet.setBasket(basket);
             modelSetRepository.save(modelSet);
             basketRepo.save(basket);
             return basketMapper.toBasketResponseDto(basket);
@@ -53,14 +54,16 @@ public class BasketServiceImpl implements BasketService {
                     .filter(modelSet1 -> modelSet1.getModel().getId().equals(model.getId()))
                     .findAny();
             if (modelSet.isPresent()) {
-                ModelSet modelSet1 = modelSet.get();
-                modelSet1.setCount(modelSet1.getCount() + 1);
-                modelSetRepository.save(modelSet1);
+                ModelSet presentModelSet = modelSet.get();
+                presentModelSet.setCount(presentModelSet.getCount() + 1);
+                presentModelSet.setBasket(basket);
+                modelSetRepository.save(presentModelSet);
                 return basketMapper.toBasketResponseDto(basket);
             }
             ModelSet newModelSet = new ModelSet();
             newModelSet.setModel(model);
             basket.getModelSets().add(newModelSet);
+            newModelSet.setBasket(basket);
             modelSetRepository.save(newModelSet);
             basketRepo.save(basket);
             return basketMapper.toBasketResponseDto(basket);
@@ -86,5 +89,37 @@ public class BasketServiceImpl implements BasketService {
         modelSetRepository.deleteById(modelSet.getId());
         return basketMapper.toBasketResponseDto(basket);
     }
+
+    @Override
+    @Transactional
+    public BasketResponseDto plusCountModelSet(Long modelSetId, Long userId) {
+        Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
+                -> new DataNotFoundException("basket for user with : " + userId + " not found"));
+        ModelSet modelSet = modelSetRepository.findByIdAndBasketId(modelSetId, basket.getId()).orElseThrow(()
+                -> new DataNotFoundException("modelSet with id : " + modelSetId + "in basket with id: "
+                + basket.getId() + " not found"));
+        modelSet.setCount(modelSet.getCount() + 1);
+        modelSetRepository.save(modelSet);
+        return basketMapper.toBasketResponseDto(basket);
+    }
+
+    @Override
+    @Transactional
+    public BasketResponseDto minusCountModelSet(Long modelSetId, Long userId) {
+        Basket basket = basketRepo.findBasketByUserId(userId).orElseThrow(()
+                -> new DataNotFoundException("basket for user with : " + userId + " not found"));
+        ModelSet modelSet = modelSetRepository.findByIdAndBasketId(modelSetId, basket.getId()).orElseThrow(()
+                -> new DataNotFoundException("modelSet with id : " + modelSetId + "in basket with id: "
+                + basket.getId() + " not found"));
+        if (modelSet.getCount() == 1) {
+            basket.getModelSets().remove(modelSet);
+            modelSetRepository.deleteById(modelSet.getId());
+        } else {
+            modelSet.setCount(modelSet.getCount() - 1);
+            modelSetRepository.save(modelSet);
+        }
+        return basketMapper.toBasketResponseDto(basket);
+    }
 }
+
 

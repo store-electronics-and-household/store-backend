@@ -28,6 +28,10 @@ public class ModelSet {
     @Builder.Default
     private Integer count = 1;
 
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     @Builder.Default

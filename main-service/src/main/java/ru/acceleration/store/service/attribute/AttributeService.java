@@ -18,6 +18,15 @@ public interface AttributeService {
 
     List<ModelAttributeDtoResponse> getAllModelAttributeByModelId(Long modelId);
 
+    AttributeDtoResponse getAttributeById(Long attributeId);
+
+    AttributeDtoResponse createAttribute(AttributeDtoRequest attributeDtoRequest);
+
+    AttributeDtoResponse updateAttribute(AttributeDtoRequest attributeDtoRequest, Long attributeId);
+
+    void deleteAttribute(Long attributeId);
+
+    List<AttributeDtoResponse> findAttributes(String text, int from, int size);
 
 //    AttributeCategoryResponse getAttributeCategory(AttributeCategoryRequest dto);
 //

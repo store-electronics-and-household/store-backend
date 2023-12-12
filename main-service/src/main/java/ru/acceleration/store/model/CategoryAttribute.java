@@ -2,12 +2,14 @@ package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.acceleration.store.model.enums.AttributeType;
 
 @Data
 @Entity
+@Builder
 @Table(name = "category_attributes")
 @AllArgsConstructor
 @NoArgsConstructor

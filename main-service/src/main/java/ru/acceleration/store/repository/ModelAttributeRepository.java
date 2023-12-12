@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ModelAttributeRepository extends JpaRepository<ModelAttribute, Long> {
 
-    List<ModelAttribute> findAllByModelIdOrderByCategoryAttributePriority(Long modelId);
+    List<ModelAttribute> findAllByModelIdOrderByCategoryAttributePriorityDesc(Long modelId);
 }

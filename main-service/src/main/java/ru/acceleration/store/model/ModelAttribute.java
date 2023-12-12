@@ -2,6 +2,7 @@ package ru.acceleration.store.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "model_attributes")
 @ToString(exclude = {"categoryAttribute", "model"})
 public class ModelAttribute {

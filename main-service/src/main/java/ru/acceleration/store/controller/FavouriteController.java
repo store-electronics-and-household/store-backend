@@ -1,7 +1,6 @@
 package ru.acceleration.store.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class FavouriteController {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Добавление товара в избранное", description = "Для авторизованного пользователя")
-    public void addFavoriteModel(@RequestBody @NotNull Long modelId, Principal principal) {
+    public void addFavoriteModel(@RequestParam long modelId, Principal principal) {
         Long userId = userInfoService.getUserId(principal.getName());
         log.info("FavouriteController addFavoriteModel modelId={}, userId={}", modelId, userId);
         userService.addFavoriteModel(modelId, userId);
@@ -44,7 +43,7 @@ public class FavouriteController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Удаление товара из избранного", description = "Для авторизованного пользователя")
-    public void deleteFavoriteModel(@RequestBody @NotNull Long modelId, Principal principal) {
+    public void deleteFavoriteModel(@RequestParam long modelId, Principal principal) {
         Long userId = userInfoService.getUserId(principal.getName());
         log.info("FavouriteController deleteFavoriteModel modelId={}, userId={}", modelId, userId);
         userService.deleteFavoriteModel(modelId, userId);
@@ -52,7 +51,7 @@ public class FavouriteController {
 
     @GetMapping("/get")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @Operation(summary = "Удаление товара из избранного", description = "Для авторизованного пользователя")
+    @Operation(summary = "Список всех товаров из избранного пользователя", description = "Для авторизованного пользователя")
     public FavouriteResponseDto getAllFavorite(Principal principal) {
         Long userId = userInfoService.getUserId(principal.getName());
         log.info("FavouriteController getAllFavorite userId={}", userId);

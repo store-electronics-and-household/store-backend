@@ -2,6 +2,7 @@ package ru.acceleration.store.security.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,8 @@ import ru.acceleration.store.security.mapper.UserInfoMapper;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.JwtService;
 import ru.acceleration.store.security.service.UserInfoService;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -33,7 +36,7 @@ public class UserInfoController {
 
     @Operation(summary = "Добавление пользователя", description = "Доступ для всех")
     @PostMapping("/registration")
-    public UserInfoResponseDto addNewUser(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
+    public UserInfoResponseDto addNewUser(@RequestBody @Valid @NotNull UserInfoRequestDto userInfoRequestDto) {
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
         userInfo.setRoles("ROLE_USER");
         userInfoService.addUser(userInfo);
@@ -42,7 +45,7 @@ public class UserInfoController {
 
     @Operation(summary = "Вход пользователя", description = "Доступ для всех")
     @PostMapping("/login")
-    public AuthResponse authenticateAndGetToken(@RequestBody @Valid AuthRequest authRequest) {
+    public AuthResponse authenticateAndGetToken(@RequestBody @Valid @NotNull AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             UserInfo userInfo = userInfoService.getUserInfo(authRequest.getEmail());
@@ -57,7 +60,7 @@ public class UserInfoController {
 
     @Operation(summary = "Изменение пароля", description = "Доступ для всех")
     @PatchMapping("/change")
-    public UserInfoResponseDto changePassword(@RequestBody @Valid UserInfoRequestDto userInfoRequestDto) {
+    public UserInfoResponseDto changePassword(@RequestBody @Valid @NotNull UserInfoRequestDto userInfoRequestDto) {
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
         userInfoService.changePassword(userInfo);
         return userInfoMapper.userInfoToUserResponseDto(userInfo);
@@ -65,7 +68,8 @@ public class UserInfoController {
 
     @Operation(summary = "Проверка почты в базе данных", description = "Доступ для всех")
     @GetMapping("/check")
-    public boolean changePassword(@RequestBody String email) {
+    public boolean checkEmail(@RequestBody Map.Entry<String, String> emailMap) {
+        String email=emailMap.getValue();
         userInfoService.loadUserByUsername(email);
         return true;
     }

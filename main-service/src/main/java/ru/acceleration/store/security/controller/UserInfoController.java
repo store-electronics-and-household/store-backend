@@ -69,7 +69,7 @@ public class UserInfoController {
     @Operation(summary = "Проверка почты в базе данных", description = "Доступ для всех")
     @GetMapping("/check")
     public boolean checkEmail(@RequestBody Map.Entry<String, String> emailMap) {
-        String email=emailMap.getValue();
+        String email = emailMap.getValue();
         userInfoService.loadUserByUsername(email);
         return true;
     }

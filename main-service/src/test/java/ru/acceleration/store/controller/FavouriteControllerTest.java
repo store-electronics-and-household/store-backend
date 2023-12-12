@@ -48,12 +48,12 @@ class FavouriteControllerTest {
         Long modelId2 = 2L;
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/favourite/add")
-                        .content(mapper.writeValueAsString(modelId))
+                        .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/favourite/add")
-                        .content(mapper.writeValueAsString(modelId2))
+                        .param("modelId",modelId2.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
@@ -84,17 +84,17 @@ class FavouriteControllerTest {
         Long modelId2 = 2L;
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/favourite/add")
-                        .content(mapper.writeValueAsString(modelId))
+                        .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/favourite/add")
-                        .content(mapper.writeValueAsString(modelId2))
+                        .param("modelId",modelId2.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/favourite/delete")
-                        .content(mapper.writeValueAsString(modelId))
+                        .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();

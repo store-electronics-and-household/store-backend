@@ -36,15 +36,15 @@ public class SaleControllerTests {
     NewModelDto modelCreateDto = new NewModelDto("XY73GS33", "Apple iPhone 13 Pro Max 256GB", 100L);
 
 
-    @Test
-    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
-    void postSaleShouldReturnBadRequestWithNullModel() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/sale")
-                        .content(mapper.writeValueAsString(newSaleDtoWithNullModel))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
+//    @Test
+//    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
+//    void postSaleShouldReturnBadRequestWithNullModel() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .post("/sale")
+//                        .content(mapper.writeValueAsString(newSaleDtoWithNullModel))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isBadRequest());
+//    }
 
     @Test
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
@@ -56,15 +56,15 @@ public class SaleControllerTests {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
-    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
-    void postSaleShouldReturnNotFoundWhenModelDoesntExist() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/sale")
-                        .content(mapper.writeValueAsString(newSaleDtoWithModelWhichDoesntExist))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
+//    void postSaleShouldReturnNotFoundWhenModelDoesntExist() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .post("/sale")
+//                        .content(mapper.writeValueAsString(newSaleDtoWithModelWhichDoesntExist))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")

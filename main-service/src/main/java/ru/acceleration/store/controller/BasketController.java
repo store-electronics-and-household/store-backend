@@ -63,4 +63,20 @@ public class BasketController {
         log.info("PATCH: /basket/modelSet/{}/count-minus/user", modelSetId);
         return ResponseEntity.ok().body(basketService.minusCountModelSet(modelSetId, userInfo.getId()));
     }
+
+    @PatchMapping("model/{modelId}/count-plus/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<BasketResponseDto> plusCountModel(@PathVariable Long modelId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/model/{}/count-plus/user", modelId);
+        return ResponseEntity.ok().body(basketService.plusCountModel(modelId, userInfo.getId()));
+    }
+
+    @PatchMapping("model/{modelId}/count-minus/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<BasketResponseDto> minusCountModel(@PathVariable Long modelId, Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("PATCH: /basket/model/{}/count-minus/user", modelId);
+        return ResponseEntity.ok().body(basketService.minusCountModel(modelId, userInfo.getId()));
+    }
 }

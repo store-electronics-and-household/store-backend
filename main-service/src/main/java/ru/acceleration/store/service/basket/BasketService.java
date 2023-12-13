@@ -16,4 +16,8 @@ public interface BasketService {
     BasketResponseDto plusCountModelSet(Long modelSetId, Long userId);
 
     BasketResponseDto minusCountModelSet(Long modelSetId, Long userId);
+
+    BasketResponseDto plusCountModel(Long modelId, Long userId);
+
+    BasketResponseDto minusCountModel(Long modelId, Long userId);
 }

@@ -12,4 +12,6 @@ public interface ModelSetRepository extends JpaRepository<ModelSet, Long> {
 //    Optional<ModelSet> findModelSetByProductId(@Param("modelId") Long modelId);
 
     Optional<ModelSet> findByIdAndBasketId(Long modelSetId, Long basketId);
+
+    Optional<ModelSet> findByModelIdAndBasketId(Long modelId, Long basketId);
 }

@@ -21,7 +21,7 @@
 --INSERT INTO collections values (9, 'Ноутбуки для геймеров', 'https://sun9-68.userapi.com/impg/SbdrCocORKiWCULQwMQT6Buu8ihPDzk4WvMTlQ/FL5Uq2XCjK8.jpg?size=1280x492&quality=95&sign=8a7cfe61527c10cefd4fa8fd6dc7d7d6&type=album');
 
 --
--- INSERT INTO attributes values (1, 'diagonal');
+INSERT INTO attributes values (1, 'not valuable attribute');
 -- INSERT INTO attributes values (2, 'height');
 -- INSERT INTO attributes values (3, 'weight');
 -- INSERT INTO attributes values (4, 'width');

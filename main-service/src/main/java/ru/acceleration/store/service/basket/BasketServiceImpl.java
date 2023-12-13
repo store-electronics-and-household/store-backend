@@ -41,6 +41,7 @@ public class BasketServiceImpl implements BasketService {
             Basket basket = new Basket();
             basket.setUser(user);
             basket.setModelSets(new ArrayList<>());
+            modelSet.setProducts(new ArrayList<>());
             basket.getModelSets().add(modelSet);
             modelSet.setBasket(basket);
             modelSetRepository.save(modelSet);

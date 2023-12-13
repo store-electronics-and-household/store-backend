@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(path = "/admin/model-attributes")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminModelAttributesController {

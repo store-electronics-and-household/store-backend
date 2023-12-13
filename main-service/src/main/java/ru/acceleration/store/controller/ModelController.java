@@ -22,7 +22,7 @@ public class ModelController {
 
     private final ModelService modelService;
 
-    @PostMapping("models/{categoryId}/model")
+    @PostMapping("/categories/{categoryId}/model")
     public ResponseEntity<ModelShortDto> addModel(@PathVariable Long categoryId, @Valid @RequestBody NewModelDto newModelDto) {
         log.info("POST: /models");
         return ResponseEntity.status(201).body(modelService.addModel(categoryId, newModelDto));

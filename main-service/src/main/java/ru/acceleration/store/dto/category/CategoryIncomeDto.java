@@ -19,7 +19,7 @@ import ru.acceleration.store.validation.OnUpdate;
 @Builder
 public class CategoryIncomeDto {
     @NotBlank(groups = OnCreate.class)
-    @Size(min = 5, max = 50, groups = {OnCreate.class, OnUpdate.class})
+    @Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class})
     private String name;
 
     @PositiveOrZero(groups = {OnCreate.class, OnUpdate.class})

@@ -14,4 +14,6 @@ public class CategoryShortOutcomeDto {
     private Long id;
 
     private String name;
+
+    private String imageLink;
 }

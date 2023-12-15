@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping(path = "favourite")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online"})
 public class FavouriteController {
 
     private final UserInfoService userInfoService;

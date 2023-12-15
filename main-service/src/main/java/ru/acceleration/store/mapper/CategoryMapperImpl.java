@@ -19,6 +19,7 @@ public class CategoryMapperImpl {
         Category category = new Category();
         category.setName(categoryIncomeDto.getName());
         category.setParentCategory(parentCategory);
+        category.setImageLink(categoryIncomeDto.getImageLink());
         return category;
     }
 
@@ -27,6 +28,7 @@ public class CategoryMapperImpl {
         CategoryOutcomeDto dto = new CategoryOutcomeDto();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setImageLink(category.getImageLink());
         if (category.getCategoryAttributes() != null) {
             dto.setCategoryAttributes(category.getCategoryAttributes()
                     .stream()
@@ -40,6 +42,7 @@ public class CategoryMapperImpl {
         CategoryShortOutcomeDto dto = new CategoryShortOutcomeDto();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setImageLink(category.getImageLink());
         return dto;
     }
 }

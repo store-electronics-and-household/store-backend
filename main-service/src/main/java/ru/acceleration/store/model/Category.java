@@ -21,9 +21,13 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "image_link")
+    private String imageLink;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
+
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

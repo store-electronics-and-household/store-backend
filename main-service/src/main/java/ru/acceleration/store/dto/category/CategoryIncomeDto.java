@@ -25,4 +25,7 @@ public class CategoryIncomeDto {
     @PositiveOrZero(groups = {OnCreate.class, OnUpdate.class})
     @Nullable
     private Long parentCategoryId;
+
+    @Size(max = 200, groups = {OnCreate.class, OnUpdate.class})
+    private String imageLink;
 }

@@ -1,14 +1,14 @@
-INSERT INTO categories values (1, 'Игровые приставки', null);
-INSERT INTO categories values (2, 'Телефоны и аксессуары', null);
-INSERT INTO categories values (3, 'Планшеты', null);
-INSERT INTO categories values (4, 'Ноутбуки', null);
-INSERT INTO categories values (5, 'Наушники и гарнитуры', null);
-INSERT INTO categories values (6, 'Умные часы', null);
-INSERT INTO categories values (7, 'Аксессуары', null);
-INSERT INTO categories values (8, 'Компьютеры и комплектующие', null);
-INSERT INTO categories values (9, 'Техника для дома', null);
-INSERT INTO categories values (10, 'Квадрокоптеры', null);
-INSERT INTO categories values (11, 'Портативная акустика', null);
+INSERT INTO categories values (1, 'Игровые приставки', null, null);
+INSERT INTO categories values (2, 'Телефоны и аксессуары', null, null);
+INSERT INTO categories values (3, 'Планшеты', null, null);
+INSERT INTO categories values (4, 'Ноутбуки', null, null);
+INSERT INTO categories values (5, 'Наушники и гарнитуры', null, null);
+INSERT INTO categories values (6, 'Умные часы', null, null);
+INSERT INTO categories values (7, 'Аксессуары', null, null);
+INSERT INTO categories values (8, 'Компьютеры и комплектующие', null, null);
+INSERT INTO categories values (9, 'Техника для дома', null, null);
+INSERT INTO categories values (10, 'Квадрокоптеры', null, null);
+INSERT INTO categories values (11, 'Портативная акустика', null, null);
 
 INSERT INTO collections values (1, 'Наушники Sony', 'https://sun9-33.userapi.com/impg/1eoBUZWCsn7QIgaoxC8XnsCIoQlhaeIyrDTZug/3ZhgxvgrGo4.jpg?size=1280x569&quality=95&sign=919611d31e302fada3d436b96ffdeaed&type=album');
 INSERT INTO collections values (2, 'Macbook Air 15', 'https://sun9-11.userapi.com/impg/qvC2jkNqnORazNBwLEGPyhUSbkuCLpbK-Vp6Qw/f6BS5MFsInQ.jpg?size=2560x1138&quality=95&sign=7e6722ae72e8b295465ecf285747e3ef&type=album');

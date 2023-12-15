@@ -17,7 +17,7 @@ import ru.acceleration.store.service.model.ModelService;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online"})
 public class ModelController {
 
     private final ModelService modelService;

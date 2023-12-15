@@ -19,4 +19,6 @@ public class CategoryOutcomeDto {
     private String name;
 
     private List<CategoryAttributeShortDtoResponse> categoryAttributes;
+
+    private String imageLink;
 }

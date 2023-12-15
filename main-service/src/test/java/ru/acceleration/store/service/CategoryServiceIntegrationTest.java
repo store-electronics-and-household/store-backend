@@ -31,10 +31,10 @@ public class CategoryServiceIntegrationTest {
 
     @BeforeEach
     public void createEntities() throws Exception {
-        dto1 = new CategoryIncomeDto("category1", null);
-        dto2 = new CategoryIncomeDto("category2", null);
-        dto3 = new CategoryIncomeDto("category3", null);
-        dto4 = new CategoryIncomeDto("category4", null);
+        dto1 = new CategoryIncomeDto("category1", null, null);
+        dto2 = new CategoryIncomeDto("category2", null, null);
+        dto3 = new CategoryIncomeDto("category3", null, null);
+        dto4 = new CategoryIncomeDto("category4", null, null);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void findChildCategoriesByParentId_childsExist_validListSize() {
         Long parentId = service.createCategory(dto1).getId();
-        service.createCategory(new CategoryIncomeDto("category2", parentId));
-        service.createCategory(new CategoryIncomeDto("category3", parentId));
+        service.createCategory(new CategoryIncomeDto("category2", parentId, null));
+        service.createCategory(new CategoryIncomeDto("category3", parentId, null));
         assertThat(service.findChildCategoriesByParentId(parentId)).hasSize(2);
     }
 
@@ -97,7 +97,7 @@ public class CategoryServiceIntegrationTest {
         assertThat(service.findCategoryById(parentId)).hasFieldOrPropertyWithValue("name", "category1");
 
         String updatedName = "updated_category1";
-        assertThat(service.updateCategory(new CategoryIncomeDto("updatedName", null), parentId))
+        assertThat(service.updateCategory(new CategoryIncomeDto("updatedName", null, null), parentId))
                 .hasFieldOrPropertyWithValue("name", "updatedName");
     }
 

@@ -23,7 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class UserInfoController {
 
     private final UserInfoService userInfoService;

@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/collections")
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class CollectionController {
 
     private final CollectionService collectionService;

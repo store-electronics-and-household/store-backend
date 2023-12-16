@@ -1,26 +1,31 @@
 package ru.acceleration.store.dto.user;
-
 import lombok.*;
-import lombok.experimental.FieldDefaults;
+import ru.acceleration.store.dto.address.AddressResponseDto;
+import ru.acceleration.store.dto.model.ModelShortDto;
+import ru.acceleration.store.security.dto.UserInfoResponseDto;
+
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @Data
 public class UserResponseDto {
 
-    Long id;
+    private Long id;
 
-    @Builder.Default
-    Boolean enabled = true;
+    private Boolean enabled;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    String phone;
+    private String phone;
 
-    Long addressId;
+    private Set<ModelShortDto> modelShortDtos;
 
+    private UserInfoResponseDto userInfoResponseDto;
+
+    private List<AddressResponseDto> addressResponseDtos;
 }

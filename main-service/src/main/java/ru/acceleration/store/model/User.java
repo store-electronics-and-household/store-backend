@@ -1,10 +1,9 @@
 package ru.acceleration.store.model;
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.acceleration.store.security.model.UserInfo;
-
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -44,10 +43,6 @@ public class User {
     @JoinColumn(name = "user_info_id")
     UserInfo userInfo;
 
-
-//    @ManyToMany
-//    @JoinTable(name = "user_addresses",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "address_id"))
-//    List<Address> adresses;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<Address> addresses;
 }

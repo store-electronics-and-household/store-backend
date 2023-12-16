@@ -3,15 +3,10 @@ package ru.acceleration.store.service.user;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.dto.user.UserRequestDto;
-import ru.acceleration.store.dto.user.UserResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.AuthorityMapper;
 import ru.acceleration.store.mapper.UserMapper;
-
-import ru.acceleration.store.model.Authority;
 import ru.acceleration.store.model.Model;
-import ru.acceleration.store.model.Role;
 import ru.acceleration.store.model.User;
 import ru.acceleration.store.repository.AuthorityRepo;
 import ru.acceleration.store.repository.UserRepository;
@@ -31,15 +26,15 @@ public class UserServiceImpl implements UserService {
     private final ModelService modelService;
 
 
-    @Override
-    public UserResponseDto postUser(UserRequestDto userRequestDto) {
-        UserResponseDto userResponseDto = userMapper.toUserDto(userRequestDto);
-        User user = userRepository.save(userMapper.toUser(userResponseDto));
-        Authority authority = authorityMapper.toAuthority(userRequestDto);
-        authority.setRole(Role.ROLE_USER);
-        authorityRepo.save(authority);
-        return userMapper.toUserDto(user);
-    }
+//    @Override
+//    public UserResponseDto postUser(UserRequestDto userRequestDto) {
+//        UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRequestDto);
+//        User user = userRepository.save(userMapper.toUser(userResponseDto));
+//        Authority authority = authorityMapper.toAuthority(userRequestDto);
+//        authority.setRole(Role.ROLE_USER);
+//        authorityRepo.save(authority);
+//        return userMapper.toUserResponseDto(user);
+//    }
 
     @Override
     public User getUserById(Long id) {

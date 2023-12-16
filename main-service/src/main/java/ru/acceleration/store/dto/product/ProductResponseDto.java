@@ -3,7 +3,6 @@ package ru.acceleration.store.dto.product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.model.Model;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +13,5 @@ public class ProductResponseDto {
 
     private String serialNumber;
 
-    private Model model;
+    private Long modelId;
 }

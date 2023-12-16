@@ -8,6 +8,9 @@ import ru.acceleration.store.model.Product;
 @Mapper(componentModel = "spring", uses = {ModelMapper.class})
 public interface ProductMapper {
 
-    @Mapping(source = "model", target = "model")
+    @Mapping(source = "model.id", target = "modelId")
     ProductResponseDto toProductResponseDto(Product product);
+
+    @Mapping(source = "modelId", target = "model.id")
+    Product toProduct(ProductResponseDto productResponseDto);
 }

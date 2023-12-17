@@ -2,7 +2,6 @@ package ru.acceleration.store.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.model.NewModelDto;

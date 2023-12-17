@@ -6,8 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.model.User;
-import ru.acceleration.store.repository.UserRepository;
 import ru.acceleration.store.security.config.UserInfoDetails;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.repository.UserInfoRepository;
@@ -19,9 +17,6 @@ public class UserInfoService implements UserDetailsService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -38,10 +33,7 @@ public class UserInfoService implements UserDetailsService {
 
     public UserInfo addUser(UserInfo userInfo) {
         userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        User user = new User();
-        user.setUserInfo(userInfo);
         userInfoRepository.save(userInfo);
-        userRepository.save(user);
         return userInfo;
     }
 

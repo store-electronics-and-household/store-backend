@@ -20,7 +20,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping("/address")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class AddressController {
 
     private final UserInfoService userInfoService;

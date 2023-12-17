@@ -10,9 +10,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
+import ru.acceleration.store.model.User;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
+import ru.acceleration.store.service.user.UserService;
 
 import java.util.ArrayList;
 
@@ -29,18 +31,43 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BasketServiceIntegrationTests {
 
     @Autowired
-    private  BasketService basketService;
+    private BasketService basketService;
 
     @Autowired
-    private  UserInfoService userInfoService;
+    private UserInfoService userInfoService;
+
+    @Autowired
+    private UserService userService;
 
     private UserInfo userInfoOne;
     private UserInfo userInfoTwo;
+
+    private User userOne;
+    private User userTwo;
+
 
     @BeforeEach
     void beforeEach() {
         userInfoOne = new UserInfo(1L, "user", "user13@mail.ru", "ROLE_USER");
         userInfoTwo = new UserInfo(2L, "SomeName", "some11@mail.ru", "ROLE_USER");
+        userOne = User.builder()
+                .id(1L)
+                .enabled(true)
+                .phone("phone1")
+                .firstName("name1")
+                .lastName("lastName1")
+                .build();
+        userTwo = User.builder()
+                .id(2L)
+                .enabled(true)
+                .phone("phone2")
+                .firstName("name2")
+                .lastName("lastName2")
+                .build();
+        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
+        userService.create(userOne, userInfoOne);
+        userService.create(userTwo, userInfoTwo);
     }
 
     @Test
@@ -153,7 +180,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.addModelToBasket(10L, 1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.addModelToBasket(10L, 1L));
     }
 
     @Test
@@ -162,7 +189,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.getBasket(10L));
+        assertThrows(DataNotFoundException.class, () -> basketService.getBasket(10L));
     }
 
     @Test
@@ -171,7 +198,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.addModelToBasket(1L, 13L));
+        assertThrows(DataNotFoundException.class, () -> basketService.addModelToBasket(1L, 13L));
     }
 
     @Test
@@ -180,7 +207,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.addModelToBasket(12L, 1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.addModelToBasket(12L, 1L));
     }
 
     @Test
@@ -189,7 +216,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelSetFromBasket(12L, 1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.removeModelSetFromBasket(12L, 1L));
     }
 
     @Test
@@ -198,7 +225,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.removeModelSetFromBasket(1L, 2L));
+        assertThrows(DataNotFoundException.class, () -> basketService.removeModelSetFromBasket(1L, 2L));
     }
 
     @Test
@@ -247,7 +274,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.minusCountModelSet(3L, 1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.minusCountModelSet(3L, 1L));
     }
 
     @Test
@@ -256,7 +283,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.minusCountModelSet(1L, 3L));
+        assertThrows(DataNotFoundException.class, () -> basketService.minusCountModelSet(1L, 3L));
     }
 
     @Test
@@ -265,7 +292,7 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.plusCountModelSet(3L, 1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.plusCountModelSet(3L, 1L));
     }
 
     @Test
@@ -274,6 +301,6 @@ public class BasketServiceIntegrationTests {
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
-        assertThrows(DataNotFoundException.class, () ->  basketService.plusCountModelSet(1L, 3L));
+        assertThrows(DataNotFoundException.class, () -> basketService.plusCountModelSet(1L, 3L));
     }
 }

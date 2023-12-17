@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,6 +37,7 @@ public class UserInfoController {
 
     @Operation(summary = "Добавление пользователя", description = "Доступ для всех")
     @PostMapping("/registration")
+    @ResponseStatus(HttpStatus.OK)
     public UserInfoResponseDto addNewUser(@RequestBody @Valid @NotNull UserInfoRequestDto userInfoRequestDto) {
         UserInfo userInfo = userInfoMapper.userRequestDtoToUserInfo(userInfoRequestDto);
         userInfo.setRoles("ROLE_USER");
@@ -45,6 +47,7 @@ public class UserInfoController {
 
     @Operation(summary = "Вход пользователя", description = "Доступ для всех")
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public AuthResponse authenticateAndGetToken(@RequestBody @Valid @NotNull AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {

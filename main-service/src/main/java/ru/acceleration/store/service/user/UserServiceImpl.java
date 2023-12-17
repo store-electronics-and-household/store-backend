@@ -3,13 +3,13 @@ package ru.acceleration.store.service.user;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.acceleration.store.abstraction.PatchMap;
+import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
-import ru.acceleration.store.mapper.AuthorityMapper;
-import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.Model;
 import ru.acceleration.store.model.User;
-import ru.acceleration.store.repository.AuthorityRepo;
 import ru.acceleration.store.repository.UserRepository;
+import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.service.model.ModelService;
 
 import java.util.Set;
@@ -20,21 +20,50 @@ import java.util.Set;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final AuthorityRepo authorityRepo;
-    private final UserMapper userMapper;
-    private final AuthorityMapper authorityMapper;
+
     private final ModelService modelService;
 
+    private final PatchMap<User> patchMap;
 
-//    @Override
-//    public UserResponseDto postUser(UserRequestDto userRequestDto) {
-//        UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRequestDto);
-//        User user = userRepository.save(userMapper.toUser(userResponseDto));
-//        Authority authority = authorityMapper.toAuthority(userRequestDto);
-//        authority.setRole(Role.ROLE_USER);
-//        authorityRepo.save(authority);
-//        return userMapper.toUserResponseDto(user);
-//    }
+    @Override
+    public User create(User user, UserInfo userInfo) {
+        if (userRepository.findByUserInfo(userInfo).isPresent()) {
+            throw new BadRequestException("Пользователь с почтой " + userInfo.getEmail() + " уже создан");
+        }
+        user.setUserInfo(userInfo);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User patch(User user, UserInfo userInfo) {
+        User userOld = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
+        if (!(userOld.getId().equals(user.getId()))) {
+            throw new BadRequestException("ID старого и нового пользователя не совпадают");
+        } else {
+            user = patchMap.patchObject(user, userOld);
+            return userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void delete(Long id, UserInfo userInfo) {
+        User userOld = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
+        if (!(userOld.getId().equals(id))) {
+            throw new BadRequestException("ID удаляемого пользователя не совпадают с ID в базе данных");
+        } else {
+            userRepository.delete(userOld);
+        }
+    }
+
+    @Override
+    public User getUser(Long id, UserInfo userInfo) {
+        User user = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
+        if (!(user.getId().equals(id))) {
+            throw new BadRequestException("ID получаемого пользователя не совпадают с ID в базе данных");
+        } else {
+            return user;
+        }
+    }
 
     @Override
     public User getUserById(Long id) {

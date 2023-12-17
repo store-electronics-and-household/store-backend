@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.acceleration.store.repository.UserRepository;
 import ru.acceleration.store.security.config.UserInfoDetails;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.repository.UserInfoRepository;

@@ -1,16 +1,14 @@
 package ru.acceleration.store.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.category.CategoryIncomeDto;
+import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.service.category.CategoryServiceImpl;
 
@@ -22,12 +20,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Transactional
-@Sql({"/schema-test.sql"})
 public class CategoryServiceIntegrationTest {
     private final CategoryServiceImpl service;
-    private final ObjectMapper mapper;
-    private final JdbcTemplate jdbcTemplate;
-
 
     CategoryIncomeDto dto1, dto2, dto3, dto4;
 
@@ -42,12 +36,12 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void createCategory_validCategory_succeed() {
         assertThat(service.createCategory(dto1))
-                .hasFieldOrPropertyWithValue("name", "category1")
+                .hasFieldOrPropertyWithValue("name", dto1.getName())
                 .hasFieldOrProperty("id");
     }
 
     @Test
-    public void findById_forVolodya_succeed() {
+    public void findById_validId_succeed() {
         Long categoryId = service.createCategory(dto1).getId();
         assertThat(service.findCategoryById(categoryId))
                 .hasFieldOrPropertyWithValue("name", dto1.getName())
@@ -94,13 +88,66 @@ public class CategoryServiceIntegrationTest {
     }
 
     @Test
-    public void updateCategory_updateName_validReturn() {
+    public void updateCategory_updateName_succeed() {
         Long parentId = service.createCategory(dto1).getId();
         assertThat(service.findCategoryById(parentId)).hasFieldOrPropertyWithValue("name", "category1");
 
-        String updatedName = "updated_category1";
-        assertThat(service.updateCategory(new CategoryIncomeDto("updatedName", null, null), parentId))
+
+        String updatedName = "updatedName";
+        dto1.setName(updatedName);
+        assertThat(service.updateCategory(dto1, parentId, false, false))
                 .hasFieldOrPropertyWithValue("name", "updatedName");
+    }
+
+    @Test
+    public void updateCategory_removeParentId_succeed() {
+        Long parentId = service.createCategory(dto1).getId();
+        dto2.setParentCategoryId(parentId);
+        Long childId = service.createCategory(dto2).getId();
+
+        assertThat(service.findChildCategoriesByParentId(parentId)).hasSize(1);
+        dto2.setParentCategoryId(null);
+        service.updateCategory(dto2, childId, true, false);
+
+        assertThat(service.findChildCategoriesByParentId(parentId)).hasSize(0);
+    }
+
+    @Test
+    public void updateCategory_removeImageLink_succeed() {
+        dto1.setImageLink("image link");
+        Long id = service.createCategory(dto1).getId();
+
+        assertThat(service.findCategoryById(id))
+                .hasFieldOrPropertyWithValue("imageLink", "image link");
+        dto1.setImageLink(null);
+        assertThat(service.updateCategory(dto1, id, false, true))
+                .hasFieldOrPropertyWithValue("imageLink", null);
+    }
+
+    @Test
+    public void updateCategory_changeParentId_succeed() {
+        Long parentId1 = service.createCategory(dto1).getId();
+        Long parentId2 = service.createCategory(dto2).getId();
+        dto3.setParentCategoryId(parentId1);
+        Long childId = service.createCategory(dto3).getId();
+
+        assertThat(service.findChildCategoriesByParentId(parentId1)).hasSize(1);
+        assertThat(service.findChildCategoriesByParentId(parentId2)).hasSize(0);
+        dto3.setParentCategoryId(parentId2);
+        service.updateCategory(dto3, childId, false, false);
+
+        assertThat(service.findChildCategoriesByParentId(parentId1)).hasSize(0);
+        assertThat(service.findChildCategoriesByParentId(parentId2)).hasSize(1);
+    }
+
+    @Test
+    public void updateCategory_changeImage_succeed() {
+        Long catId = service.createCategory(dto1).getId();
+
+        dto1.setImageLink("new image link");
+
+        assertThat(service.updateCategory(dto1, catId, false, false))
+                .hasFieldOrPropertyWithValue("imageLink", "new image link");
     }
 
     @Test
@@ -110,5 +157,14 @@ public class CategoryServiceIntegrationTest {
         service.deleteCategoryById(categoryId);
 
         assertThatThrownBy(() -> service.findCategoryById(categoryId)).isInstanceOf(DataNotFoundException.class);
+    }
+
+    @Test
+    public void deleteCategory_withSubCategories_exceptionThrown() {
+        Long parentId = service.createCategory(dto1).getId();
+        dto2.setParentCategoryId(parentId);
+        Long childId = service.createCategory(dto2).getId();
+
+        assertThatThrownBy(() -> service.deleteCategoryById(parentId)).isInstanceOf(BadRequestException.class);
     }
 }

@@ -16,7 +16,7 @@ public interface CategoryService {
 
     List<CategoryShortOutcomeDto> findRoots();
 
-    CategoryOutcomeDto updateCategory(CategoryIncomeDto categoryIncomeDto, Long id);
+    CategoryOutcomeDto updateCategory(CategoryIncomeDto categoryIncomeDto, Long id, boolean removeParent, boolean removeImageLink);
 
     void deleteCategoryById(Long id);
 

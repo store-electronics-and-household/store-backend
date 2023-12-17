@@ -67,25 +67,53 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryOutcomeDto updateCategory(CategoryIncomeDto categoryIncomeDto, Long id) {
+    public CategoryOutcomeDto updateCategory(CategoryIncomeDto categoryIncomeDto,
+                                             Long id,
+                                             boolean removeParent,
+                                             boolean removeImageLink) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Category with id: " + id + " not found."));
 
-        Long newParentId = categoryIncomeDto.getParentCategoryId();
-        if (newParentId != null) {
-            assertCategoryHasNoModels(newParentId);
-            Category parentCategory = categoryRepository.findById(newParentId)
-                    .orElseThrow(() -> new DataNotFoundException("Category with id: " + id + " not found."));
-            category.setParentCategory(parentCategory);
-        }
+        updateParent(category, categoryIncomeDto, removeParent);
+        updateName(category, categoryIncomeDto);
+        updateImageLink(category, categoryIncomeDto, removeImageLink);
 
+        category = categoryRepository.save(category);
+        return categoryMapper.categoryToCategoryOutcomeDto(category);
+    }
+
+    private void updateImageLink(Category category, CategoryIncomeDto categoryIncomeDto, boolean removeImageLink) {
+        if (categoryIncomeDto.getImageLink() != null && removeImageLink) {
+            throw new BadRequestException("Image link in body and request parameter are not consistent.");
+        }
+        String imageLink = categoryIncomeDto.getImageLink();
+        if (imageLink != null) {
+            category.setImageLink(imageLink);
+        } else if (removeImageLink) {
+            category.setImageLink(null);
+        }
+    }
+
+    private void updateName(Category category, CategoryIncomeDto categoryIncomeDto) {
         String name = categoryIncomeDto.getName();
         if (name != null) {
             category.setName(name);
         }
+    }
 
-        category = categoryRepository.save(category);
-        return categoryMapper.categoryToCategoryOutcomeDto(category);
+    private void updateParent(Category category, CategoryIncomeDto categoryIncomeDto, boolean removeParent) {
+        Long newParentId = categoryIncomeDto.getParentCategoryId();
+        if (newParentId != null && removeParent) {
+            throw new BadRequestException("Parent id in body and request parameter are not consistent.");
+        }
+        if (newParentId != null) {
+            assertCategoryHasNoModels(newParentId);
+            Category parentCategory = categoryRepository.findById(newParentId)
+                    .orElseThrow(() -> new DataNotFoundException("Parent category with id: " + newParentId + " not found."));
+            category.setParentCategory(parentCategory);
+        } else if (removeParent) {
+            category.setParentCategory(null);
+        }
     }
 
     @Override

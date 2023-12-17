@@ -12,7 +12,6 @@ import ru.acceleration.store.service.basket.BasketService;
 
 import java.security.Principal;
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "basket")

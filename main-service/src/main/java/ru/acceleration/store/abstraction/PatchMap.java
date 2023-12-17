@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 @Component
 public class PatchMap<T> {
 
+    //oBefore новый oAfter старый
     public T patchObject(T oBefore, T oAfter) {
         try {
             for (Field field : oBefore.getClass().getDeclaredFields()) {

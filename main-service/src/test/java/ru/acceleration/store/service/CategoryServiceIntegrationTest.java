@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.category.CategoryIncomeDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Transactional
+@Sql({"/schema-test.sql"})
 public class CategoryServiceIntegrationTest {
     private final CategoryServiceImpl service;
     private final ObjectMapper mapper;

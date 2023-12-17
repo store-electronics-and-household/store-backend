@@ -3,6 +3,7 @@ package ru.acceleration.store.dto.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.URL;
 import ru.acceleration.store.dto.category.CategoryOutcomeDto;
 import ru.acceleration.store.dto.sale.SaleDto;
 import ru.acceleration.store.model.ModelAttribute;

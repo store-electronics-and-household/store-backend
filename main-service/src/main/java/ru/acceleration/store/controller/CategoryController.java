@@ -40,7 +40,7 @@ public class CategoryController {
         return categoryOutcomeDto;
     }
 
-    @GetMapping("/category/{id}/childs")
+    @GetMapping("/categories/{id}/childs")
     public List<CategoryShortOutcomeDto> findChildCategories(@PathVariable @NotNull @PositiveOrZero Long id) {
         List<CategoryShortOutcomeDto> categories = categoryService.findChildCategoriesByParentId(id);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "GET /categories/{id}/childs", id));

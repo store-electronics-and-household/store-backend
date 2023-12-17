@@ -12,7 +12,6 @@ public interface CategoryMapper {
     @Mapping(source = "parentCategory", target = "parentCategory")
     Category categoryIncomeDtoToCategory(CategoryIncomeDto categoryIncomeDto, Category parentCategory);
 
-
     CategoryOutcomeDto categoryToCategoryOutcomeDto(Category category);
 
     CategoryShortOutcomeDto categoryToCategoryShortOutcomeDto(Category category);

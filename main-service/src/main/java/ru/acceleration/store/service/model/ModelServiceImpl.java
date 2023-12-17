@@ -42,7 +42,8 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
 
     @Override
     public ModelFullDto getModelById(Long modelId) {
-        return null;
+        Model model = modelRepository.findById(modelId).orElseThrow(() -> new DataNotFoundException(""));
+        return modelMapper.toModelFullDto(model);
     }
 
     @Override

@@ -3,6 +3,7 @@ package ru.acceleration.store.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
+import ru.acceleration.store.dto.model.ModelFullDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.model.NewModelDto;
 import ru.acceleration.store.model.Model;
@@ -10,7 +11,7 @@ import ru.acceleration.store.model.Sale;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = {ModelAttributeMapper.class, CategoryMapperImpl.class})
 public interface ModelMapper {
 
     Model toModel(NewModelDto newModelDto);
@@ -23,6 +24,8 @@ public interface ModelMapper {
     ModelShortDto toModelShortDto(Model model);
 
     ModelShortDto toModelShortDto(NewModelDto newModelDto);
+
+    ModelFullDto toModelFullDto(Model model);
 
     List<ModelShortDto> toModelShortDtoList(List<Model> modelList);
 

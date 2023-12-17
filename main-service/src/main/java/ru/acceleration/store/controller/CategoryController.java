@@ -63,7 +63,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/categories/{id}")
-    public void deleteCategoryById(@NotNull @PositiveOrZero Long id) {
+    public void deleteCategoryById(@PathVariable @NotNull @PositiveOrZero Long id) {
         categoryService.deleteCategoryById(id);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "DELETE /categories/{id}", id));
     }

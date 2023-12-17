@@ -1,4 +1,4 @@
-package ru.acceleration.store.service.attributes;
+package ru.acceleration.store.service;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

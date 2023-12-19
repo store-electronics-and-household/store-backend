@@ -50,7 +50,7 @@ public class SaleControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postSaleShouldReturnBadRequestWithNullPercent() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/sale")
+                        .post("/api/v1/sale")
                         .content(mapper.writeValueAsString(newSaleDtoWithNullPercent))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());

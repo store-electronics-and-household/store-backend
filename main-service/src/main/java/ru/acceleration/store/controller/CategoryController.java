@@ -19,13 +19,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/categories")
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/categories")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryOutcomeDto createCategory(@RequestBody @Validated(OnCreate.class) CategoryIncomeDto categoryIncomeDto) {
         CategoryOutcomeDto categoryOutcomeDto = categoryService.createCategory(categoryIncomeDto);
@@ -33,28 +34,28 @@ public class CategoryController {
         return categoryOutcomeDto;
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public CategoryOutcomeDto findCategoryById(@PathVariable @NotNull @PositiveOrZero Long id) {
         CategoryOutcomeDto categoryOutcomeDto = categoryService.findCategoryById(id);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "GET /categories/{id}", id));
         return categoryOutcomeDto;
     }
 
-    @GetMapping("/categories/{id}/childs")
+    @GetMapping("/{id}/childs")
     public List<CategoryShortOutcomeDto> findChildCategories(@PathVariable @NotNull @PositiveOrZero Long id) {
         List<CategoryShortOutcomeDto> categories = categoryService.findChildCategoriesByParentId(id);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "GET /categories/{id}/childs", id));
         return categories;
     }
 
-    @GetMapping("/categories/roots")
+    @GetMapping("/roots")
     public List<CategoryShortOutcomeDto> findRoots() {
         List<CategoryShortOutcomeDto> categories = categoryService.findRoots();
         log.info(String.format("%s : %s", LocalDateTime.now(), "GET /categories/roots"));
         return categories;
     }
 
-    @PatchMapping("/categories/{id}")
+    @PatchMapping("/{id}")
     public CategoryOutcomeDto updateCategory(@PathVariable @NotNull @PositiveOrZero Long id,
                                              @RequestBody @Validated(OnUpdate.class) CategoryIncomeDto categoryIncomeDto,
                                              @RequestParam(defaultValue = "false") boolean removeParent,
@@ -64,7 +65,7 @@ public class CategoryController {
         return categoryOutcomeDto;
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCategoryById(@PathVariable @NotNull @PositiveOrZero Long id) {
         categoryService.deleteCategoryById(id);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "DELETE /categories/{id}", id));

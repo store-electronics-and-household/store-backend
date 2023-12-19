@@ -59,7 +59,7 @@ public class AdminModelAttributesControllerTest {
         when(modelAttributesService.getModelAttributesById(17L))
                 .thenReturn(modelAttributeDtoResponse);
 
-        String response = mockMvc.perform(get("/admin/model-attributes/17"))
+        String response = mockMvc.perform(get("/api/v1/admin/model-attributes/17"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -75,7 +75,7 @@ public class AdminModelAttributesControllerTest {
     public void getModelAttributeById_givenInvalidId_thenExpectNotFound() {
         when(modelAttributesService.getModelAttributesById(17L)).thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(get("/admin/model-attributes/17"))
+        mockMvc.perform(get("/api/v1/admin/model-attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -97,7 +97,7 @@ public class AdminModelAttributesControllerTest {
                 .build());
         when(modelAttributesService.getModelAttributesByModelId(19L)).thenReturn(modelAttributeDtoResponseList);
 
-        String response = mockMvc.perform(get("/admin/model-attributes/model/19"))
+        String response = mockMvc.perform(get("/api/v1/admin/model-attributes/model/19"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -113,7 +113,7 @@ public class AdminModelAttributesControllerTest {
     public void getModelAttributeByModelId_givenInvalidId_thenExpectNotFound() {
         when(modelAttributesService.getModelAttributesByModelId(19L)).thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(get("/admin/model-attributes/model/19"))
+        mockMvc.perform(get("/api/v1/admin/model-attributes/model/19"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -137,7 +137,7 @@ public class AdminModelAttributesControllerTest {
         when(modelAttributesService.createModelAttribute(19L, 13L, modelAttributeDtoRequest))
                 .thenReturn(modelAttributeDtoResponse);
 
-        String response = mockMvc.perform(post("/admin/model-attributes/model/19?categoryAttributeId=13")
+        String response = mockMvc.perform(post("/api/v1/admin/model-attributes/model/19?categoryAttributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modelAttributeDtoRequest)))
                 .andExpect(status().isCreated())
@@ -158,7 +158,7 @@ public class AdminModelAttributesControllerTest {
         when(modelAttributesService.createModelAttribute(19L, 13L, modelAttributeDtoRequest))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(post("/admin/model-attributes/model/19?categoryAttributeId=13")
+        mockMvc.perform(post("/api/v1/admin/model-attributes/model/19?categoryAttributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modelAttributeDtoRequest)))
                 .andExpect(status().isNotFound())
@@ -186,7 +186,7 @@ public class AdminModelAttributesControllerTest {
                 .updateModelAttribute(17L,19L, 13L, modelAttributeDtoRequest))
                 .thenReturn(modelAttributeDtoResponse);
 
-        String response = mockMvc.perform(put("/admin/model-attributes/17?modelId=19&categoryAttributeId=13")
+        String response = mockMvc.perform(put("/api/v1/admin/model-attributes/17?modelId=19&categoryAttributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modelAttributeDtoRequest)))
                 .andExpect(status().isOk())
@@ -208,7 +208,7 @@ public class AdminModelAttributesControllerTest {
                 .updateModelAttribute(17L,19L, 13L, modelAttributeDtoRequest))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(put("/admin/model-attributes/17?modelId=19&categoryAttributeId=13")
+        mockMvc.perform(put("/api/v1/admin/model-attributes/17?modelId=19&categoryAttributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modelAttributeDtoRequest)))
                 .andExpect(status().isNotFound())
@@ -225,7 +225,7 @@ public class AdminModelAttributesControllerTest {
     public void deleteModelAttributeById_givenValidId_thenExpectDeleted() {
         doNothing().when(modelAttributesService).deleteModelAttribute(17L);
 
-        mockMvc.perform(delete("/admin/model-attributes/17"))
+        mockMvc.perform(delete("/api/v1/admin/model-attributes/17"))
                 .andExpect(status().is(204))
                 .andReturn()
                 .getResponse();
@@ -239,7 +239,7 @@ public class AdminModelAttributesControllerTest {
     public void deleteModelAttributeById_givenInvalidId_thenExpectNotFound() {
         doThrow(DataNotFoundException.class).when(modelAttributesService).deleteModelAttribute(17L);
 
-        mockMvc.perform(delete("/admin/model-attributes/17"))
+        mockMvc.perform(delete("/api/v1/admin/model-attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();

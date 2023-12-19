@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping(path = "/admin/attributes")
+@RequestMapping(path = "/api/v1/admin/attributes")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminAttributeController {
 

@@ -24,7 +24,11 @@ public interface ModelMapper {
 
     ModelShortDto toModelShortDto(NewModelDto newModelDto);
 
+    @Mapping(source = "category", target = "categoryShortOutcomeDto")
     ModelFullDto toModelFullDto(Model model);
+
+    @Mapping(source = "categoryShortOutcomeDto", target = "category")
+    Model toModel(ModelFullDto modelFullDto);
 
     List<ModelShortDto> toModelShortDtoList(List<Model> modelList);
 

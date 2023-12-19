@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class AttributeController {
@@ -35,7 +36,7 @@ public class AttributeController {
         return ResponseEntity.status(201).body(attributeService.postModelAttribute(modelId, categoryAttributeId, modelAttributeDtoRequest));
     }
 
-    @GetMapping("models/{modelId}/model-attributes")
+    @GetMapping("/models/{modelId}/model-attributes")
     public ResponseEntity<List<ModelAttributeDtoResponse>> getAllModelAttributeByModelId(@PathVariable Long modelId) {
         log.info("GET: /models/{}/model-attributes", modelId);
         return ResponseEntity.ok().body(attributeService.getAllModelAttributeByModelId(modelId));

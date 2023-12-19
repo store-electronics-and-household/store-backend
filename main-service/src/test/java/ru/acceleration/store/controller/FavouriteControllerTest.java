@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.favourite.FavouriteResponseDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 
@@ -32,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql({"/schema-test.sql", "/data-for-basket-tests.sql","/data-for-favorite-tests.sql"})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Transactional
 class FavouriteControllerTest {
 
     @Autowired
@@ -47,17 +49,17 @@ class FavouriteControllerTest {
         Long modelId = 1L;
         Long modelId2 = 2L;
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/favourite/add")
+                        .post("/api/v1/favourite/add")
                         .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/favourite/add")
+                        .post("/api/v1/favourite/add")
                         .param("modelId",modelId2.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/favourite/get")
+                        .get("/api/v1/favourite/get")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
@@ -83,23 +85,23 @@ class FavouriteControllerTest {
         Long modelId = 1L;
         Long modelId2 = 2L;
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/favourite/add")
+                        .post("/api/v1/favourite/add")
                         .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/favourite/add")
+                        .post("/api/v1/favourite/add")
                         .param("modelId",modelId2.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/favourite/delete")
+                        .delete("/api/v1/favourite/delete")
                         .param("modelId",modelId.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/favourite/get")
+                        .get("/api/v1/favourite/get")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();

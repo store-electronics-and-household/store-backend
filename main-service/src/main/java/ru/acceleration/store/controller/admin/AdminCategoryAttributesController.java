@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping(path = "/admin/category-attributes")
+@RequestMapping(path = "/api/v1/admin/category-attributes")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminCategoryAttributesController {
 

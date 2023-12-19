@@ -19,7 +19,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/api/v1/user")
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class UserController {

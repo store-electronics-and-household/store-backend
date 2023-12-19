@@ -47,7 +47,7 @@ public class ModelControllerTests {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenReturn(productResponseDto);
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/categories/1/model")
+                        .post("/api/v1/categories/1/model")
                         .content(mapper.writeValueAsString(productCreateDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -61,7 +61,7 @@ public class ModelControllerTests {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenThrow(DataNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/categories/1/model")
+                        .post("/api/v1/categories/1/model")
                         .content(mapper.writeValueAsString(productCreateDtoWithEmptyName))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -73,7 +73,7 @@ public class ModelControllerTests {
         Mockito.when(modelService.addModel(1L, productCreateDto))
                 .thenThrow(DataNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/categories/1/model")
+                        .post("/api/v1/categories/1/model")
                         .content(mapper.writeValueAsString(productCreateDtoWithEmptyVendorCode))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());

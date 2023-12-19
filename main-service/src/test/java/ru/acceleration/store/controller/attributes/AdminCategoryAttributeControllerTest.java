@@ -58,7 +58,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.getCategoryAttributeById(17L))
                 .thenReturn(categoryAttributeDtoResponse);
 
-        String response = mockMvc.perform(get("/admin/category-attributes/17"))
+        String response = mockMvc.perform(get("/api/v1/admin/category-attributes/17"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -75,7 +75,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.getCategoryAttributeById(17L))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(get("/admin/category-attributes/17"))
+        mockMvc.perform(get("/api/v1/admin/category-attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -97,7 +97,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.getCategoryAttributesByCategoryId(9L))
                 .thenReturn(categoryAttributeDtoResponseList);
 
-        String response = mockMvc.perform(get("/admin/category-attributes?categoryId=9"))
+        String response = mockMvc.perform(get("/api/v1/admin/category-attributes?categoryId=9"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -114,7 +114,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.getCategoryAttributesByCategoryId(9L))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(get("/admin/category-attributes?categoryId=9"))
+        mockMvc.perform(get("/api/v1/admin/category-attributes?categoryId=9"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse();
@@ -140,7 +140,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.createCategoryAttributes(9L, 13L, categoryAttributeDtoRequest))
                 .thenReturn(categoryAttributeDtoResponse);
 
-        String response = mockMvc.perform(post("/admin/category-attributes/9?attributeId=13")
+        String response = mockMvc.perform(post("/api/v1/admin/category-attributes/9?attributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(categoryAttributeDtoRequest)))
                 .andExpect(status().isCreated())
@@ -164,7 +164,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.createCategoryAttributes(9L, 13L, categoryAttributeDtoRequest))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(post("/admin/category-attributes/9?attributeId=13")
+        mockMvc.perform(post("/api/v1/admin/category-attributes/9?attributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(categoryAttributeDtoRequest)))
                 .andExpect(status().isNotFound())
@@ -193,7 +193,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.updateCategoryAttribute(17L, 9L, 13L, categoryAttributeDtoRequest))
                 .thenReturn(categoryAttributeDtoResponse);
 
-        String response = mockMvc.perform(put("/admin/category-attributes/17?categoryId=9&attributeId=13")
+        String response = mockMvc.perform(put("/api/v1/admin/category-attributes/17?categoryId=9&attributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(categoryAttributeDtoRequest)))
                 .andExpect(status().isOk())
@@ -217,7 +217,7 @@ public class AdminCategoryAttributeControllerTest {
         when(categoryAttributesService.updateCategoryAttribute(17L, 9L, 13L, categoryAttributeDtoRequest))
                 .thenThrow(DataNotFoundException.class);
 
-        mockMvc.perform(put("/admin/category-attributes/17?categoryId=9&attributeId=13")
+        mockMvc.perform(put("/api/v1/admin/category-attributes/17?categoryId=9&attributeId=13")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(categoryAttributeDtoRequest)))
                 .andExpect(status().isNotFound())
@@ -234,7 +234,7 @@ public class AdminCategoryAttributeControllerTest {
     public void deleteCategoryAttribute_givenValidIds_thenExpect204() {
         doNothing().when(categoryAttributesService).deleteCategoryAttributeById(17L);
 
-        mockMvc.perform(delete("/admin/category-attributes/17"))
+        mockMvc.perform(delete("/api/v1/admin/category-attributes/17"))
                 .andExpect(status().is(204))
                 .andReturn()
                 .getResponse()
@@ -249,7 +249,7 @@ public class AdminCategoryAttributeControllerTest {
     public void deleteCategoryAttribute_givenInvalidId_thenExpectNotFound() {
         doThrow(DataNotFoundException.class).when(categoryAttributesService).deleteCategoryAttributeById(17L);
 
-        mockMvc.perform(delete("/admin/category-attributes/17"))
+        mockMvc.perform(delete("/api/v1/admin/category-attributes/17"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()

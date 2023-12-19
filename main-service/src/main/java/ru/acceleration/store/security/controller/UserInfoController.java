@@ -22,7 +22,7 @@ import ru.acceleration.store.security.service.UserInfoService;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/auth")
+@RequestMapping(path = "/api/v1/auth")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class UserInfoController {

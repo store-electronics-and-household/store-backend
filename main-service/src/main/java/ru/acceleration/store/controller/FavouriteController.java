@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "favourite")
+@RequestMapping(path = "/api/v1/favourite")
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "https://cyberplace.online", "http://cyberplace.online", "http://45.12.236.120"})
 public class FavouriteController {

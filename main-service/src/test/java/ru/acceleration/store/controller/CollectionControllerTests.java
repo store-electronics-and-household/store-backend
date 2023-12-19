@@ -37,7 +37,7 @@ public class CollectionControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldAddNewCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/collections")
+                        .post("/api/v1/collections")
                         .content(mapper.writeValueAsString(collectionCreateDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -49,7 +49,7 @@ public class CollectionControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postCollectionShouldReturnBadRequestWhenNameIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/collections")
+                        .post("/api/v1/collections")
                         .content(mapper.writeValueAsString(collectionCreateDtoWithEmptyName))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -59,7 +59,7 @@ public class CollectionControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void postCollectionShouldReturnBadRequestWhenImageLinkIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/collections")
+                        .post("/api/v1/collections")
                         .content(mapper.writeValueAsString(collectionCreateDtoWithEmptyLink))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -69,11 +69,11 @@ public class CollectionControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldEditCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/collections")
+                .post("/api/v1/collections")
                 .content(mapper.writeValueAsString(collectionCreateDto))
                 .contentType(MediaType.APPLICATION_JSON));
         mockMvc.perform(MockMvcRequestBuilders
-                        .patch("/collections/1")
+                        .patch("/api/v1/collections/1")
                         .content(mapper.writeValueAsString(collectionEditDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -85,11 +85,11 @@ public class CollectionControllerTests {
     @WithMockUser(username = "email@bk.ru", authorities = "ROLE_USER")
     void shouldDeleteCollection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/collections")
+                .post("/api/v1/collections")
                 .content(mapper.writeValueAsString(collectionCreateDto))
                 .contentType(MediaType.APPLICATION_JSON));
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/collections/1"))
+                        .delete("/api/v1/collections/1"))
                 .andExpect(status().isNoContent());
     }
 }

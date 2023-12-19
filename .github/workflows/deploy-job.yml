@@ -24,7 +24,7 @@ jobs:
             git fetch
             git checkout feature
             git pull
-            mvn clean package -Dmaven.test.skip
+            mvn clean package spring-boot:repackage -Dmaven.test.skip
             docker stop main-service
             docker rm main-service
-            docker-compose -env-file /srv/cyberplace/.env up -d
+            docker-compose --env-file /srv/cyberplace/.env up -d

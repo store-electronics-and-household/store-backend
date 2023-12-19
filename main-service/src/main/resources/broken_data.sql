@@ -1,3 +1,6 @@
+
+--
+--
 -- INSERT INTO attributes values (1, 'diagonal');
 -- INSERT INTO attributes values (2, 'height');
 -- INSERT INTO attributes values (3, 'weight');

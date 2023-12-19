@@ -56,8 +56,10 @@ public class CategoryController {
 
     @PatchMapping("/categories/{id}")
     public CategoryOutcomeDto updateCategory(@PathVariable @NotNull @PositiveOrZero Long id,
-                                             @RequestBody @Validated(OnUpdate.class) CategoryIncomeDto categoryIncomeDto) {
-        CategoryOutcomeDto categoryOutcomeDto = categoryService.updateCategory(categoryIncomeDto, id);
+                                             @RequestBody @Validated(OnUpdate.class) CategoryIncomeDto categoryIncomeDto,
+                                             @RequestParam(defaultValue = "false") boolean removeParent,
+                                             @RequestParam(defaultValue = "false") boolean removeImageLink) {
+        CategoryOutcomeDto categoryOutcomeDto = categoryService.updateCategory(categoryIncomeDto, id, removeParent, removeImageLink);
         log.info(String.format("%s : %s : %d", LocalDateTime.now(), "PATCH /categories/{id}", id));
         return categoryOutcomeDto;
     }

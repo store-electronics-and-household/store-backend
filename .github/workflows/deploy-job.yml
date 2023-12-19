@@ -27,4 +27,4 @@ jobs:
             mvn clean package spring-boot:repackage
             docker stop main-service
             docker rm main-service
-            docker-compose up -d
+            docker-compose —env-file /srv/cyberplace/.env up -d

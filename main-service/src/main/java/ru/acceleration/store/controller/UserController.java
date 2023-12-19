@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.acceleration.store.dto.user.UserRequestDto;
 import ru.acceleration.store.dto.user.UserRequestPatchDto;
+import ru.acceleration.store.dto.user.UserResponseCheckDto;
 import ru.acceleration.store.dto.user.UserResponseDto;
 import ru.acceleration.store.mapper.UserMapper;
 import ru.acceleration.store.model.User;
@@ -50,20 +51,32 @@ public class UserController {
         return userMapper.toUserResponseDto(user);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping()
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Удаление пользователя. Аккаунт с почтой и паролем сохраняется", description = "Для авторизованного пользователя")
-    public void delete(@PathVariable Long userId, Principal principal) {
+    public void delete(Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        userService.delete(userId, userInfo);
+        userService.delete(userInfo);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Получение информации пользователя (имя,фамилия, телефон, адреса)", description = "Для авторизованного пользователя")
-    public UserResponseDto get(@PathVariable Long userId, Principal principal) {
+    public UserResponseDto get(Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        User user = userService.getUser(userId, userInfo);
+        User user = userService.getUser(userInfo);
         return userMapper.toUserResponseDto(user);
+    }
+
+    @Operation(summary = "Проверка токена", description = "Для авторизованного пользователя")
+    @GetMapping("/check")
+    public UserResponseCheckDto checkToken(Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        User user = userService.getUser(userInfo);
+        return UserResponseCheckDto.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .email(userInfo.getEmail())
+                .build();
     }
 }

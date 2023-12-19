@@ -46,23 +46,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id, UserInfo userInfo) {
+    public void delete(UserInfo userInfo) {
         User userOld = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
-        if (!(userOld.getId().equals(id))) {
-            throw new BadRequestException("ID удаляемого пользователя не совпадают с ID в базе данных");
-        } else {
-            userRepository.delete(userOld);
-        }
+        userRepository.delete(userOld);
     }
 
     @Override
-    public User getUser(Long id, UserInfo userInfo) {
+    public User getUser(UserInfo userInfo) {
         User user = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
-        if (!(user.getId().equals(id))) {
-            throw new BadRequestException("ID получаемого пользователя не совпадают с ID в базе данных");
-        } else {
-            return user;
-        }
+        return user;
     }
 
     @Override

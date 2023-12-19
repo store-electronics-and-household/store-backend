@@ -3,6 +3,11 @@ name: pull-runner
 on:
   pull_request:
     types: [ opened, synchronize, reopened ]
+  push:
+    branches:
+      - main
+      - feature
+      - develop
 
 jobs:
   build:

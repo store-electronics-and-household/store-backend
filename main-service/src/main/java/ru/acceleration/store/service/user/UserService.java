@@ -18,9 +18,9 @@ public interface UserService {
 
     User patch(User user, UserInfo userInfo);
 
-    void delete(Long id, UserInfo userInfo);
+    void delete(UserInfo userInfo);
 
-    User getUser(Long id, UserInfo userInfo);
+    User getUser(UserInfo userInfo);
 
     void addFavoriteModel(Long modelId, Long userId);
 

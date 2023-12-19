@@ -1,0 +1,30 @@
+name: deploy-runner
+
+on:
+  pull_request:
+    types: closed
+    branches:
+      - feature
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo  ${{github.event.pull_request.merged}}
+      - name: executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script_stop: true
+          script: |
+            cd /srv/cyberplace/store-backend
+            git fetch
+            git checkout feature
+            git pull
+            mvn clean package
+            docker stop main-service
+            docker rm main-service
+            docker-compose up -d

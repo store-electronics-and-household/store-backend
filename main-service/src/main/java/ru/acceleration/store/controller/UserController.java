@@ -71,6 +71,7 @@ public class UserController {
     @Operation(summary = "Проверка токена", description = "Для авторизованного пользователя")
     @GetMapping("/check")
     public UserResponseCheckDto checkToken(Principal principal) {
+        log.info("UserController checkToken principal={}", principal);
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         User user = userService.getUser(userInfo);
         return UserResponseCheckDto.builder()

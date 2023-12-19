@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.model.User;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RequiredArgsConstructor
 @Sql({"/schema-test.sql", "/data-for-basket-tests.sql"})
 @ActiveProfiles("test")
+@Transactional
 public class BasketServiceIntegrationTests {
 
     @Autowired

@@ -3,7 +3,7 @@ package ru.acceleration.store.dto.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.dto.category.CategoryOutcomeDto;
+import ru.acceleration.store.dto.category.CategoryShortOutcomeDto;
 import ru.acceleration.store.dto.sale.SaleDto;
 import ru.acceleration.store.model.ModelAttribute;
 import ru.acceleration.store.model.ModelImage;
@@ -26,7 +26,7 @@ public class ModelFullDto {
 
     private SaleDto sale;
 
-    private CategoryOutcomeDto category;
+    private CategoryShortOutcomeDto categoryShortOutcomeDto;
 
     private List<ModelImage> modelImages;
 

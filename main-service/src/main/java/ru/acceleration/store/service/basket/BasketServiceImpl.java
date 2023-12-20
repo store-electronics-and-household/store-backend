@@ -3,7 +3,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
+import ru.acceleration.store.dto.modelSet.ModelSetResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.BasketMapper;
 import ru.acceleration.store.model.Basket;
@@ -16,6 +18,7 @@ import ru.acceleration.store.repository.ModelSetRepository;
 import ru.acceleration.store.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -72,12 +75,24 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     @Transactional(readOnly = true)
-    public BasketResponseDto getBasket(Long userInfoId) {
+    public BasketGetResponseDto getBasket(Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
         Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
-        return basketMapper.toBasketResponseDto(basket);
+        BasketGetResponseDto basketGetResponseDto = basketMapper.toBasketGetResponseDto(basket);
+        List<ModelSetResponseDto> modelSetResponseDtoList = basketGetResponseDto.getModelSetResponseDtos();
+        basketGetResponseDto.setActualPriceSum(modelSetResponseDtoList.stream()
+                .filter(modelSetResponseDto -> modelSetResponseDto.getModelShortDto().getPrice() != null)
+                .mapToLong(modelSetResponseDto
+                        -> modelSetResponseDto.getModelShortDto().getPrice() * modelSetResponseDto.getCount())
+                .sum());
+        basketGetResponseDto.setOldPriceSum(modelSetResponseDtoList.stream()
+                .filter(modelSetResponseDto -> modelSetResponseDto.getModelShortDto().getOldPrice() != null)
+                .mapToLong(modelSetResponseDto
+                        -> modelSetResponseDto.getModelShortDto().getOldPrice() * modelSetResponseDto.getCount())
+                .sum());
+        return basketGetResponseDto;
     }
 
     @Override

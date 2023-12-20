@@ -2,6 +2,7 @@ package ru.acceleration.store.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.model.Basket;
 import ru.acceleration.store.service.user.UserService;
@@ -17,4 +18,8 @@ public interface BasketMapper {
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "modelSets", target = "modelSetResponseDtos")
     BasketResponseDto toBasketResponseDto(Basket basket);
+
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "modelSets", target = "modelSetResponseDtos")
+    BasketGetResponseDto toBasketGetResponseDto(Basket basket);
 }

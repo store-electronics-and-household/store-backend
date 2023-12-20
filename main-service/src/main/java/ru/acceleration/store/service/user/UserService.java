@@ -22,9 +22,9 @@ public interface UserService {
 
     User getUser(UserInfo userInfo);
 
-    void addFavoriteModel(Long modelId, Long userId);
+    void addFavoriteModel(Long modelId, Long userInfoId);
 
-    void deleteFavoriteModel(Long modelId, Long userId);
+    void deleteFavoriteModel(Long modelId, Long userInfoId);
 
-    Set<Model> getAllFavorite(Long userId);
+    Set<Model> getAllFavorite(Long userInfoId);
 }

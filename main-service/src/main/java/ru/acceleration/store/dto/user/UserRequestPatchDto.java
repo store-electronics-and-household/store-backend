@@ -1,7 +1,6 @@
 package ru.acceleration.store.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,8 +12,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequestPatchDto {
 
-    @NotNull
-    Long id;
     @NotBlank
     String firstName;
 

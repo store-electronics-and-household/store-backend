@@ -34,9 +34,9 @@ public class FavouriteController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Добавление товара в избранное", description = "Для авторизованного пользователя")
     public void addFavoriteModel(@RequestParam long modelId, Principal principal) {
-        Long userId = userInfoService.getUserId(principal.getName());
-        log.info("FavouriteController addFavoriteModel modelId={}, userId={}", modelId, userId);
-        userService.addFavoriteModel(modelId, userId);
+        Long userInfoId = userInfoService.getUserId(principal.getName());
+        log.info("FavouriteController addFavoriteModel modelId={}, userInfoId={}", modelId, userInfoId);
+        userService.addFavoriteModel(modelId, userInfoId);
     }
 
     @DeleteMapping("/delete")
@@ -44,18 +44,18 @@ public class FavouriteController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Удаление товара из избранного", description = "Для авторизованного пользователя")
     public void deleteFavoriteModel(@RequestParam long modelId, Principal principal) {
-        Long userId = userInfoService.getUserId(principal.getName());
-        log.info("FavouriteController deleteFavoriteModel modelId={}, userId={}", modelId, userId);
-        userService.deleteFavoriteModel(modelId, userId);
+        Long userInfoId = userInfoService.getUserId(principal.getName());
+        log.info("FavouriteController deleteFavoriteModel modelId={}, userInfoId={}", modelId, userInfoId);
+        userService.deleteFavoriteModel(modelId, userInfoId);
     }
 
     @GetMapping("/get")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Список всех товаров из избранного пользователя", description = "Для авторизованного пользователя")
     public FavouriteResponseDto getAllFavorite(Principal principal) {
-        Long userId = userInfoService.getUserId(principal.getName());
-        log.info("FavouriteController getAllFavorite userId={}", userId);
-        Set<Model> models = userService.getAllFavorite(userId);
+        Long userInfoId = userInfoService.getUserId(principal.getName());
+        log.info("FavouriteController getAllFavorite userInfoId={}", userInfoId);
+        Set<Model> models = userService.getAllFavorite(userInfoId);
         FavouriteResponseDto favouriteResponseDto = new FavouriteResponseDto(models.stream().map(modelMapper::toModelShortDto).collect(Collectors.toSet()));
         return favouriteResponseDto;
     }

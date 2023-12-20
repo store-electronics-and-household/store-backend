@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.acceleration.store.dto.user.UserRequestDto;
 import ru.acceleration.store.dto.user.UserRequestPatchDto;
 import ru.acceleration.store.dto.user.UserResponseCheckDto;
 import ru.acceleration.store.dto.user.UserResponseDto;
@@ -31,6 +30,7 @@ public class UserController {
 
     private final UserInfoService userInfoService;
 
+/*
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Добавление имени, фамилии, номера телефона к аккаунту", description = "Для авторизованного пользователя")
@@ -40,6 +40,7 @@ public class UserController {
         userService.create(user, userInfo);
         return userMapper.toUserResponseDto(user);
     }
+*/
 
     @PatchMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")

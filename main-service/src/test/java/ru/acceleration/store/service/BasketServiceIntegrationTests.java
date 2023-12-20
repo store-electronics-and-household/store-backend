@@ -61,7 +61,7 @@ public class BasketServiceIntegrationTests {
     }
 
     @Test
-    void shouldAddModelsToBasketWithUserAndModelOk() {
+    void shouldPostOrderWhenOk() {
         userInfoService.addUser(userInfoOne);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
@@ -70,7 +70,23 @@ public class BasketServiceIntegrationTests {
             assertThat(orderRepository.findById(1L).get().getId(), equalTo(1L));
             assertThat(orderRepository.findById(1L).get().getFinalPrice(), equalTo(1600L));
         }
-        assertThat(orderService.getOrder(basketService.getBasket(userInfoOne.getId()).getId()).getId(), equalTo(1L));
+        assertThrows(DataNotFoundException.class, () -> basketService.getBasket(1L));
+        assertThat(orderService.getOrder(1L, userInfoOne.getId()).getId(), equalTo(1L));
+        basketService.addModelToBasket(1L, 1L);
+        orderService.postOrder(orderRequestDto, 1L);
+        if (orderRepository.findById(2L).isPresent()) {
+            assertThat(orderRepository.findById(2L).get().getId(), equalTo(2L));
+            assertThat(orderRepository.findById(2L).get().getFinalPrice(), equalTo(1600L));
+        }
+        assertThat(orderService.getOrder(userInfoOne.getId(), 2L).getId(), equalTo(2L));
+        assertThat(orderService.getOrder(userInfoOne.getId(), 1L).getId(), equalTo(1L));
+    }
+
+    @Test
+    void shouldAddModelsToBasketWithUserAndModelOk() {
+        userInfoService.addUser(userInfoOne);
+        basketService.addModelToBasket(1L, 1L);
+        basketService.addModelToBasket(2L, 1L);
         assertThat(basketService.getBasket(userInfoOne.getId()).getId(), equalTo(1L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().size(), equalTo(2));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().get(0).getModelShortDto().getName(), equalTo("ModelOne"));

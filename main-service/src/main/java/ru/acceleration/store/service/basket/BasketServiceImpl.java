@@ -34,7 +34,7 @@ public class BasketServiceImpl implements BasketService {
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
         Model model = modelRepository.findById(modelId).orElseThrow(()
                 -> new DataNotFoundException("product with id: " + modelId + " not found"));
-        if (basketRepo.findBasketByUserId(user.getId()).isEmpty()) {
+        if (basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).isEmpty()) {
             ModelSet modelSet = new ModelSet();
             modelSet.setModel(model);
             Basket basket = new Basket();
@@ -47,8 +47,8 @@ public class BasketServiceImpl implements BasketService {
             basketRepo.save(basket);
             return basketMapper.toBasketResponseDto(basket);
         } else {
-            Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
-                        -> new DataNotFoundException("basket for user with id: " + user.getId() + "not found"));
+            Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
+                    -> new DataNotFoundException("basket for user with id: " + user.getId() + "not found"));
 //            List<ModelSet> modelSetList = basket.getModelSets();
 //            Optional<ModelSet> modelSet = modelSetList.stream()
 //                    .filter(modelSet1 -> modelSet1.getModel().getId().equals(model.getId()))
@@ -75,7 +75,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto getBasket(Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         return basketMapper.toBasketResponseDto(basket);
     }
@@ -85,7 +85,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         ModelSet modelSet = modelSetRepository.findById(modelSetId).orElseThrow(()
                 -> new DataNotFoundException("modelSet with id: " + modelSetId + " not found"));
@@ -99,7 +99,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto plusCountModelSet(Long modelSetId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         ModelSet modelSet = modelSetRepository.findByIdAndBasketId(modelSetId, basket.getId()).orElseThrow(()
                 -> new DataNotFoundException("modelSet with id : " + modelSetId + "in basket with id: "
@@ -114,7 +114,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto minusCountModelSet(Long modelSetId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         ModelSet modelSet = modelSetRepository.findByIdAndBasketId(modelSetId, basket.getId()).orElseThrow(()
                 -> new DataNotFoundException("modelSet with id : " + modelSetId + "in basket with id: "
@@ -135,7 +135,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto plusCountModel(Long modelId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         ModelSet modelSet = modelSetRepository.findByModelIdAndBasketId(modelId, basket.getId()).orElseThrow(()
                 -> new DataNotFoundException("modelSet for model with id: " + modelId
@@ -161,7 +161,7 @@ public class BasketServiceImpl implements BasketService {
     public BasketResponseDto minusCountModel(Long modelId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
                 -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
-        Basket basket = basketRepo.findBasketByUserId(user.getId()).orElseThrow(()
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
                 -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
         ModelSet modelSet = modelSetRepository.findByModelIdAndBasketId(modelId, basket.getId()).orElseThrow(()
                 -> new DataNotFoundException("modelSet for model with id: " + modelId

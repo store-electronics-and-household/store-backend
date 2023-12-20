@@ -30,10 +30,10 @@ public class OrderController {
         return ResponseEntity.status(201).body(orderService.postOrder(orderRequestDto, userInfo.getId()));
     }
 
-    @GetMapping("/user")
-    ResponseEntity<OrderResponseDto> getOrder(Principal principal) {
+    @GetMapping("/basket/{basketId}/user")
+    ResponseEntity<OrderResponseDto> getOrder(@PathVariable Long basketId, Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
-        log.info("GET: /order/user/{}", userInfo.getId());
-        return ResponseEntity.ok().body(orderService.getOrder(userInfo.getId()));
+        log.info("GET: /order/basket/{}/user", basketId);
+        return ResponseEntity.ok().body(orderService.getOrder(userInfo.getId(), basketId));
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.abstraction.PageRequestUtil;
 import ru.acceleration.store.dto.collection.CollectionDto;
+import ru.acceleration.store.dto.collection.NewCollectionDto;
 import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
@@ -33,8 +34,8 @@ public class CollectionServiceImpl extends PageRequestUtil implements Collection
     private final ModelService modelService;
 
     @Override
-    public CollectionDto createCollection(CollectionDto collectionDto) {
-        Collection newCollection = collectionRepository.save(collectionMapper.toCollection(collectionDto));
+    public CollectionDto createCollection(NewCollectionDto newCollectionDto) {
+        Collection newCollection = collectionRepository.save(collectionMapper.toCollection(newCollectionDto));
         log.info("Created new Collection: {}", newCollection);
         return collectionMapper.toCollectionDto(newCollection);
     }

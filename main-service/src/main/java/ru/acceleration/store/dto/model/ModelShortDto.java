@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.model.ModelImage;
+import ru.acceleration.store.dto.image.ImageShortDto;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class ModelShortDto {
 
     private Long price;
 
-    List<ModelImage> modelsImages;
+    List<ImageShortDto> images;
 
     private Integer percent;
 

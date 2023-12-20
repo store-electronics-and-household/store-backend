@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.acceleration.store.dto.collection.NewCollectionDto;
 import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.dto.collection.CollectionDto;
@@ -45,16 +46,16 @@ public class CollectionController {
                                                              @RequestParam(defaultValue = "NAME") String sort,
                                                              @RequestParam(value = "from", defaultValue = "0")
                                                              @PositiveOrZero Integer from,
-                                                             @RequestParam(value = "size", defaultValue = "20")
+                                                             @RequestParam(value = "size", defaultValue = "100")
                                                              @Positive Integer size) {
         log.info("GET: /collections/{}?sort=" + sort + "&from=" + from + "&size=" + size, collectionID);
         return ResponseEntity.ok().body(collectionService.getCollection(collectionID, sort, from, size));
     }
 
     @PostMapping
-    public ResponseEntity<CollectionDto> createCollection(@Valid @RequestBody CollectionDto collectionDto) {
+    public ResponseEntity<CollectionDto> createCollection(@Valid @RequestBody NewCollectionDto newCollectionDto) {
         log.info("POST: /collections");
-        return ResponseEntity.status(201).body(collectionService.createCollection(collectionDto));
+        return ResponseEntity.status(201).body(collectionService.createCollection(newCollectionDto));
     }
 
     @DeleteMapping("/{collectionId}")

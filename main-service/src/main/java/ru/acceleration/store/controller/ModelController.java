@@ -39,7 +39,7 @@ public class ModelController {
     public ResponseEntity<Page<ModelShortDto>> getModelsByCategoryId(@PathVariable @Positive Long categoryId,
                                                                      @RequestParam(value = "from", defaultValue = "0")
                                                                      @PositiveOrZero Integer from,
-                                                                     @RequestParam(value = "size", defaultValue = "20")
+                                                                     @RequestParam(value = "size", defaultValue = "100")
                                                                      @Positive Integer size,
                                                                      @RequestParam(defaultValue = "NAME") String sort) {
         log.info("GET: /models/{}?from=" + from + "&size=" + size + "&sort=" + sort, categoryId);
@@ -60,7 +60,7 @@ public class ModelController {
     public ResponseEntity<Page<ModelShortDto>> searchModels(@RequestParam(value = "text") @NotBlank String text,
                                             @RequestParam(value = "from", defaultValue = "0")
                                             @PositiveOrZero Integer from,
-                                            @RequestParam(value = "size", defaultValue = "20")
+                                            @RequestParam(value = "size", defaultValue = "100")
                                             @Positive Integer size,
                                             @RequestParam(defaultValue = "NAME") String sort) {
         log.info("GET: /search?text=" + text + "&from=" + from + "&size=" + size + "&sort=" + sort);

@@ -71,7 +71,7 @@ class FavouriteControllerTest {
             ModelShortDto modelShortDto = itr.next();
             Assertions.assertAll(
                     () -> Assertions.assertEquals(dto.getModelShortDtos().size(), 2),
-                    () -> Assertions.assertEquals(modelShortDto.getDescription(), "ModelOneDesc")
+                    () -> Assertions.assertEquals(modelShortDto.getDescription(), "ModelTwoDesc")
             );
         } else {
             new RuntimeException();

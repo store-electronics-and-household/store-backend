@@ -2,6 +2,7 @@ package ru.acceleration.store.service.collection;
 
 import org.springframework.data.domain.Page;
 import ru.acceleration.store.dto.collection.CollectionDto;
+import ru.acceleration.store.dto.collection.NewCollectionDto;
 import ru.acceleration.store.dto.collection.UpdateCollectionDto;
 import ru.acceleration.store.dto.model.ModelShortDto;
 import ru.acceleration.store.model.Collection;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface CollectionService {
 
-    CollectionDto createCollection(CollectionDto collectionDto);
+    CollectionDto createCollection(NewCollectionDto newCollectionDto);
 
     void deleteCollection(Long collectionId);
 

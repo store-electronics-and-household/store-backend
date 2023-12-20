@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "baskets")
+@ToString(exclude = {"modelSets", "user"})
 public class Basket {
 
     @Id

@@ -1,5 +1,6 @@
 package ru.acceleration.store.controller;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,14 @@ public class CategoryController {
         List<CategoryShortOutcomeDto> categories = categoryService.findRoots();
         log.info(String.format("%s : %s", LocalDateTime.now(), "GET /categories/roots"));
         return categories;
+    }
+
+    @GetMapping("/{id}/attribute-values")
+    public List<String> findCategoryAttributeValues(@PathVariable @NotNull @PositiveOrZero Long id,
+                                                    @RequestParam @NotBlank String attributeName) {
+        List<String> brands = categoryService.findCategoryAttributeValues(id, attributeName);
+        log.info(String.format("%s : %s : %s : %s", LocalDateTime.now(), "GET /categories/{id}/attribute-values?attributeName", id, attributeName));
+        return brands;
     }
 
     @PatchMapping("/{id}")

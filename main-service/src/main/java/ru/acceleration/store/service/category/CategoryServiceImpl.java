@@ -11,7 +11,9 @@ import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.mapper.CategoryMapperImpl;
 import ru.acceleration.store.model.Category;
 import ru.acceleration.store.model.Model;
+import ru.acceleration.store.model.ModelAttribute;
 import ru.acceleration.store.repository.CategoryRepository;
+import ru.acceleration.store.repository.ModelAttributeRepository;
 import ru.acceleration.store.repository.ModelRepository;
 
 import java.util.Comparator;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelRepository modelRepository;
+    private final ModelAttributeRepository modelAttributeRepository;
     private final CategoryMapperImpl categoryMapper;
 
     @Override
@@ -66,6 +69,15 @@ public class CategoryServiceImpl implements CategoryService {
                 .map(categoryMapper::categoryToCategoryShortOutcomeDto)
                 .sorted(Comparator.comparingLong(CategoryShortOutcomeDto::getId))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findCategoryAttributeValues(Long categoryId, String attributeName) {
+        if (!categoryRepository.existsById(categoryId)) {
+            throw new DataNotFoundException(String.format("Category with categoryId: %d not found.", categoryId));
+        }
+        List<ModelAttribute> modelAttributes = modelAttributeRepository.findCategoryAttributeValues(categoryId, attributeName);
+        return modelAttributes.stream().map(ModelAttribute::getValue).collect(Collectors.toList());
     }
 
     @Override

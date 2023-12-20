@@ -45,7 +45,9 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryOutcomeDto findCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Category with id: " + id + " not found."));
-        return categoryMapper.categoryToCategoryOutcomeDto(category);
+        Optional<Category> childCategory = categoryRepository.findOneByParentCategoryId(id);
+
+        return categoryMapper.categoryToCategoryOutcomeDto(category, childCategory.isEmpty());
     }
 
     @Override

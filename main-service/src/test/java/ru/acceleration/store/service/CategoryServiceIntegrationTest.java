@@ -49,6 +49,26 @@ public class CategoryServiceIntegrationTest {
     }
 
     @Test
+    public void findById_noChilds_leafTrue() {
+        Long categoryId = service.createCategory(dto1).getId();
+        assertThat(service.findCategoryById(categoryId))
+                .hasFieldOrPropertyWithValue("name", dto1.getName())
+                .hasFieldOrPropertyWithValue("id", categoryId)
+                .hasFieldOrPropertyWithValue("leaf",true);
+    }
+
+    @Test
+    public void findById_hasChilds_leafFalse() {
+        Long parentId = service.createCategory(dto1).getId();
+        dto2.setParentCategoryId(parentId);
+        Long childId = service.createCategory(dto2).getId();
+        assertThat(service.findCategoryById(parentId))
+                .hasFieldOrPropertyWithValue("name", dto1.getName())
+                .hasFieldOrPropertyWithValue("id", parentId)
+                .hasFieldOrPropertyWithValue("leaf",false);
+    }
+
+    @Test
     public void createCategory_notUniqueName_exceptionThrown() {
         dto2.setName(dto1.getName());
         service.createCategory(dto1);

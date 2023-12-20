@@ -18,6 +18,8 @@ public class CategoryOutcomeDto {
 
     private String name;
 
+    private Boolean leaf;
+
     private List<CategoryAttributeShortDtoResponse> categoryAttributes;
 
     private String imageLink;

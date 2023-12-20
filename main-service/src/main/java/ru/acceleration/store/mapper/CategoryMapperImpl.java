@@ -23,11 +23,25 @@ public class CategoryMapperImpl {
         return category;
     }
 
-
     public CategoryOutcomeDto categoryToCategoryOutcomeDto(Category category) {
         CategoryOutcomeDto dto = new CategoryOutcomeDto();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setImageLink(category.getImageLink());
+        if (category.getCategoryAttributes() != null) {
+            dto.setCategoryAttributes(category.getCategoryAttributes()
+                    .stream()
+                    .map(categoryAttributeMapper::toCategoryAttributeShortDtoResponse)
+                    .collect(Collectors.toList()));
+        }
+        return dto;
+    }
+
+    public CategoryOutcomeDto categoryToCategoryOutcomeDto(Category category, boolean leaf) {
+        CategoryOutcomeDto dto = new CategoryOutcomeDto();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        dto.setLeaf(leaf);
         dto.setImageLink(category.getImageLink());
         if (category.getCategoryAttributes() != null) {
             dto.setCategoryAttributes(category.getCategoryAttributes()

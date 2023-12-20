@@ -3,14 +3,12 @@ package ru.acceleration.store.dto.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.acceleration.store.dto.attribute.ModelAttributeShortDto;
 import ru.acceleration.store.dto.category.CategoryShortOutcomeDto;
-import ru.acceleration.store.dto.sale.SaleDto;
-import ru.acceleration.store.model.ModelAttribute;
-import ru.acceleration.store.model.ModelImage;
+import ru.acceleration.store.dto.image.ImageShortDto;
 
 import java.util.List;
 
-// TODO: описать все необходимые поля для товара
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,11 +22,13 @@ public class ModelFullDto {
 
     private Long price;
 
-    private SaleDto sale;
+    private Integer percent;
 
-    private CategoryShortOutcomeDto categoryShortOutcomeDto;
+    private Long oldPrice;
 
-    private List<ModelImage> modelImages;
+    private CategoryShortOutcomeDto category;
 
-    private List<ModelAttribute> modelAttributes;
+    private List<ImageShortDto> images;
+
+    private List<ModelAttributeShortDto> attributes;
 }

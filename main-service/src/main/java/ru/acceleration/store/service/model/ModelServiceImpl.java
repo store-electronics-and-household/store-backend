@@ -32,7 +32,7 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
     @Override
     public ModelShortDto addModel(Long categoryId, NewModelDto newModelDto) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(()
-                -> new DataNotFoundException("category with id: " + categoryId + " not found"));
+                -> new DataNotFoundException("Category with id: " + categoryId + " was not found"));
         ModelShortDto modelShortDto = modelMapper.toModelShortDto(newModelDto);
         Model model = modelMapper.toModel(modelShortDto);
         model.setCategory(category);
@@ -42,7 +42,7 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
 
     @Override
     public ModelFullDto getModelById(Long modelId) {
-        Model model = modelRepository.findById(modelId).orElseThrow(() -> new DataNotFoundException(""));
+        Model model = modelRepository.findById(modelId).orElseThrow(() -> new DataNotFoundException("Model with ID: " + modelId + " was not found"));
         return modelMapper.toModelFullDto(model);
     }
 

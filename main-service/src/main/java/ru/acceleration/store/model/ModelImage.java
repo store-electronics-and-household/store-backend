@@ -16,10 +16,10 @@ public class ModelImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "model_image_id")
     private Long id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "model_id")
-//    private Model modelImage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id")
+    private Model model;
 
     @Column(name = "image_link")
     private String imageLink;

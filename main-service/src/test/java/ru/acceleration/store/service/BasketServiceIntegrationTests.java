@@ -60,7 +60,7 @@ public class BasketServiceIntegrationTests {
     @Test
     void shouldAddCountToModelsInBasketsWithUsersAndModelsOk() {
         userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.plusCountModelSet(1L, 1L);
@@ -94,7 +94,7 @@ public class BasketServiceIntegrationTests {
     @Test
     void shouldAddSameModelToDifferentBasketsWithUserAndModelOk() {
         userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(1L, 2L);
         assertThat(basketService.getBasket(userInfoOne.getId()).getId(), equalTo(1L));
@@ -106,7 +106,7 @@ public class BasketServiceIntegrationTests {
     @Test
     void shouldSetCountPlus1WhenAddSameModelToDifferentBasketsTwiceWithUserAndModelOk() {
         userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
@@ -126,7 +126,7 @@ public class BasketServiceIntegrationTests {
     @Test
     void shouldDeleteModelFromBasketWhenUserAndModelOk() {
         userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.addModelToBasket(1L, 1L);
@@ -206,7 +206,7 @@ public class BasketServiceIntegrationTests {
     @Test
     void shouldReduceCountToModelsInBasketsWithUsersAndModelsOk() {
         userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoOne);
+        userInfoService.addUser(userInfoTwo);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
         basketService.plusCountModelSet(1L, 1L);

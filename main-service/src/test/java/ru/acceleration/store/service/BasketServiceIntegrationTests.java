@@ -10,11 +10,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
+import ru.acceleration.store.dto.order.OrderRequestDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
+import ru.acceleration.store.repository.OrderRepository;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
+import ru.acceleration.store.service.order.OrderService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,11 +40,22 @@ public class BasketServiceIntegrationTests {
     @Autowired
     private UserInfoService userInfoService;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     private UserInfo userInfoOne;
     private UserInfo userInfoTwo;
 
+    private OrderRequestDto orderRequestDto;
+
     @BeforeEach
     void beforeEach() {
+        LocalDate localDate = LocalDate.now();
+        orderRequestDto = new OrderRequestDto("type2", "name", "phone",
+                "deliveryaddress", localDate, 1555L, 1600L);
         userInfoOne = new UserInfo(1L, "user", "user13@mail.ru", "ROLE_USER");
         userInfoTwo = new UserInfo(2L, "SomeName", "some11@mail.ru", "ROLE_USER");
     }
@@ -50,6 +65,12 @@ public class BasketServiceIntegrationTests {
         userInfoService.addUser(userInfoOne);
         basketService.addModelToBasket(1L, 1L);
         basketService.addModelToBasket(2L, 1L);
+        orderService.postOrder(orderRequestDto, 1L);
+        if (orderRepository.findById(1L).isPresent()) {
+            assertThat(orderRepository.findById(1L).get().getId(), equalTo(1L));
+            assertThat(orderRepository.findById(1L).get().getFinalPrice(), equalTo(1600L));
+        }
+        assertThat(orderService.getOrder(basketService.getBasket(userInfoOne.getId()).getId()).getId(), equalTo(1L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getId(), equalTo(1L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().size(), equalTo(2));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().get(0).getModelShortDto().getName(), equalTo("ModelOne"));

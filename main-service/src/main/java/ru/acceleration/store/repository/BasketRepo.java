@@ -11,6 +11,9 @@ import java.util.Optional;
 @Repository
 public interface BasketRepo extends JpaRepository<Basket, Long> {
 
-    @Query(value = "SELECT l FROM Basket l where l.user.id = :userId")
-    Optional<Basket> findBasketByUserId(@Param("userId") Long userId);
+    @Query(value = "SELECT l FROM Basket l where l.user.id = :userId AND l.basketStatus = 'ACTIVE'")
+    Optional<Basket> findBasketByUserIdAndBasketStatusActive(@Param("userId") Long userId);
+
+    @Query(value = "SELECT l FROM Basket l where l.user.id = :userId AND l.id = :basketId AND l.basketStatus = 'SAVED'")
+    Optional<Basket> findBasketByIdAndUserIdAndBasketStatusSaved(@Param("userId") Long userId, @Param("basketId") Long basketId);
 }

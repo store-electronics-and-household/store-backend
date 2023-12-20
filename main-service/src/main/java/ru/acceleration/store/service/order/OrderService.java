@@ -9,5 +9,5 @@ public interface OrderService {
 
     OrderResponseDto postOrder(OrderRequestDto orderRequestDto, Long userInfoId);
 
-    OrderResponseDto getOrder(Long userInfoId);
+    OrderResponseDto getOrder(Long userInfoId, Long basketId);
 }

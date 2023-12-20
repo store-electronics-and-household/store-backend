@@ -3,7 +3,7 @@ package ru.acceleration.store.dto.order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.acceleration.store.model.Basket;
+import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.model.enums.DeliveryType;
 import ru.acceleration.store.model.enums.OrderStatus;
 
@@ -17,7 +17,7 @@ public class OrderResponseDto {
 
     private Long id;
 
-    private Basket orderBasket;
+    private BasketResponseDto orderBasket;
 
     private Long paymentId;
 

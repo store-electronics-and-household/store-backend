@@ -37,12 +37,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User patch(User user, UserInfo userInfo) {
         User userOld = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new DataNotFoundException("Пользователь с почтой " + userInfo.getEmail() + " не существует"));
-        if (!(userOld.getId().equals(user.getId()))) {
-            throw new BadRequestException("ID старого и нового пользователя не совпадают");
-        } else {
-            user = patchMap.patchObject(user, userOld);
-            return userRepository.save(user);
-        }
+        user = patchMap.patchObject(user, userOld);
+        return userRepository.save(user);
+
     }
 
     @Override
@@ -63,24 +60,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addFavoriteModel(Long modelId, Long userId) {
-        User user = getExistingById(userId);
+    public void addFavoriteModel(Long modelId, Long userInfoId) {
+        User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(() -> new DataNotFoundException("Пользователь с UserInfoId " + userInfoId + " не существует"));;
         Model model = modelService.getExistingModel(modelId);
         user.getModels().add(model);
         userRepository.save(user);
     }
 
     @Override
-    public void deleteFavoriteModel(Long modelId, Long userId) {
-        User user = getExistingById(userId);
+    public void deleteFavoriteModel(Long modelId, Long userInfoId) {
+        User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(() -> new DataNotFoundException("Пользователь с UserInfoId " + userInfoId + " не существует"));;
         Model model = modelService.getExistingModel(modelId);
         user.getModels().remove(model);
         userRepository.save(user);
     }
 
     @Override
-    public Set<Model> getAllFavorite(Long userId) {
-        User user = getExistingById(userId);
+    public Set<Model> getAllFavorite(Long userInfoId) {
+        User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(() -> new DataNotFoundException("Пользователь с UserInfoId " + userInfoId + " не существует"));;
         return user.getModels();
     }
 

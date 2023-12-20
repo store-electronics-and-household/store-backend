@@ -11,11 +11,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
-import ru.acceleration.store.model.User;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.basket.BasketService;
-import ru.acceleration.store.service.user.UserService;
 
 import java.util.ArrayList;
 
@@ -38,38 +36,13 @@ public class BasketServiceIntegrationTests {
     @Autowired
     private UserInfoService userInfoService;
 
-    @Autowired
-    private UserService userService;
-
     private UserInfo userInfoOne;
     private UserInfo userInfoTwo;
-
-    private User userOne;
-    private User userTwo;
-
 
     @BeforeEach
     void beforeEach() {
         userInfoOne = new UserInfo(1L, "user", "user13@mail.ru", "ROLE_USER");
         userInfoTwo = new UserInfo(2L, "SomeName", "some11@mail.ru", "ROLE_USER");
-        userOne = User.builder()
-                .id(1L)
-                .enabled(true)
-                .phone("phone1")
-                .firstName("name1")
-                .lastName("lastName1")
-                .build();
-        userTwo = User.builder()
-                .id(2L)
-                .enabled(true)
-                .phone("phone2")
-                .firstName("name2")
-                .lastName("lastName2")
-                .build();
-        userInfoService.addUser(userInfoOne);
-        userInfoService.addUser(userInfoTwo);
-        userService.create(userOne, userInfoOne);
-        userService.create(userTwo, userInfoTwo);
     }
 
     @Test

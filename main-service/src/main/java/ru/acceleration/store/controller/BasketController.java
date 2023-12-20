@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
@@ -33,7 +34,7 @@ public class BasketController {
 
     @GetMapping("/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<BasketResponseDto> getBasket(Principal principal) {
+    public ResponseEntity<BasketGetResponseDto> getBasket(Principal principal) {
         UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
         log.info("GET: /basket/user/{}", userInfo.getId());
         return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));

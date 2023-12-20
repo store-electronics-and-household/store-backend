@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-import ru.acceleration.store.dto.basket.BasketResponseDto;
+import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.order.OrderRequestDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
 import ru.acceleration.store.repository.OrderRepository;
@@ -179,11 +179,14 @@ public class BasketServiceIntegrationTests {
     }
 
     @Test
-    void shouldReturnCreatedBasketWhenUserAndModelOk() {
+    void shouldReturnActualPriceSumForGetBasketWhenUserAndModelOk() {
         userInfoService.addUser(userInfoOne);
-        BasketResponseDto basketResponseDtoAdd = basketService.addModelToBasket(1L, 1L);
-        BasketResponseDto basketResponseDtoGet = basketService.getBasket(1L);
-        assertThat(basketResponseDtoGet, equalTo(basketResponseDtoAdd));
+        basketService.addModelToBasket(1L, 1L);
+        basketService.addModelToBasket(1L, 1L);
+        basketService.addModelToBasket(3L, 1L);
+        BasketGetResponseDto basketGetResponseDto = basketService.getBasket(1L);
+        assertThat(basketGetResponseDto.getActualPriceSum(), equalTo(500L));
+        assertThat(basketGetResponseDto.getOldPriceSum(), equalTo(0L));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package ru.acceleration.store.service.basket;
 
 import org.springframework.stereotype.Service;
+import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.basket.BasketResponseDto;
 
 
@@ -9,7 +10,7 @@ public interface BasketService {
 
     BasketResponseDto addModelToBasket(Long modelId, Long userInfoId);
 
-    BasketResponseDto getBasket(Long userInfoId);
+    BasketGetResponseDto getBasket(Long userInfoId);
 
     BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userInfoId);
 

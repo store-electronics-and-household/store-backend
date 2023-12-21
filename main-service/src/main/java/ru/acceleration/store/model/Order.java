@@ -1,6 +1,7 @@
 package ru.acceleration.store.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.acceleration.store.model.enums.DeliveryType;
@@ -54,6 +55,7 @@ public class Order {
     private String deliveryAddress;
 
     @Column(name = "delivery_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate deliveryDate;
 
     @Column(name = "delivery_price")

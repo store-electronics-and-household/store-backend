@@ -1,5 +1,6 @@
 package ru.acceleration.store.dto.order;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class OrderResponseDto {
 
     private String deliveryAddress;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate deliveryDate;
 
     private Long deliveryPrice;

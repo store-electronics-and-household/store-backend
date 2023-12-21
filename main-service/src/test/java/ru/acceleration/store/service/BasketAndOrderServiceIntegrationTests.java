@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acceleration.store.dto.basket.BasketGetResponseDto;
 import ru.acceleration.store.dto.order.OrderRequestDto;
 import ru.acceleration.store.exceptions.DataNotFoundException;
+import ru.acceleration.store.model.enums.BasketStatus;
 import ru.acceleration.store.repository.OrderRepository;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Sql({"/schema-test.sql", "/data-for-basket-tests.sql"})
 @ActiveProfiles("test")
 @Transactional
-public class BasketServiceIntegrationTests {
+public class BasketAndOrderServiceIntegrationTests {
 
     @Autowired
     private BasketService basketService;
@@ -78,8 +79,11 @@ public class BasketServiceIntegrationTests {
             assertThat(orderRepository.findById(2L).get().getId(), equalTo(2L));
             assertThat(orderRepository.findById(2L).get().getFinalPrice(), equalTo(1600L));
         }
+        assertThat(orderService.getOrder(userInfoOne.getId(), 1L).getOrderBasket().getBasketStatus(), equalTo(BasketStatus.SAVED));
+        assertThat(orderService.getOrder(userInfoOne.getId(), 2L).getOrderBasket().getBasketStatus(), equalTo(BasketStatus.SAVED));
         assertThat(orderService.getOrder(userInfoOne.getId(), 2L).getId(), equalTo(2L));
         assertThat(orderService.getOrder(userInfoOne.getId(), 1L).getId(), equalTo(1L));
+        assertThat(orderService.getOrders(userInfoOne.getId()).size(), equalTo(2));
     }
 
     @Test

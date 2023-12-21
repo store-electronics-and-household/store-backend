@@ -49,4 +49,5 @@
 </details>
 
 http://localhost:8080/swagger-ui/index.html
+
 http://45.12.236.120:8080/swagger-ui/index.html#/

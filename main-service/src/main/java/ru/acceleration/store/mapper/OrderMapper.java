@@ -6,6 +6,8 @@ import ru.acceleration.store.dto.order.OrderRequestDto;
 import ru.acceleration.store.dto.order.OrderResponseDto;
 import ru.acceleration.store.model.Order;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {BasketMapper.class, ModelMapper.class})
 public interface OrderMapper {
 
@@ -15,4 +17,9 @@ public interface OrderMapper {
     OrderResponseDto toOrderResponseDto(Order order);
 
     Order toOrder(OrderRequestDto orderRequestDto);
+
+    @Mapping(target = "orderBasket", source = "basket")
+    @Mapping(target = "paymentId", source = "payment.id")
+    @Mapping(target = "addressId", source = "userAddress.id")
+    List<OrderResponseDto> toOrderResponseDtoList(List<Order> order);
 }

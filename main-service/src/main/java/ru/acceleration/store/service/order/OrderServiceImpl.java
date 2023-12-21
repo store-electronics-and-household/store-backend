@@ -14,6 +14,9 @@ import ru.acceleration.store.repository.BasketRepo;
 import ru.acceleration.store.repository.OrderRepository;
 import ru.acceleration.store.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RequiredArgsConstructor
 @Service
@@ -47,5 +50,17 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findOrderByBasketId(basket.getId()).orElseThrow(()
                 -> new DataNotFoundException("order for basket with id: " + basket.getId() + " not found"));
         return orderMapper.toOrderResponseDto(order);
+    }
+
+    @Override
+    public List<OrderResponseDto> getOrders(Long userInfoId) {
+        User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
+                -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
+        List<Basket> basketList = basketRepo.findAllByBasketStatusSavedAndUserId(user.getId());
+        List<Order> orderList = basketList.stream()
+                .filter(basket -> orderRepository.findOrderByBasketId(basket.getId()).isPresent())
+                .map(basket -> orderRepository.findOrderByBasketId(basket.getId()).get())
+                .collect(Collectors.toList());
+        return orderMapper.toOrderResponseDtoList(orderList);
     }
 }

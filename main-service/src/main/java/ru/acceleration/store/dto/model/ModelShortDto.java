@@ -27,4 +27,6 @@ public class ModelShortDto {
     private Integer percent;
 
     private Long oldPrice;
+
+    private String brand;
 }

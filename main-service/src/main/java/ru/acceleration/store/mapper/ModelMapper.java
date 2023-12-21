@@ -11,6 +11,7 @@ import ru.acceleration.store.model.ModelAttribute;
 import ru.acceleration.store.model.Sale;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {ModelAttributeMapper.class, CategoryMapperImpl.class})
@@ -23,6 +24,7 @@ public interface ModelMapper {
     @Mapping(target = "percent", expression = "java(model.getSale() != null ? model.getSale().getPercent() : null)")
     @Mapping(target = "price", expression = "java(calculateSalePrice(model))")
     @Mapping(target = "oldPrice", expression = "java(model.getSale() != null ? model.getPrice() : null)")
+    @Mapping(target = "brand", expression = "java(mapToBrand(model))")
     ModelShortDto toModelShortDto(Model model);
 
     ModelShortDto toModelShortDto(NewModelDto newModelDto);
@@ -55,5 +57,16 @@ public interface ModelMapper {
         dto.setAttributeName(modelAttribute.getCategoryAttribute().getAttribute().getName());
         dto.setValue(modelAttribute.getValue());
         return dto;
+    }
+
+    default String mapToBrand(Model model) {
+        List<ModelAttribute> modelAttributes = model.getModelAttributes();
+
+        Optional<String> brandAttribute = modelAttributes.stream()
+                .filter(attr -> "Бренд".equals(attr.getCategoryAttribute().getAttribute().getName()))
+                .map(ModelAttribute::getValue)
+                .findFirst();
+
+        return brandAttribute.orElse(null);
     }
 }

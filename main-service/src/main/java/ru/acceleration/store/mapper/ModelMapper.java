@@ -61,6 +61,9 @@ public interface ModelMapper {
 
     default String mapToBrand(Model model) {
         List<ModelAttribute> modelAttributes = model.getModelAttributes();
+        if (modelAttributes == null) {
+            return null;
+        }
 
         Optional<String> brandAttribute = modelAttributes.stream()
                 .filter(attr -> "Бренд".equals(attr.getCategoryAttribute().getAttribute().getName()))

@@ -15,5 +15,7 @@ public class CategoryShortOutcomeDto {
 
     private String name;
 
+    private boolean leaf;
+
     private String imageLink;
 }

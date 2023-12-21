@@ -41,16 +41,16 @@ public class CategoryServiceImpl implements CategoryService {
         }
         Category category = categoryMapper.categoryIncomeDtoToCategory(categoryIncomeDto, parentCategory);
         category = categoryRepository.save(category);
-        return categoryMapper.categoryToCategoryOutcomeDto(category);
+        return categoryMapper.categoryToCategoryOutcomeDto(category, true);
     }
 
     @Override
     public CategoryOutcomeDto findCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Category with id: " + id + " not found."));
-        Optional<Category> childCategory = categoryRepository.findOneByParentCategoryId(id);
-
-        return categoryMapper.categoryToCategoryOutcomeDto(category, childCategory.isEmpty());
+        System.out.println(category.getCategoryAttributes());
+        boolean hasChild = categoryRepository.existsCategoryByParentCategoryId(id);
+        return categoryMapper.categoryToCategoryOutcomeDto(category, !hasChild);
     }
 
     @Override
@@ -58,6 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAllByParentCategoryId(id)
                 .stream()
                 .map(categoryMapper::categoryToCategoryShortOutcomeDto)
+                .peek(dto -> dto.setLeaf(!categoryRepository.existsCategoryByParentCategoryId(dto.getId())))
                 .sorted(Comparator.comparingLong(CategoryShortOutcomeDto::getId))
                 .collect(Collectors.toList());
     }
@@ -67,6 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAllByParentCategoryId(null)
                 .stream()
                 .map(categoryMapper::categoryToCategoryShortOutcomeDto)
+                .peek(dto -> dto.setLeaf(!categoryRepository.existsCategoryByParentCategoryId(dto.getId())))
                 .sorted(Comparator.comparingLong(CategoryShortOutcomeDto::getId))
                 .collect(Collectors.toList());
     }
@@ -77,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new DataNotFoundException(String.format("Category with categoryId: %d not found.", categoryId));
         }
         List<ModelAttribute> modelAttributes = modelAttributeRepository.findCategoryAttributeValues(categoryId, attributeName);
-        return modelAttributes.stream().map(ModelAttribute::getValue).collect(Collectors.toList());
+        return modelAttributes.stream().map(ModelAttribute::getValue).distinct().collect(Collectors.toList());
     }
 
     @Override
@@ -93,7 +95,8 @@ public class CategoryServiceImpl implements CategoryService {
         updateImageLink(category, categoryIncomeDto, removeImageLink);
 
         category = categoryRepository.save(category);
-        return categoryMapper.categoryToCategoryOutcomeDto(category);
+        boolean hasChild = categoryRepository.existsCategoryByParentCategoryId(id);
+        return categoryMapper.categoryToCategoryOutcomeDto(category, !hasChild);
     }
 
     private void updateImageLink(Category category, CategoryIncomeDto categoryIncomeDto, boolean removeImageLink) {
@@ -151,8 +154,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryId == null) {
             return;
         }
-        Optional<Category> child = categoryRepository.findOneByParentCategoryId(categoryId);
-        if (child.isPresent()) {
+        if (categoryRepository.existsCategoryByParentCategoryId(categoryId)) {
             throw new BadRequestException("Parent category with id: " + categoryId + " not empty. Please, remove all child categories.");
         }
     }

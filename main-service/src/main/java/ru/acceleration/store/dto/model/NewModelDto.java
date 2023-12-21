@@ -17,6 +17,7 @@ public class NewModelDto {
     private String name;
 
     @NotBlank
+    @Size(max = 2000)
     private String description;
 
     @NotNull

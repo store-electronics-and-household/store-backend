@@ -75,8 +75,8 @@ public class UserInfoController {
     }
 
     @Operation(summary = "Проверка почты в базе данных", description = "Доступ для всех")
-    @GetMapping("/check/{email}")
-    public boolean checkEmail(@PathVariable String email) {
+    @GetMapping("/check")
+    public boolean checkEmail(@RequestParam String email) {
         userInfoService.loadUserByUsername(email);
         return true;
     }

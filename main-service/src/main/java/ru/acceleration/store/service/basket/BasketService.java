@@ -12,6 +12,8 @@ public interface BasketService {
 
     BasketGetResponseDto getBasket(Long userInfoId);
 
+    Long getBasketGeneralCount(Long userInfoId);
+
     BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userInfoId);
 
     BasketResponseDto plusCountModelSet(Long modelSetId, Long userInfoId);

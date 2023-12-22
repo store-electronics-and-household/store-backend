@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import ru.acceleration.store.exceptions.BadRequestException;
 import ru.acceleration.store.security.dto.AuthRequest;
 import ru.acceleration.store.security.dto.AuthResponse;
 import ru.acceleration.store.security.dto.UserInfoRequestDto;
@@ -19,7 +20,7 @@ import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.JwtService;
 import ru.acceleration.store.security.service.UserInfoService;
 
-import java.util.Map;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "/api/v1/auth")
@@ -52,10 +53,14 @@ public class UserInfoController {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             UserInfo userInfo = userInfoService.getUserInfo(authRequest.getEmail());
-            return AuthResponse.builder()
-                    .token(jwtService.generateToken(authRequest.getEmail()))
-                    .role(userInfo.getRoles())
-                    .build();
+            if (userInfo.getEnabled()) {
+                return AuthResponse.builder()
+                        .token(jwtService.generateToken(authRequest.getEmail()))
+                        .role(userInfo.getRoles())
+                        .build();
+            } else {
+                throw new BadRequestException("Аккаунт с почтой " + userInfo.getEmail() + " был удален");
+            }
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
@@ -70,10 +75,15 @@ public class UserInfoController {
     }
 
     @Operation(summary = "Проверка почты в базе данных", description = "Доступ для всех")
-    @GetMapping("/check")
-    public boolean checkEmail(@RequestBody Map.Entry<String, String> emailMap) {
-        String email = emailMap.getValue();
+    @GetMapping("/check/{email}")
+    public boolean checkEmail(@PathVariable String email) {
         userInfoService.loadUserByUsername(email);
         return true;
+    }
+
+    @Operation(summary = "Удаление аккаунта. Данные остаются в базе данных. Токен должен уничтожиться на фронте", description = "Для авторизованного пользователя")
+    @DeleteMapping("/delete")
+    public void deleteAccount(Principal principal) {
+        userInfoService.deleteAccount(principal);
     }
 }

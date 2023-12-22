@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.acceleration.store.model.Category;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {

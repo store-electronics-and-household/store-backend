@@ -1,14 +1,12 @@
 package ru.acceleration.store.security.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_info")
@@ -26,4 +24,8 @@ public class UserInfo {
 
     @Column(name = "roles")
     String roles;
+
+    @Column(name = "enabled")
+    @Builder.Default
+    Boolean enabled = true;
 }

@@ -12,6 +12,7 @@ import ru.acceleration.store.security.config.UserInfoDetails;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.repository.UserInfoRepository;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
@@ -66,5 +67,12 @@ public class UserInfoService implements UserDetailsService {
         return userInfoRepository.save(userDetail);
     }
 
-
+    public void deleteAccount(Principal principal) {
+        UserInfo userInfo = getUserInfo(principal.getName());
+        userInfo.setEnabled(false);
+        userInfoRepository.save(userInfo);
+        User user = userRepository.findByUserInfo(userInfo).orElseThrow(() -> new UsernameNotFoundException("User not found " + userInfo.getEmail()));
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
 }

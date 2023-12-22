@@ -96,6 +96,21 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Long getBasketGeneralCount(Long userInfoId) {
+        User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()
+                -> new DataNotFoundException("user for userInfo with id: " + userInfoId + " not found"));
+        Basket basket = basketRepo.findBasketByUserIdAndBasketStatusActive(user.getId()).orElseThrow(()
+                -> new DataNotFoundException("basket for user with id: " + user.getId() + " not found"));
+        BasketGetResponseDto basketGetResponseDto = basketMapper.toBasketGetResponseDto(basket);
+        List<ModelSetResponseDto> modelSetResponseDtoList = basketGetResponseDto.getModelSetResponseDtos();
+        return modelSetResponseDtoList.stream()
+                .filter(modelSetResponseDto -> modelSetResponseDto.getCount() != null)
+                .mapToLong(ModelSetResponseDto::getCount)
+                .sum();
+    }
+
+    @Override
     @Transactional
     public BasketResponseDto removeModelSetFromBasket(Long modelSetId, Long userInfoId) {
         User user = userRepository.findByUserInfoId(userInfoId).orElseThrow(()

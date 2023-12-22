@@ -40,6 +40,14 @@ public class BasketController {
         return ResponseEntity.ok().body(basketService.getBasket(userInfo.getId()));
     }
 
+    @GetMapping("/count/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<Long> getBasketGeneralCount(Principal principal) {
+        UserInfo userInfo = userInfoService.getUserInfo(principal.getName());
+        log.info("GET: /basket/count/user/{}", userInfo.getId());
+        return ResponseEntity.ok().body(basketService.getBasketGeneralCount(userInfo.getId()));
+    }
+
     @PatchMapping("/modelSet/{modelSetId}/user")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<BasketResponseDto> removeModelSetFromBasket(@PathVariable Long modelSetId, Principal principal) {

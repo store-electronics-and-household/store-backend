@@ -57,8 +57,8 @@ public class BasketAndOrderServiceIntegrationTests {
         LocalDate localDate = LocalDate.now();
         orderRequestDto = new OrderRequestDto("type2", "name", "phone",
                 "deliveryaddress", localDate, 1555L, 1600L);
-        userInfoOne = new UserInfo(1L, "user", "user13@mail.ru", "ROLE_USER");
-        userInfoTwo = new UserInfo(2L, "SomeName", "some11@mail.ru", "ROLE_USER");
+        userInfoOne = new UserInfo(1L, "user", "user13@mail.ru", "ROLE_USER", true);
+        userInfoTwo = new UserInfo(2L, "SomeName", "some11@mail.ru", "ROLE_USER", true);
     }
 
     @Test

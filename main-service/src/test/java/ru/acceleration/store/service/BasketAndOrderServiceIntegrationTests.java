@@ -107,12 +107,14 @@ public class BasketAndOrderServiceIntegrationTests {
         basketService.plusCountModelSet(1L, 1L);
         basketService.plusCountModelSet(2L, 1L);
         basketService.plusCountModelSet(2L, 1L);
+        assertThat(basketService.getBasketGeneralCount(1L), equalTo(5L));
         basketService.addModelToBasket(4L, 2L);
         basketService.addModelToBasket(2L, 2L);
         basketService.plusCountModelSet(3L, 2L);
         basketService.plusCountModelSet(4L, 2L);
         basketService.plusCountModelSet(4L, 2L);
         basketService.plusCountModelSet(4L, 2L);
+        assertThat(basketService.getBasketGeneralCount(2L), equalTo(6L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getId(), equalTo(1L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().size(), equalTo(2));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().get(0).getCount(), equalTo(2));
@@ -269,10 +271,12 @@ public class BasketAndOrderServiceIntegrationTests {
         assertThat(basketService.getBasket(userInfoTwo.getId()).getModelSetResponseDtos().get(0).getCount(), equalTo(2));
         assertThat(basketService.getBasket(userInfoTwo.getId()).getModelSetResponseDtos().get(1).getCount(), equalTo(4));
         basketService.minusCountModelSet(4L, 2L);
+        assertThat(basketService.getBasketGeneralCount(2L), equalTo(5L));
         assertThat(basketService.getBasket(userInfoTwo.getId()).getModelSetResponseDtos().get(1).getCount(), equalTo(3));
         basketService.minusCountModelSet(4L, 2L);
         assertThat(basketService.getBasket(userInfoTwo.getId()).getModelSetResponseDtos().get(1).getCount(), equalTo(2));
         basketService.minusCountModelSet(1L, 1L);
+        assertThat(basketService.getBasketGeneralCount(2L), equalTo(4L));
         assertThat(basketService.getBasket(userInfoOne.getId()).getModelSetResponseDtos().get(0).getCount(), equalTo(1));
     }
 

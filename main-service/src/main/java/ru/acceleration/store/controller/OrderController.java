@@ -1,5 +1,4 @@
 package ru.acceleration.store.controller;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import ru.acceleration.store.dto.order.OrderResponseDto;
 import ru.acceleration.store.security.model.UserInfo;
 import ru.acceleration.store.security.service.UserInfoService;
 import ru.acceleration.store.service.order.OrderService;
-
 import java.security.Principal;
 import java.util.List;
 

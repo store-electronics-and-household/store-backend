@@ -20,7 +20,7 @@ public class OrderRequestDto {
     private String deliveryType;
 
     @NotBlank
-    @Pattern(regexp = "^[ а-яА-Я]*$")
+    @Pattern(regexp = "^[ а-яА-Яa-zA-Z]*$")
     private String name;
 
     @NotBlank

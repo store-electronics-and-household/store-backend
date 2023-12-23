@@ -24,7 +24,7 @@ public class OrderRequestDto {
     private String name;
 
     @NotBlank
-    @Pattern(regexp = "^[+0-9]*$")
+    @Pattern(regexp = "^(\\+7( )?)?((\\(\\d{3}\\))|\\d{3})( )?\\d{3}[- ]?\\d{2}[- ]?\\d{2}$")
     private String phone;
 
     private String deliveryAddress;

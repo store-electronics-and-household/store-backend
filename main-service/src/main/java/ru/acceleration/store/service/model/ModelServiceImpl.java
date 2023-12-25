@@ -63,7 +63,7 @@ public class ModelServiceImpl extends PageRequestUtil implements ModelService {
     @Override
     public Page<ModelShortDto> searchModels(String text, Integer from, Integer size, String sort) {
         Pageable page = createPageRequest(from, size, ModelSort.valueOf(sort));
-        Page<Model> models = modelRepository.searchModels(text, page);
+        Page<Model> models = modelRepository.searchModels(text.toLowerCase(), page);
 
         return models.map(modelMapper::toModelShortDto);
     }
